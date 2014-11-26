@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by fernandoalvan on 26/11/14. TEST 2
+ * Created by fernandoalvan on 26/11/14.
  */
 
 
