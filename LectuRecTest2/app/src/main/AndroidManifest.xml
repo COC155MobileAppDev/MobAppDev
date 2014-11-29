@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sa.lecturectest2" >
+    
+    <uses-permission
+        android:name="com.example.sa.lecturectest2.myProviderPermission">
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS"> // don't know if we need this permission???
+    </uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.sa.lecturectest2.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:name=".LectuRecProvider"
+            android:authorities="com.example.sa.lecturectest2"
+            android:enabled="true"
+            android:permission="com.example.sa.lecturectest2.myProviderPermission">
+        </provider>
+    </application>
+    
+</manifest>
