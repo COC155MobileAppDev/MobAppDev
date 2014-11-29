@@ -1,8 +1,12 @@
 package mobileapp.example.com.lecturerecorder;
 
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,12 +23,13 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -36,10 +41,46 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    // Fragment TabHost as mTabHost
+    //private FragmentTabHost mTabHost;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+/*
+
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Tab1"),
+                ArchiveFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab2"),
+                AboutFragment.class, null);
+*/
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("modules");
+        tabSpec.setContent(R.id.tabModules);
+        tabSpec.setIndicator("Modules");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("archive");
+        tabSpec.setContent(R.id.tabArchive);
+        tabSpec.setIndicator("Archive");
+        tabHost.addTab(tabSpec);
+
+
+
+
+
+
+
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -54,42 +95,56 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        // starting position  = 0
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-    }
+        Fragment fragment = null;
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
+
+
+        switch (position){
+            case 0:
+                //Home
                 mTitle = getString(R.string.title_section1);
 
                 Toast.makeText(getApplicationContext(), "Section1", Toast.LENGTH_SHORT).show();
+                fragment = new ArchiveFragment();
                 break;
-            case 2:
+
+            case 1:
+                //Modules
                 mTitle = getString(R.string.title_section2);
-                Intent intent = new Intent(this, ModulesFragment.class);
-                startActivity(intent);
-
-                Toast.makeText(getApplicationContext(), "Section2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Modules Fragment", Toast.LENGTH_SHORT).show();
+                fragment = new ModulesFragment();
                 break;
-            case 3:
+
+            case 2:
+                //Archive
                 mTitle = getString(R.string.title_section3);
-                Intent intent2 = new Intent(this, MainActivity2.class);
-                startActivity(intent2);
-                Toast.makeText(getApplicationContext(), "Section3", Toast.LENGTH_SHORT).show();
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
-                Toast.makeText(getApplicationContext(), "Section4", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Archive Fragment", Toast.LENGTH_SHORT).show();
+                fragment = new ArchiveFragment();
                 break;
 
-            case 5:
-                mTitle = getString(R.string.title_section5);
-                Toast.makeText(getApplicationContext(), "Section5", Toast.LENGTH_SHORT).show();
+
+            case 3:
+                //Share App
+                mTitle = getString(R.string.title_section4);
+                Toast.makeText(getApplicationContext(), "Share App Fragment", Toast.LENGTH_SHORT).show();
+
                 break;
+
+            case 4:
+                //About
+                mTitle = getString(R.string.title_section5);
+                Toast.makeText(getApplicationContext(), "About Fragment", Toast.LENGTH_SHORT).show();
+                fragment = new AboutFragment();
+                break;
+
+
         }
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
 
@@ -118,68 +173,27 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                //openSearch();
+                Toast.makeText(getApplicationContext(), "Search pressed", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_settings:
+                openSettings();
+                Toast.makeText(getApplicationContext(), "Settings pressed", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }
-
-    /** Called when the user clicks the Send button */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, MainActivity2.class);
-        startActivity(intent);
+     * Launching new activity
+     * */
+    private void openSettings() {
+        Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(i);
     }
 
 

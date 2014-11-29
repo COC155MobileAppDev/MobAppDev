@@ -126,6 +126,9 @@ public class ModulesFragment extends Fragment implements AbsListView.OnItemClick
      * the list is empty. If you would like to change the text, call this method
      * to supply the text it should use.
      */
+
+/*
+
     public void setEmptyText(CharSequence emptyText) {
         View emptyView = mListView.getEmptyView();
 
