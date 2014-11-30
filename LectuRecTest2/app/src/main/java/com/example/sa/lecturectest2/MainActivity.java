@@ -18,16 +18,23 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         TextView modulesView = (TextView) findViewById(R.id.modulesview);
 
+
         Cursor cursor = getModules();
+
+        //System.out.println("Object:");
+        //System.out.print(cursor);
+
 
         while (cursor.moveToNext()) {
             String displayModule = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE));
             modulesView.append(displayModule);
             modulesView.append("\n");
         }
+
+
     }
 
-    LectuRecDBHelper dbHelper;
+    private LectuRecDBHelper dbHelper;
 
     private Cursor getModules() {
         // Run query
@@ -37,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         String[] selectionArgs = null;
         String sortOrder = null;
         
-        return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
     }
 
 

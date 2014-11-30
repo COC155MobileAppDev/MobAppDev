@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-/**
- * Created by Sa on 29/11/2014.
+/*
+  Created by Sa on 29/11/2014.
  */
 public class LectuRecProvider extends ContentProvider {
 
