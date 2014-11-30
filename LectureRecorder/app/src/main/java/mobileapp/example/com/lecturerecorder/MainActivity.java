@@ -52,7 +52,9 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
 
-
+        HomeFragment fragmenttab = new HomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, fragmenttab).commit();
         /*
         mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
 
@@ -112,8 +114,8 @@ public class MainActivity extends ActionBarActivity
                 //Home
                 mTitle = getString(R.string.title_section1);
 
-                Toast.makeText(getApplicationContext(), "Section1", Toast.LENGTH_SHORT).show();
-                fragment = new ArchiveFragment();
+                Toast.makeText(getApplicationContext(), "Home Fragment", Toast.LENGTH_SHORT).show();
+                fragment = new HomeFragment();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container2, fragment)
                         .commit();
@@ -142,7 +144,7 @@ public class MainActivity extends ActionBarActivity
 
             case 3:
                 //Share App
-                mTitle = getString(R.string.title_section4);
+                //mTitle = getString(R.string.title_section4);
                 //Toast.makeText(getApplicationContext(), "Share App Fragment", Toast.LENGTH_SHORT).show();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -155,7 +157,7 @@ public class MainActivity extends ActionBarActivity
 
             case 4:
                 //About
-                mTitle = getString(R.string.title_section5);
+                //mTitle = getString(R.string.title_section5);
                 Toast.makeText(getApplicationContext(), "About Fragment", Toast.LENGTH_SHORT).show();
                 openAbout();
                 //fragment = new AboutFragment();

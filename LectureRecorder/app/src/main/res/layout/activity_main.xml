@@ -21,59 +21,26 @@
 
     -->
 
+
+    <!-- id = container displays HomeFragment (tab navigation)
+         id = container2 displays onNavigationDrawerItemSelected  (side menu navigation)
+    -->
     <LinearLayout
         android:id="@+id/container"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TabHost
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabHost">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"></TabWidget>
-
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <LinearLayout
-                        android:id="@+id/tabModules"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:orientation="vertical"
-                        android:focusableInTouchMode="false">
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tabArchive"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-                </FrameLayout>
-
-
-            </LinearLayout>
-        </TabHost>
 
         <LinearLayout
             android:id="@+id/container2"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></LinearLayout>
+            android:layout_height="fill_parent">
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
