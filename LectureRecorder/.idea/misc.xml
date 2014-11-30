@@ -4,6 +4,7 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+<<<<<<< Updated upstream
   
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
 	<output url="file://$PROJECT_DIR$/build/classes" />
@@ -13,5 +14,10 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_modules.xml" />
   </component>
     
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+>>>>>>> Stashed changes
 </project>
 

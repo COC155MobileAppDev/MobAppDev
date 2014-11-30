@@ -3,10 +3,12 @@ package mobileapp.example.com.lecturerecorder;
 
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -30,7 +32,6 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity
     implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -47,20 +48,25 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
 
-/*
 
+        /*
         mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Tab1"),
                 ArchiveFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab2"),
                 AboutFragment.class, null);
-*/
 
+        */
+
+        /*
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
@@ -74,12 +80,7 @@ public class MainActivity extends ActionBarActivity
         tabSpec.setContent(R.id.tabArchive);
         tabSpec.setIndicator("Archive");
         tabHost.addTab(tabSpec);
-
-
-
-
-
-
+        */
 
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -91,6 +92,11 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
+
+
+
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -108,6 +114,9 @@ public class MainActivity extends ActionBarActivity
 
                 Toast.makeText(getApplicationContext(), "Section1", Toast.LENGTH_SHORT).show();
                 fragment = new ArchiveFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container2, fragment)
+                        .commit();
                 break;
 
             case 1:
@@ -115,6 +124,9 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section2);
                 Toast.makeText(getApplicationContext(), "Modules Fragment", Toast.LENGTH_SHORT).show();
                 fragment = new ModulesFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container2, fragment)
+                        .commit();
                 break;
 
             case 2:
@@ -122,13 +134,22 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section3);
                 Toast.makeText(getApplicationContext(), "Archive Fragment", Toast.LENGTH_SHORT).show();
                 fragment = new ArchiveFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container2, fragment)
+                        .commit();
                 break;
 
 
             case 3:
                 //Share App
                 mTitle = getString(R.string.title_section4);
-                Toast.makeText(getApplicationContext(), "Share App Fragment", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Share App Fragment", Toast.LENGTH_SHORT).show();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out LectuREC app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
 
                 break;
 
@@ -136,15 +157,19 @@ public class MainActivity extends ActionBarActivity
                 //About
                 mTitle = getString(R.string.title_section5);
                 Toast.makeText(getApplicationContext(), "About Fragment", Toast.LENGTH_SHORT).show();
-                fragment = new AboutFragment();
+                openAbout();
+                //fragment = new AboutFragment();
                 break;
 
 
         }
 
+        /*
         fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+                .replace(R.id.container2, fragment)
                 .commit();
+        */
+
     }
 
 
@@ -188,12 +213,21 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
     /**
      * Launching new activity
      * */
-    private void openSettings() {
-        Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+
+     private void openSettings() {
+        Intent i = new Intent(MainActivity.this, AboutActivity.class);
         startActivity(i);
+    }
+
+    private void openAbout() {
+        Intent i = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(i);
+
     }
 
 

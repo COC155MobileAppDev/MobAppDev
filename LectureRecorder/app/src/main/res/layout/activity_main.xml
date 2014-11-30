@@ -52,18 +52,28 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:focusableInTouchMode="false"></LinearLayout>
+                        android:focusableInTouchMode="false">
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/tabArchive"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical">
+
+                    </LinearLayout>
                 </FrameLayout>
 
 
             </LinearLayout>
         </TabHost>
+
+        <LinearLayout
+            android:id="@+id/container2"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></LinearLayout>
     </LinearLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
@@ -82,3 +92,5 @@
         tools:layout="@layout/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
+
+
