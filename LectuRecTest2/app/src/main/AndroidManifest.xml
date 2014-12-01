@@ -24,7 +24,7 @@
         </activity>
         <provider
             android:name=".LectuRecProvider"
-            android:authorities="com.example.sa.lecturectest2.LectuRecProvider"
+            android:authorities="com.example.sa.lecturectest2"
             android:enabled="true"
             android:permission="com.example.sa.lecturectest2.myProviderPermission">
         </provider>

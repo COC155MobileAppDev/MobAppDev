@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/*
-  Created by Sa on 29/11/2014.
+/**
+ * Created by Sa on 29/11/2014.
  */
 public class LectuRecDBHelper extends SQLiteOpenHelper {
 
