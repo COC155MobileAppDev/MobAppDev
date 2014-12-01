@@ -15,10 +15,18 @@ public class DBProvider extends ContentProvider {
 
     private static final String AUTH = "com.example.team05.lecturec";
     public static final Uri MODULE_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_MODULES);
-    //to access more than one table, make another URI so like AUDIO_URI etc
-    //and also it then uses the URI matcher to match to that table/URI
+    public static final Uri MODULE_TIME_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_MODULE_TIME);
+    public static final Uri FOLDER_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_FOLDER);
+    public static final Uri SESSION_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_SESSION);
+    public static final Uri AUDIO_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_AUDIO);
+    public static final Uri IMAGE_URI = Uri.parse("content://"+AUTH+"/"+ DBHelper.TABLE_IMAGE);
 
     final static int MODULES = 1;
+    final static int MODULE_TIME = 2;
+    final static int FOLDER = 3;
+    final static int SESSION = 4;
+    final static int AUDIO = 5;
+    final static int IMAGE = 6;
 
     SQLiteDatabase db;
     DBHelper dbHelper;
@@ -29,6 +37,11 @@ public class DBProvider extends ContentProvider {
     {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTH, DBHelper.TABLE_MODULES, MODULES);
+        uriMatcher.addURI(AUTH, DBHelper.TABLE_MODULE_TIME, MODULE_TIME);
+        uriMatcher.addURI(AUTH, DBHelper.TABLE_FOLDER, FOLDER);
+        uriMatcher.addURI(AUTH, DBHelper.TABLE_SESSION, SESSION);
+        uriMatcher.addURI(AUTH, DBHelper.TABLE_AUDIO, AUDIO);
+        uriMatcher.addURI(AUTH, DBHelper.TABLE_IMAGE, IMAGE);
     }
 
     @Override
@@ -43,8 +56,30 @@ public class DBProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         db = dbHelper.getWritableDatabase();
 
+        /* old version
         if(uriMatcher.match(uri) == MODULES) {
             db.insert(dbHelper.TABLE_MODULES, null, values);
+        }*/
+
+        switch (uriMatcher.match(uri)) {
+            case MODULES:
+                db.insert(dbHelper.TABLE_MODULES, null, values);
+                break;
+            case MODULE_TIME:
+                db.insert(dbHelper.TABLE_MODULE_TIME, null, values);
+                break;
+            case FOLDER:
+                db.insert(dbHelper.TABLE_FOLDER, null, values);
+                break;
+            case SESSION:
+                db.insert(dbHelper.TABLE_SESSION, null, values);
+                break;
+            case AUDIO:
+                db.insert(dbHelper.TABLE_AUDIO, null, values);
+                break;
+            case IMAGE:
+                db.insert(dbHelper.TABLE_IMAGE, null, values);
+                break;
         }
 
         db.close();
