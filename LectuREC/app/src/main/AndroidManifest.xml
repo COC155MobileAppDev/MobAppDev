@@ -18,4 +18,11 @@
         </activity>
     </application>
 
+    <provider
+        android:name=".DBProvider"
+        android:authorities="com.example.team05.lecturec"
+        android:enabled="true"
+        android:permission="com.example.team05.lecturec.myProviderPermission">
+    </provider>
+
 </manifest>

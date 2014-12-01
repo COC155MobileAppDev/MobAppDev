@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.team05.lecturec.ModelControllers.DBHelper;
+import com.example.team05.lecturec.ModelControllers.DBProvider;
 import com.example.team05.lecturec.R;
 
 
@@ -42,6 +50,70 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+        Cursor cursor = getModules();
+
+        System.out.println("working4");
+
+        TextView modulesView = (TextView)findViewById(R.id.modulesview);
+
+        /*
+        while (cursor.moveToNext()) {
+            String displayModuleID = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            String displayModule = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
+            modulesView.append(displayModuleID);
+            modulesView.append(" ");
+            modulesView.append(displayModule);
+            modulesView.append("\n");
+        }
+        */
+
+        System.out.println("working5");
+
+
+    }
+
+    DBHelper dbHelper;
+
+    private Cursor getModules() {
+        // Run query
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] { dbHelper.COLUMN_MODULE_ID, dbHelper.COLUMN_MODULE_NAME };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = null;
+
+        System.out.println("working3");
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+    }
+
+    public void addModule(View view) {
+
+        System.out.println("working1_1");
+        ContentValues values = new ContentValues();
+
+        System.out.println("working1_2");
+        values.put(DBHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.add_module_edittext)).getText().toString() );
+
+        System.out.println("working1_3");
+        Uri uri = getContentResolver().insert(DBProvider.MODULE_URI, values);
+
+        System.out.println("working1_4");
+        //Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+
+        System.out.println("working2");
+    }
+
+    public void refresh(View view) {
+        System.out.println("please");
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        System.out.println("Work please");
     }
 
     @Override
