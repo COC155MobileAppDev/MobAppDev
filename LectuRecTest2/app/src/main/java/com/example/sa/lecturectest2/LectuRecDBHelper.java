@@ -13,14 +13,35 @@ public class LectuRecDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "LecturerRecorder";
 
     public static final String TABLE_MODULES = "modules";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_MODULE = "module";
+    public static final String COLUMN_MODULE_ID = "_module_id";
+    public static final String COLUMN_MODULE_NAME = "module";
+    public static final String COLUMN_MODULE_ARCHIVE = "archive";
 
-    private static final String DATABASE_CREATE = "create table "
+    private static final String DATABASE_CREATE_MODULES = "create table "
             + TABLE_MODULES
             + "("
-            + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_MODULE + " text not null);";
+            + COLUMN_MODULE_ID + " integer primary key autoincrement, "
+            + COLUMN_MODULE_NAME + " text not null, "
+            + COLUMN_MODULE_ARCHIVE + " integer)";
+
+
+    public static final String TABLE_MODULE_TIME = "module_time";
+    public static final String COLUMN_MODULE_TIME_ID = "_module_time_id";
+    public static final String COLUMN_MODULE_TIME_DAY = "module_time_day";
+    public static final String COLUMN_MODULE_TIME_START_TIME = "start_time";
+    public static final String COLUMN_MODULE_TIME_END_TIME = "end_time";
+    public static final String COLUMN_MODULE_TIME_NOTIFICATION = "notification";
+    public static final String COLUMN_MODULE_TIME_MODULE_ID_FOREIGN = "_module_id";
+
+    private static final String DATABASE_CREATE_MODULE_TIME = "create table "
+            + TABLE_MODULE_TIME
+            + "("
+            + COLUMN_MODULE_TIME_ID + " integer primary key autoincrement, "
+            + COLUMN_MODULE_TIME_DAY + " integer, "
+            + COLUMN_MODULE_TIME_START_TIME + " text not null, "
+            + COLUMN_MODULE_TIME_END_TIME + " text not null, "
+            + COLUMN_MODULE_TIME_NOTIFICATION + " integer, "
+            + COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " integer foreign key)";
 
 
     public LectuRecDBHelper (Context context) {
@@ -30,7 +51,8 @@ public class LectuRecDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //creates modules table
-        db.execSQL(DATABASE_CREATE);
+        db.execSQL(DATABASE_CREATE_MODULES);
+        db.execSQL(DATABASE_CREATE_MODULE_TIME);
     }
 
     @Override

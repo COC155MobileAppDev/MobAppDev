@@ -13,7 +13,7 @@ import android.net.Uri;
  */
 public class LectuRecProvider extends ContentProvider {
 
-    private static final String AUTH = "com.example.sa.lecturectest2.LectuRecProvider";
+    private static final String AUTH = "com.example.sa.lecturectest2";
     public static final Uri MODULE_URI = Uri.parse("content://"+AUTH+"/"+LectuRecDBHelper.TABLE_MODULES);
     //to access more than one table, make another URI so like AUDIO_URI etc
     //and also it then uses the URI matcher to match to that table/URI
