@@ -80,6 +80,8 @@ public class DBProvider extends ContentProvider {
             case IMAGE:
                 db.insert(dbHelper.TABLE_IMAGE, null, values);
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
         }
 
         db.close();
@@ -91,6 +93,7 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        /* first version
         SQLiteQueryBuilder sb = new SQLiteQueryBuilder();
 
         if(uriMatcher.match(uri) == MODULES) {
@@ -104,6 +107,7 @@ public class DBProvider extends ContentProvider {
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         return cursor;
+        */
 
         // other way //
 
@@ -117,6 +121,86 @@ public class DBProvider extends ContentProvider {
 
         return cursor;
         */
+
+        //using switch statements
+        /* ORIGINAL VERSION !!!
+        Cursor cursor;
+
+        db = dbHelper.getReadableDatabase();
+
+        switch (uriMatcher.match(uri)) {
+            case MODULES:
+                cursor = db.query(dbHelper.TABLE_MODULES, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case MODULE_TIME:
+                cursor = db.query(dbHelper.TABLE_MODULE_TIME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case FOLDER:
+                cursor = db.query(dbHelper.TABLE_FOLDER, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case SESSION:
+                cursor = db.query(dbHelper.TABLE_SESSION, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case AUDIO:
+                cursor = db.query(dbHelper.TABLE_AUDIO, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case IMAGE:
+                cursor = db.query(dbHelper.TABLE_IMAGE, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
+        */
+
+        // other way if original version doesn't work !!!//
+        SQLiteQueryBuilder sb = new SQLiteQueryBuilder();
+
+        Cursor cursor;
+
+        switch (uriMatcher.match(uri)) {
+            case MODULES:
+                sb.setTables(dbHelper.TABLE_MODULES);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_MODULES, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case MODULE_TIME:
+                sb.setTables(dbHelper.TABLE_MODULE_TIME);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_MODULE_TIME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case FOLDER:
+                sb.setTables(dbHelper.TABLE_FOLDER);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_FOLDER, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case SESSION:
+                sb.setTables(dbHelper.TABLE_SESSION);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_SESSION, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case AUDIO:
+                sb.setTables(dbHelper.TABLE_AUDIO);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_AUDIO, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case IMAGE:
+                sb.setTables(dbHelper.TABLE_IMAGE);
+                db = dbHelper.getWritableDatabase();
+                cursor = db.query(dbHelper.TABLE_IMAGE, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
+
+
     }
 
     @Override
@@ -125,8 +209,33 @@ public class DBProvider extends ContentProvider {
 
         int rowsDeleted = 0;
 
+        /* older version
         if(uriMatcher.match(uri) == MODULES) {
             rowsDeleted = db.delete(dbHelper.TABLE_MODULES, selection, selectionArgs);
+        }
+        */
+
+        switch (uriMatcher.match(uri)) {
+            case MODULES:
+                rowsDeleted = db.delete(dbHelper.TABLE_MODULES, selection, selectionArgs);
+                break;
+            case MODULE_TIME:
+                rowsDeleted = db.delete(dbHelper.TABLE_MODULE_TIME, selection, selectionArgs);
+                break;
+            case FOLDER:
+                rowsDeleted = db.delete(dbHelper.TABLE_FOLDER, selection, selectionArgs);
+                break;
+            case SESSION:
+                rowsDeleted = db.delete(dbHelper.TABLE_SESSION, selection, selectionArgs);
+                break;
+            case AUDIO:
+                rowsDeleted = db.delete(dbHelper.TABLE_AUDIO, selection, selectionArgs);
+                break;
+            case IMAGE:
+                rowsDeleted = db.delete(dbHelper.TABLE_IMAGE, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -140,8 +249,33 @@ public class DBProvider extends ContentProvider {
 
         int rowsUpdated = 0;
 
+        /* older version
         if(uriMatcher.match(uri) == MODULES) {
             rowsUpdated  = db.update(dbHelper.TABLE_MODULES, values, selection, selectionArgs);
+        }
+        */
+
+        switch (uriMatcher.match(uri)) {
+            case MODULES:
+                rowsUpdated  = db.update(dbHelper.TABLE_MODULES, values, selection, selectionArgs);
+                break;
+            case MODULE_TIME:
+                rowsUpdated  = db.update(dbHelper.TABLE_MODULE_TIME, values, selection, selectionArgs);
+                break;
+            case FOLDER:
+                rowsUpdated  = db.update(dbHelper.TABLE_FOLDER, values, selection, selectionArgs);
+                break;
+            case SESSION:
+                rowsUpdated  = db.update(dbHelper.TABLE_SESSION, values, selection, selectionArgs);
+                break;
+            case AUDIO:
+                rowsUpdated  = db.update(dbHelper.TABLE_AUDIO, values, selection, selectionArgs);
+                break;
+            case IMAGE:
+                rowsUpdated  = db.update(dbHelper.TABLE_IMAGE, values, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
