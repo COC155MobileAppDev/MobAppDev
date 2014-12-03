@@ -2,11 +2,15 @@
 <resources>
 
     <string name="app_name">LectuREC</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+
+    <string name="moduleMenu">Module</string>
+    <string name="newModuleMenu">New Module</string>
+    <string name="archiveMenu">Archive</string>
+    <string name="shareMenu">Share</string>
+    <string name="aboutMenu">About</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_about">AboutActivity</string>

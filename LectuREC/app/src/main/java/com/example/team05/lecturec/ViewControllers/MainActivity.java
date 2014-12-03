@@ -1,10 +1,9 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
-
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,11 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentTabHost;
+import android.widget.AdapterView;
+
+
 import com.example.team05.lecturec.R;
 
 
-public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends FragmentActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        ModuleFragment.OnModuleFragmentInteractionListener,
+        ArchiveFragment.OnArchiveFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -28,6 +37,8 @@ public class MainActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    private FragmentTabHost fTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +53,33 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+        fTabHost = (FragmentTabHost)findViewById(R.id.fTabHost);
+
+        fTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
+
+        fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleFragment.class, null);
+        fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveFragment.class, null);
+
+
+    }
+
+    @Override
+    public void OnModuleFragmentInteractionListener(Uri uri) {
+        //Do sommin
+    }
+
+
+    @Override
+    public void OnArchiveFragmentInteractionListener(Uri uri) {
+        //Do sommin
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
@@ -56,13 +88,21 @@ public class MainActivity extends Activity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = "Home: " + getString(R.string.moduleMenu);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.newModuleMenu);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = "Home: " + getString(R.string.archiveMenu);
+                break;
+            case 4:
+                mTitle = getString(R.string.shareMenu);
+                break;
+            case 5:
+                //mTitle = getString(R.string.aboutMenu);
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
                 break;
         }
     }
@@ -128,12 +168,14 @@ public class MainActivity extends Activity
         public PlaceholderFragment() {
         }
 
+        /*
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+        */
 
         @Override
         public void onAttach(Activity activity) {

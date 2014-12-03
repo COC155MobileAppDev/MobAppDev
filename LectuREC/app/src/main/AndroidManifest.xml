@@ -30,8 +30,6 @@
 
 
 
-
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.AboutActivity"
             android:label="@string/title_activity_about" >
