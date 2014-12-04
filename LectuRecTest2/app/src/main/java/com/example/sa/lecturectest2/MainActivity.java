@@ -3,6 +3,7 @@ package com.example.sa.lecturectest2;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -21,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         TextView modulesView = (TextView) findViewById(R.id.modulesview);
 
         Cursor cursor = getModules();
@@ -28,9 +30,9 @@ public class MainActivity extends ActionBarActivity {
         System.out.println("working4");
 
         while (cursor.moveToNext()) {
-            String displayModuleID = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            //String displayModuleID = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
             String displayModule = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
-            modulesView.append(displayModuleID);
+            //modulesView.append(displayModuleID);
             modulesView.append(" ");
             modulesView.append(displayModule);
             modulesView.append("\n");
