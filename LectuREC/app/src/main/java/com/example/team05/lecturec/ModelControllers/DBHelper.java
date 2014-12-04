@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //modules table
     public static final String TABLE_MODULES = "modules";
-    public static final String COLUMN_MODULE_ID = "_id";
+    public static final String COLUMN_MODULE_ID = "_module_id";
     public static final String COLUMN_MODULE_NAME = "module";
     public static final String COLUMN_MODULE_ARCHIVE = "archive";
 
@@ -60,9 +60,9 @@ public class DBHelper extends SQLiteOpenHelper {
             + "("
             + COLUMN_FOLDER_ID + " integer primary key autoincrement, "
             + COLUMN_FOLDER_NAME + " text not null, "
-            + COLUMN_FOLDER_MODULE_ID_FOREIGN + "integer, foreign key("
-            + COLUMN_FOLDER_MODULE_ID_FOREIGN + ") references "
-            + TABLE_MODULES + "(" + COLUMN_MODULE_ID + ") "
+            + COLUMN_FOLDER_MODULE_ID_FOREIGN + " integer, foreign key("
+                + COLUMN_FOLDER_MODULE_ID_FOREIGN + ") references "
+                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + ") "
             + ")";
 
 
@@ -73,16 +73,32 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SESSION_MODULE_ID_FOREIGN = "_module_id";
     public static final String COLUMN_SESSION_FOLDER_ID_FOREIGN = "_folder_id";
 
+    //old version
+    /*private static final String DATABASE_CREATE_SESSION = "create table "
+            + TABLE_SESSION
+            + "("
+            + COLUMN_SESSION_ID + " integer primary key autoincrement, "
+            + COLUMN_SESSION_NAME + " text not null, "
+            + COLUMN_SESSION_MODULE_ID_FOREIGN + " integer, foreign key("
+                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
+                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
+            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer, foreign key("
+                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
+                + TABLE_FOLDER + "(" + COLUMN_FOLDER_ID + ") "
+            + ")";*/
+
     private static final String DATABASE_CREATE_SESSION = "create table "
             + TABLE_SESSION
             + "("
-            + COLUMN_SESSION_ID + "integer primary key autoincrement, "
+            + COLUMN_SESSION_ID + " integer primary key autoincrement, "
             + COLUMN_SESSION_NAME + " text not null, "
-            + COLUMN_SESSION_MODULE_ID_FOREIGN + "integer, foreign key("
-            + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
-            + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
-            + COLUMN_SESSION_FOLDER_ID_FOREIGN + "integer, foreign key("
-                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
+            + COLUMN_SESSION_MODULE_ID_FOREIGN + " integer, "
+            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer, "
+            + "foreign key(" + COLUMN_SESSION_MODULE_ID_FOREIGN
+                + ") references "
+                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
+            + "foreign key(" + COLUMN_SESSION_MODULE_ID_FOREIGN
+                + ") references "
                 + TABLE_FOLDER + "(" + COLUMN_FOLDER_ID + ") "
             + ")";
 
@@ -99,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_AUDIO = "create table "
             + TABLE_AUDIO
             + "("
-            + COLUMN_AUDIO_ID + "integer primary key autoincrement, "
+            + COLUMN_AUDIO_ID + " integer primary key autoincrement, "
             + COLUMN_AUDIO_NAME + " text not null, "
             + COLUMN_AUDIO_FILE + " text, "
             + COLUMN_AUDIO_DURATION + " text, "
@@ -119,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_IMAGE = "create table "
             + TABLE_IMAGE
             + "("
-            + COLUMN_IMAGE_ID + "integer primary key autoincrement, "
+            + COLUMN_IMAGE_ID + " integer primary key autoincrement, "
             + COLUMN_IMAGE_FILE + " text, "
             + COLUMN_IMAGE_SESSION_ID_FOREIGN + " integer, foreign key("
                 + COLUMN_IMAGE_SESSION_ID_FOREIGN + ") references "

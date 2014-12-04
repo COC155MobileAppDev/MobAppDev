@@ -52,25 +52,20 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
 
+        TextView modulesView = (TextView)findViewById(R.id.modulesview);
+
         Cursor cursor = getModules();
 
         System.out.println("working4");
 
-        TextView modulesView = (TextView)findViewById(R.id.modulesview);
-
-
-        /*while (cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             String displayModule = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
             modulesView.append(" ");
             modulesView.append(displayModule);
             modulesView.append("\n");
-        }*/
-
-
+        }
 
         System.out.println("working5");
-
-
     }
 
     DBHelper dbHelper;
@@ -98,7 +93,7 @@ public class MainActivity extends Activity
         System.out.println("working1_2");
         values.put(DBHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.add_module_edittext)).getText().toString() );
 
-        System.out.println(DBProvider.MODULE_URI);
+        //System.out.println(DBProvider.MODULE_URI);
         System.out.println("working1_3");
         Uri uri = getContentResolver().insert(DBProvider.MODULE_URI, values);
 

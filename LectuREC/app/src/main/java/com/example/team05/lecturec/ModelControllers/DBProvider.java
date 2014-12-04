@@ -213,7 +213,8 @@ public class DBProvider extends ContentProvider {
 
         int rowsDeleted = 0;
 
-        /* older version
+        //older version
+        /*
         if(uriMatcher.match(uri) == MODULES) {
             rowsDeleted = db.delete(dbHelper.TABLE_MODULES, selection, selectionArgs);
         }
@@ -253,11 +254,13 @@ public class DBProvider extends ContentProvider {
 
         int rowsUpdated = 0;
 
-        /* older version
+        //older version
+        /*
         if(uriMatcher.match(uri) == MODULES) {
             rowsUpdated  = db.update(dbHelper.TABLE_MODULES, values, selection, selectionArgs);
         }
         */
+
 
         switch (uriMatcher.match(uri)) {
             case MODULES:

@@ -25,13 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name=".ModelControllers.DBProvider"
+            android:authorities="com.example.team05.lecturec"
+            android:enabled="true"
+            android:permission="com.example.team05.lecturec.myProviderPermission">
+        </provider>
     </application>
 
-    <provider
-        android:name=".DBProvider"
-        android:authorities="com.example.team05.lecturec"
-        android:enabled="true"
-        android:permission="com.example.team05.lecturec.myProviderPermission">
-    </provider>
+
 
 </manifest>
