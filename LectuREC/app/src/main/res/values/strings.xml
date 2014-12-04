@@ -22,4 +22,8 @@
     <string name="add_module_button_text">Add Module</string>
     <string name="refresh_button_text">Refresh</string>
 
+    <string name="save_audio_filename_hint">Add filename</string>
+    <string name="save_audio_filename_text">Save Audio</string>
+    <string name="retrieve_audio_filename_text">Retrieve Module</string>
+
 </resources>

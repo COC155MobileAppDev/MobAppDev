@@ -56,8 +56,6 @@ public class MainActivity extends Activity
 
         Cursor cursor = getModules();
 
-        System.out.println("working4");
-
         while (cursor.moveToNext()) {
             String displayModule = cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
             modulesView.append(" ");
@@ -65,7 +63,26 @@ public class MainActivity extends Activity
             modulesView.append("\n");
         }
 
-        System.out.println("working5");
+        //audio filenames
+        TextView audiofilenamesView = (TextView)findViewById(R.id.audiofilenamesview);
+
+        System.out.println("working1_1");
+
+        Cursor cursor2 = getAudio();
+
+        System.out.println("working1_2");
+
+        while (cursor2.moveToNext()) {
+            System.out.println("working1_3");
+            String displayAudioFilename = cursor2.getString(cursor2.getColumnIndex(dbHelper.COLUMN_AUDIO_NAME));
+            audiofilenamesView.append(" ");
+            System.out.println(displayAudioFilename);
+            audiofilenamesView.append(displayAudioFilename);
+            audiofilenamesView.append("\n");
+        }
+
+        System.out.println("working1_4");
+
     }
 
     DBHelper dbHelper;
@@ -78,8 +95,6 @@ public class MainActivity extends Activity
         String[] selectionArgs = null;
         String sortOrder = null;
 
-        System.out.println("working3");
-
         //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
         return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -87,28 +102,54 @@ public class MainActivity extends Activity
 
     public void addModule(View view) {
 
-        System.out.println("working1_1");
         ContentValues values = new ContentValues();
 
-        System.out.println("working1_2");
         values.put(DBHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.add_module_edittext)).getText().toString() );
 
-        //System.out.println(DBProvider.MODULE_URI);
-        System.out.println("working1_3");
         Uri uri = getContentResolver().insert(DBProvider.MODULE_URI, values);
 
-        System.out.println("working1_4");
-        //Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
-
-        System.out.println("working2");
     }
 
     public void refresh(View view) {
-        System.out.println("please");
         Intent intent = getIntent();
         finish();
         startActivity(intent);
-        System.out.println("Work please");
+    }
+
+    private Cursor getAudio() {
+        System.out.println("working2_1");
+
+        // Run query
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] { dbHelper.COLUMN_AUDIO_ID, dbHelper.COLUMN_AUDIO_NAME };
+        String selection = null;                //according to session_id = ? !!!!!!!
+        String[] selectionArgs = null;          //according to session_id variable !!!!!!!
+        String sortOrder = null;
+
+        System.out.println("working2_2");
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void saveAudio(View view) {
+        System.out.println("working3_1");
+
+        ContentValues values = new ContentValues();
+
+        values.put(DBHelper.COLUMN_AUDIO_NAME, ((EditText)findViewById(R.id.add_audio_filename)).getText().toString() );
+
+        System.out.println("working3_2");
+
+        Uri uri = getContentResolver().insert(DBProvider.AUDIO_URI, values);
+    }
+
+    public void retrieveAudioFilenames(View view) {
+        System.out.println("audio refresh");
+        Intent intent_audio = getIntent();
+        finish();
+        startActivity(intent_audio);
+        System.out.println("audio retrieve");
     }
 
     @Override

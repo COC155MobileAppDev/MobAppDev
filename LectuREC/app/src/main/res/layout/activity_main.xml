@@ -10,31 +10,69 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/modulesview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/module_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/add_module_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/add_module_hint" />
+            <TextView
+                android:id="@+id/modulesview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_module_button_text"
-            android:onClick="addModule"/>
+            <EditText
+                android:id="@+id/add_module_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_module_hint" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/refresh_button_text"
-            android:onClick="refresh"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_module_button_text"
+                android:onClick="addModule"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh_button_text"
+                android:onClick="refresh"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/audio_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/audiofilenamesview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/add_audio_filename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/save_audio_filename_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_audio_filename_text"
+                android:onClick="saveAudio"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retrieve_audio_filename_text"
+                android:onClick="retrieveAudioFilenames"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
