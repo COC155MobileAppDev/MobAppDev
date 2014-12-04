@@ -92,9 +92,11 @@ public class MainActivity extends FragmentActivity
                 break;
             case 2:
                 mTitle = getString(R.string.newModuleMenu);
+                Intent newmoduleIntent = new Intent(this, NewmoduleActivity.class);
+                startActivity(newmoduleIntent);
                 break;
             case 3:
-                mTitle = "Home: " + getString(R.string.archiveMenu);
+                mTitle = "Home:    " + getString(R.string.archiveMenu);
                 break;
             case 4:
                 mTitle = getString(R.string.shareMenu);

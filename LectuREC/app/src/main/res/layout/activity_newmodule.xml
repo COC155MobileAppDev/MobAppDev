@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
+    tools:ignore="MergeRootFrame" >
+
+
+
+    <TextView android:text="@string/moduleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText" />
+
+
+    <!-- Main Activity View's Content-->
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/timeTabHost"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:id="@+id/timeTabContent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="50dp">
+
+
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+    </android.support.v4.app.FragmentTabHost>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:id="@+id/Save"/>
+
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
