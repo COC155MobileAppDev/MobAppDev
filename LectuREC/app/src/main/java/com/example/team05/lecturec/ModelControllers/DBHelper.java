@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //modules table
     public static final String TABLE_MODULES = "modules";
-    public static final String COLUMN_MODULE_ID = "_module_id";
+    public static final String COLUMN_MODULE_ID = "_id";
     public static final String COLUMN_MODULE_NAME = "module";
     public static final String COLUMN_MODULE_ARCHIVE = "archive";
 
@@ -145,8 +145,12 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MODULES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MODULE_TIME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOLDER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUDIO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGE);
 
-        //creates modules table
         onCreate(db);
     }
 

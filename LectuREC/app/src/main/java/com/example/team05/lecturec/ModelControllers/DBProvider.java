@@ -54,13 +54,16 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        System.out.println("hello for modules!!!!!");
         db = dbHelper.getWritableDatabase();
 
-        /* old version
+        // old version
         if(uriMatcher.match(uri) == MODULES) {
+            System.out.println("greetings for modules!!!!!");
             db.insert(dbHelper.TABLE_MODULES, null, values);
-        }*/
+        }
 
+        /*
         switch (uriMatcher.match(uri)) {
             case MODULES:
                 db.insert(dbHelper.TABLE_MODULES, null, values);
@@ -83,6 +86,7 @@ public class DBProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
+        */
 
         db.close();
 
@@ -93,7 +97,7 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        /* first version
+        //first version
         SQLiteQueryBuilder sb = new SQLiteQueryBuilder();
 
         if(uriMatcher.match(uri) == MODULES) {
@@ -107,7 +111,7 @@ public class DBProvider extends ContentProvider {
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         return cursor;
-        */
+
 
         // other way //
 
@@ -157,7 +161,7 @@ public class DBProvider extends ContentProvider {
         */
 
         // other way if original version doesn't work !!!//
-        SQLiteQueryBuilder sb = new SQLiteQueryBuilder();
+        /*SQLiteQueryBuilder sb = new SQLiteQueryBuilder();
 
         Cursor cursor;
 
@@ -198,7 +202,7 @@ public class DBProvider extends ContentProvider {
 
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
-        return cursor;
+        return cursor;*/
 
 
     }
