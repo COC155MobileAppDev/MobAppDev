@@ -12,16 +12,16 @@ import java.util.Random;
  */
 public class ModuleDummyTesting {
 
-    public ArrayList<Module> getModules(){
+    public static ArrayList<Module> getModuleList(){
         return dummyList("Module ", false);
     }
 
-    public ArrayList<Module> getArchives(){
+    public static ArrayList<Module> getArchiveList(){
         return dummyList("Archive ", true);
     }
 
 
-    private ArrayList<Module> dummyList(String mType, boolean aState){
+    private static ArrayList<Module> dummyList(String mType, boolean aState){
 
         ArrayList<Module> moduleArrayList = new ArrayList<Module>();
 
@@ -51,8 +51,6 @@ public class ModuleDummyTesting {
             moduleArrayList.add(module);
 
         }
-
-        System.out.println(moduleArrayList);
 
         return moduleArrayList;
         

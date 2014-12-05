@@ -22,8 +22,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewmoduleActivity extends FragmentActivity
@@ -32,7 +35,7 @@ public class NewmoduleActivity extends FragmentActivity
 
     private FragmentTabHost timeTabHost;
 
-
+    private Module currentModule;
 
 
     @Override
@@ -40,6 +43,9 @@ public class NewmoduleActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newmodule);
 
+        ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+
+        System.out.print("mList \n" + mList);
 
         timeTabHost = (FragmentTabHost)findViewById(R.id.timeTabHost);
 
