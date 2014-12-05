@@ -6,15 +6,16 @@ package com.example.team05.lecturec.DataTypes;
 public class Image {
 
     private int id;
-    //private data file;	- need to find out appropriate object/data type
+    private String file;
 
-
-    public Image(int i){
+    public Image(int i, String f){
 
         id = i;
+        file = f;
 
     }
 
     public int getID(){	return id;  }
+    public String getFile(){ return file;   }
 
 }
