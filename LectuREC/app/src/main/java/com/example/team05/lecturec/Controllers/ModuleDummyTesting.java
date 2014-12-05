@@ -12,11 +12,11 @@ import java.util.Random;
  */
 public class ModuleDummyTesting {
 
-    public ArrayList<Module> getModules(){
+    public ArrayList<Module> getModuleList(){
         return dummyList("Module ", false);
     }
 
-    public ArrayList<Module> getArchives(){
+    public ArrayList<Module> getArchiveList(){
         return dummyList("Archive ", true);
     }
 
