@@ -18,11 +18,11 @@ public class Module {
     private ArrayList<Folder> folders;
 
 
-    public Module(int i, String n, boolean a){
+    public Module(int i, String n){
 
         id = i;
         name = n;
-        archived = a;
+        archived = false;
 
         moduleTimes = new ArrayList<ModuleTime>();
 
@@ -33,7 +33,7 @@ public class Module {
 
     //Setters
     public void setName(String n){  name = n;   }
-    public void setArchived(Boolean state){ archived = state;   }
+    public void setArchiveState(Boolean state){ archived = state;   }
     public void setModuleTimes(ArrayList<ModuleTime> mTimes) {  moduleTimes = mTimes;   }
     public void setSessions(ArrayList<Session> sessionArrayList){   sessions = sessionArrayList;    }
     public void setFolders(ArrayList<Folder> folderArrayList){  folders = folderArrayList;  }
