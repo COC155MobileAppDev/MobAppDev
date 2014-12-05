@@ -1,6 +1,5 @@
 package com.example.team05.lecturec.DataTypes;
 
-import java.sql.Time;
 /*
  Created by Johnbastian on 01/12/2014.
 */

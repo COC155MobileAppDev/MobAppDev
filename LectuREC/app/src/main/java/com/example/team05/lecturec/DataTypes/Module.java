@@ -24,12 +24,17 @@ public class Module {
         name = n;
         archived = a;
 
+        moduleTimes = new ArrayList<ModuleTime>();
+
         sessions = new ArrayList<Session>();
         folders = new ArrayList<Folder>();
 
     }
 
     //Setters
+    public void setName(String n){  name = n;   }
+    public void setArchived(Boolean state){ archived = state;   }
+    public void setModuleTimes(ArrayList<ModuleTime> mTimes) {  moduleTimes = mTimes;   }
     public void setSessions(ArrayList<Session> sessionArrayList){   sessions = sessionArrayList;    }
     public void setFolders(ArrayList<Folder> folderArrayList){  folders = folderArrayList;  }
 
@@ -37,19 +42,10 @@ public class Module {
     public int getID(){	return id;  }
     public String getName(){	return name;  }
     public boolean getArchiveState(){	return archived;  }
+    public ArrayList<ModuleTime> getModuleTimes() { return moduleTimes; }
     public ArrayList<Session> getSessions(){ return sessions;   }
     public ArrayList<Folder> getFolders(){  return folders; }
 
-
-    //Setters/Editing Methods
-    public void setName(String n){
-        name = n;
-
-    }
-
-    public void setArchived(Boolean state){
-        archived = state;
-    }
 
 
     //ModuleTime Editors
@@ -67,6 +63,7 @@ public class Module {
         }
 
     }
+
 
     //Session Editors
     public void addSession(Session session){
