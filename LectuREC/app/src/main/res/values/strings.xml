@@ -26,4 +26,7 @@
     <string name="save_audio_filename_text">Save Audio</string>
     <string name="retrieve_audio_filename_text">Retrieve Module</string>
 
+    <string name="new_session_text">New Session</string>
+    <string name="view_sessions_text">View Sessions</string>
+
 </resources>
