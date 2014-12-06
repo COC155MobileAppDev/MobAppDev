@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.team05.lecturec.ViewControllers.ModuleFragment">
+    tools:context="com.example.team05.lecturec.ViewControllers.ModuleFragment"
+    android:background="#f4646064">
 
     <!-- TODO: Update blank fragment layout -->
     <!--
@@ -10,9 +11,9 @@
     -->
 
     <ListView
-        android:id="@+id/listViewId"
+        android:id="@+id/listModule"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </ListView>
 
 </FrameLayout>

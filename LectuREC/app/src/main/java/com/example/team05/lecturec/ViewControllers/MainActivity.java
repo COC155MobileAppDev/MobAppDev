@@ -100,6 +100,12 @@ public class MainActivity extends FragmentActivity
                 break;
             case 4:
                 mTitle = getString(R.string.shareMenu);
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out my app at: https://play.google.com/store/apps/details?id=com.google.android.apps.plus");
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
                 break;
             case 5:
                 //mTitle = getString(R.string.aboutMenu);
@@ -139,6 +145,9 @@ public class MainActivity extends FragmentActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            //Intent aboutIntent = new Intent(this, SettingsActivity.class);
+            //startActivity(aboutIntent);
             return true;
         }
 
