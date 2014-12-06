@@ -106,6 +106,10 @@ public class MainActivity extends FragmentActivity
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
+            case 6:
+                Intent testIntent = new Intent(this, TestActivity.class);
+                startActivity(testIntent);
+                break;
         }
     }
 
