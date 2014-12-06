@@ -95,6 +95,67 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/image_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/capture_image_text"
+                android:onClick="captureImage"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/folder_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/foldersview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/create_folder_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_folder_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_folder_text"
+                android:onClick="createFolder"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/module_time_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/moduletimeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_module_time_text"
+                android:onClick="addModuleTime"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </RelativeLayout>

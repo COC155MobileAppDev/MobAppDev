@@ -56,5 +56,14 @@
 
     <string name="title_activity_test">TestActivity</string>
 
+    <string name="capture_image_text">Capture Image</string>
+
+
+
+    <string name="create_folder_hint">Folder Name</string>
+    <string name="create_folder_text">Create Folder</string>
+
+    <string name="add_module_time_text">Add Module Time</string>
+
 
 </resources>

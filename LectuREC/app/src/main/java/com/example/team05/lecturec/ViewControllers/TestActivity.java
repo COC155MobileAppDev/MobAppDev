@@ -93,6 +93,74 @@ public class TestActivity extends Activity {
             sessionsView.append("\n");
         }
 
+        //images
+        TextView imagesView = (TextView)findViewById(R.id.imageview);
+
+        Cursor cursorImage = getImages();
+
+        while (cursorImage.moveToNext()) {
+            Integer displayImageId = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            imagesView.append(" ");
+            imagesView.append(displayImageId.toString());
+
+            String displayImageFile = cursorImage.getString(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
+            imagesView.append(" ");
+            imagesView.append(displayImageFile);
+
+            Integer displayImageSession = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
+            imagesView.append(" ");
+            imagesView.append(displayImageSession.toString());
+            imagesView.append("\n");
+        }
+
+        //folders
+        TextView foldersView = (TextView)findViewById(R.id.foldersview);
+
+        Cursor cursorFolder = getFolders();
+
+        while (cursorFolder.moveToNext()) {
+            Integer displayFolderId = cursorFolder.getInt(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            foldersView.append(" ");
+            foldersView.append(displayFolderId.toString());
+
+            String displayFolderName = cursorFolder.getString(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_NAME));
+            foldersView.append(" ");
+            foldersView.append(displayFolderName);
+
+            Integer displayFolderModule = cursorFolder.getInt(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
+            foldersView.append(" ");
+            foldersView.append(displayFolderModule.toString());
+            foldersView.append("\n");
+        }
+
+        //module_times
+        TextView moduletimesView = (TextView)findViewById(R.id.moduletimeview);
+
+        Cursor cursorModuleTime = getModuleTimes();
+
+        while (cursorModuleTime.moveToNext()) {
+            Integer displayModuleTimeId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            foldersView.append(" ");
+            foldersView.append(displayModuleTimeId.toString());
+
+            String displayDay = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_DAY));
+            foldersView.append(" ");
+            foldersView.append(displayDay);
+
+            String displayStartTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
+            foldersView.append(" ");
+            foldersView.append(displayStartTime);
+
+            String displayEndTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
+            foldersView.append(" ");
+            foldersView.append(displayEndTime);
+
+            Integer displayModuleTimeModule = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
+            foldersView.append(" ");
+            foldersView.append(displayModuleTimeModule.toString());
+            foldersView.append("\n");
+        }
+
 
     }
 
@@ -147,29 +215,27 @@ public class TestActivity extends Activity {
 
     public void saveAudio(View view) {
 
-        Integer make_session_id = 1;
+        Integer audio_session_id = 1;
 
         ContentValues values = new ContentValues();
 
         values.put(DBHelper.COLUMN_AUDIO_NAME, ((EditText)findViewById(R.id.add_audio_filename)).getText().toString() );
-        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, make_session_id );
+        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, audio_session_id );
 
         Uri uri = getContentResolver().insert(DBProvider.AUDIO_URI, values);
         retrieveAudioFilenames(view);
     }
 
     public void retrieveAudioFilenames(View view) {
-        System.out.println("audio refresh");
         Intent intent_audio = getIntent();
         finish();
         startActivity(intent_audio);
-        System.out.println("audio retrieve");
     }
 
     public void newSession(View view) {
 
         ContentValues values = new ContentValues();
-        String session_name = "2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
+        String session_name = "audio-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
         Integer module = 4;
         Integer folder = 3;
 
@@ -203,7 +269,113 @@ public class TestActivity extends Activity {
         startActivity(intent_session);
     }
 
+    public void captureImage(View view) {
 
+        ContentValues values = new ContentValues();
+        Integer image_session_id = 1;
+        String image_name = "image-2014_12_06-01_14_22";
+
+        values.put(DBHelper.COLUMN_IMAGE_FILE, image_name );
+        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, image_session_id );
+
+        Uri uri = getContentResolver().insert(DBProvider.IMAGE_URI, values);
+        retrieveImages(view);
+    }
+
+    private Cursor getImages() {
+        // Run query
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
+                dbHelper.COLUMN_IMAGE_FILE,
+                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN
+        };
+        String selection = null;                //according to session_id = ?
+        String[] selectionArgs = null;          //according to session_id variable
+        String sortOrder = null;
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void retrieveImages(View view) {
+        Intent intent_image = getIntent();
+        finish();
+        startActivity(intent_image);
+    }
+
+    public void createFolder(View view) {
+        ContentValues values = new ContentValues();
+        Integer folder_module_id = 2;
+
+        values.put(DBHelper.COLUMN_FOLDER_NAME, ((EditText)findViewById(R.id.create_folder_edittext)).getText().toString() );
+        values.put(DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN, folder_module_id );
+
+        Uri uri = getContentResolver().insert(DBProvider.FOLDER_URI, values);
+        retrieveFolders(view);
+    }
+
+    private Cursor getFolders() {
+        // Run query
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
+                dbHelper.COLUMN_FOLDER_NAME,
+                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN
+        };
+        String selection = null;                //according to module_id = ?
+        String[] selectionArgs = null;          //according to module_id variable
+        String sortOrder = null;
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void retrieveFolders(View view) {
+        Intent intent_folder = getIntent();
+        finish();
+        startActivity(intent_folder);
+    }
+
+    public void addModuleTime(View view) {
+        ContentValues values = new ContentValues();
+        Integer module_time_module_id = 3;
+        Integer notification = 1;
+        Integer day = 2;
+        String start_time = "11:00:00"; //HH:MM:SS
+        String end_time = "13:00:00"; //HH:MM:SS
+
+        values.put(DBHelper.COLUMN_MODULE_TIME_DAY, day );
+        values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, start_time );
+        values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, end_time );
+        values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, notification );
+        values.put(DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN, module_time_module_id );
+
+        Uri uri = getContentResolver().insert(DBProvider.MODULE_TIME_URI, values);
+        retrieveModuleTimes(view);
+    }
+
+    private Cursor getModuleTimes() {
+        // Run query
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
+                dbHelper.COLUMN_MODULE_TIME_DAY,
+                dbHelper.COLUMN_MODULE_TIME_START_TIME,
+                dbHelper.COLUMN_MODULE_TIME_END_TIME,
+                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
+                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN
+        };
+        String selection = null;                //according to module_id = ?
+        String[] selectionArgs = null;          //according to module_id variable
+        String sortOrder = null;
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void retrieveModuleTimes(View view) {
+        Intent intent_module_time = getIntent();
+        finish();
+        startActivity(intent_module_time);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
