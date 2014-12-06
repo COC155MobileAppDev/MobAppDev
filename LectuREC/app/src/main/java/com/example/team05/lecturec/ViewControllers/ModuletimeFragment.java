@@ -65,17 +65,22 @@ public class ModuletimeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        /*
+        Bundle bundle = this.getArguments();
 
-
-
-
-
+        System.out.println("Day in Frag = " + bundle.getString("day"));
+        */
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle bundle = getArguments();
+
+        System.out.println("Day in Frag = " + bundle.getString("day"));
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_moduletime, container, false);
     }

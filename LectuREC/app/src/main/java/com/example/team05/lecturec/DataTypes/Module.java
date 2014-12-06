@@ -24,6 +24,8 @@ public class Module {
         name = n;
         archived = false;
 
+        System.out.println(name);
+
         moduleTimes = new ArrayList<ModuleTime>();
 
         sessions = new ArrayList<Session>();
