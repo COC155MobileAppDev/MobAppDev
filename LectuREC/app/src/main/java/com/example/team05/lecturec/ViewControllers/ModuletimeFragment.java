@@ -3,24 +3,27 @@ package com.example.team05.lecturec.ViewControllers;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.FragmentTabHost;
-//import android.support.v4.app.Fragment;
+
+import android.support.v4.app.Fragment;
 
 import com.example.team05.lecturec.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link ModuletimeFragment.OnModuletimeFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link ModuletimeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+
+
+//create public functions
+
+public class ModuletimeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,9 +33,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
-    android.support.v4.app.Fragment supportFragment = new android.support.v4.app.Fragment();
+    private OnModuletimeFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -40,11 +41,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment ModuletimeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static ModuletimeFragment newInstance(String param1, String param2) {
+        ModuletimeFragment fragment = new ModuletimeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,10 +53,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-    private FragmentTabHost mTabHost;
-
-    //Constructor
-    public HomeFragment() {
+    public ModuletimeFragment() {
         // Required empty public constructor
     }
 
@@ -66,34 +64,35 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        /*
+        Bundle bundle = this.getArguments();
+
+        System.out.println("Day in Frag = " + bundle.getString("day"));
+        */
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_home,container, false);
+        Bundle bundle = getArguments();
 
+        System.out.println("Day in Frag = " + bundle.getString("day"));
 
-        mTabHost = (FragmentTabHost)rootView.findViewById(android.R.id.tabhost);
-        //mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-
-        mTabHost.addTab(mTabHost.newTabSpec("modules").setIndicator("MODULES"),
-                ModuleFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("archive").setIndicator("ARCHIVE"),
-                ArchiveFragment.class, null);
-
-
-        return rootView;
-
-
-        //return inflater.inflate(R.layout.fragment_home, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_moduletime, container, false);
     }
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onModuletimeFragmentInteraction(uri);
         }
     }
 
@@ -101,7 +100,7 @@ public class HomeFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnModuletimeFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -124,9 +123,9 @@ public class HomeFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnModuletimeFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onModuletimeFragmentInteraction(Uri uri);
     }
 
 }

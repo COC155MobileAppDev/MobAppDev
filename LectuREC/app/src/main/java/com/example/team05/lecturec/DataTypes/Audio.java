@@ -1,6 +1,5 @@
 package com.example.team05.lecturec.DataTypes;
 
-import java.sql.Time;
 /*
  Created by Johnbastian on 01/12/2014.
 */
@@ -8,22 +7,21 @@ import java.sql.Time;
 public class Audio {
 
     private int id;
-    private String name;
-    //private data file;	- need to find out appropriate object/data type
+    private String file;
     private Time startTime;
-    private int duration; //in seconds
+    private int duration;
 
-    public Audio(int i, String n, Time sT, int d){
+    public Audio(int i, String f, Time sT, int d){
 
         id = i;
-        name = n;
+        file = f;
         startTime = sT;
         duration = d;
 
     }
 
     public int getID(){	return id;  }
-    public String getName(){	return name;  }
+    public String getFile(){	return file;  }
     public Time getStartTime() {	return startTime;	}
     public int getDuration() { return duration;	}
 

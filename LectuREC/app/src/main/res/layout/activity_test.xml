@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.team05.lecturec.ViewControllers.TestActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/module_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/modulesview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/add_module_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_module_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_module_button_text"
+                android:onClick="addModule"/>
+
+            <!--<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh_button_text"
+                android:onClick="refresh"/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/audio_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/audiofilenamesview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/add_audio_filename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/save_audio_filename_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_audio_filename_text"
+                android:onClick="saveAudio"/>
+
+            <!--<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retrieve_audio_filename_text"
+                android:onClick="retrieveAudioFilenames"/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/sessionview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_session_text"
+                android:onClick="newSession"/>
+
+            <!--<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_sessions_text"
+                android:onClick="retrieveSessions"/>-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
