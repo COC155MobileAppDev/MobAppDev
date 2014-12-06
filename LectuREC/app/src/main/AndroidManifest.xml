@@ -6,10 +6,11 @@
         android:name="com.example.team05.lecturec.myProviderPermission">
     </uses-permission>
 
+    <!-- ****Uncomment if DB interaction doesn't work****
     <uses-permission
         android:name="android.permission.READ_CONTACTS">
     </uses-permission>
-
+    -->
 
     <application
         android:allowBackup="true"
