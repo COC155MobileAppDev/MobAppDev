@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f4fc0095"
     tools:context="com.example.team05.lecturec.ViewControllers.ArchiveFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -9,12 +10,10 @@
         android:text="@string/hello_blank_fragment" />
     -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text 2"
-        android:id="@+id/textView2"
-        android:layout_gravity="center" />
+    <ListView
+        android:id="@+id/listArchive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
 </FrameLayout>
