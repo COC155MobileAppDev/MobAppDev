@@ -47,7 +47,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
-
         
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
@@ -74,6 +73,5 @@
 
     </application>
 
-
-
+    
 </manifest>
