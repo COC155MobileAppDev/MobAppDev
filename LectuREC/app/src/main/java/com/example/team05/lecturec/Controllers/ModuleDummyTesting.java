@@ -25,7 +25,7 @@ public class ModuleDummyTesting {
 
         ArrayList<Module> moduleArrayList = new ArrayList<Module>();
 
-        for (int c = 0; c < 10; c++){
+        for (int c = 0; c < 20; c++){
             
             Module module = new Module(c, (mType + c));
             module.setArchiveState(aState);

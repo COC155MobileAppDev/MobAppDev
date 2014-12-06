@@ -8,9 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.support.v4.app.Fragment;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 
 
+import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +37,13 @@ public class ArchiveFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+
+    private ArrayList<Module> aList;
+    private ArrayList<String> archiveNames;
+    private ListView archiveListview;
+    private FrameLayout fragmentLayout;
+
     private OnArchiveFragmentInteractionListener mListener;
 
     /**
@@ -41,6 +55,7 @@ public class ArchiveFragment extends Fragment {
      * @return A new instance of fragment ArchiveFragment.
      */
     // TODO: Rename and change types and number of parameters
+
     public static ArchiveFragment newInstance(String param1, String param2) {
         ArchiveFragment fragment = new ArchiveFragment();
         Bundle args = new Bundle();
@@ -57,6 +72,13 @@ public class ArchiveFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        archiveNames = new ArrayList<String>();
+
+
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,8 +88,28 @@ public class ArchiveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+        aList = ModuleDummyTesting.getArchiveList();
+
+
+        fragmentLayout = (FrameLayout) inflater.inflate(
+                R.layout.fragment_archive, container, false);
+
+        archiveListview = (ListView)fragmentLayout.findViewById(R.id.listArchive);
+
+        for (Module m: aList){
+            archiveNames.add(m.getName());
+
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_1, archiveNames);
+
+        archiveListview.setAdapter(arrayAdapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        return fragmentLayout;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
