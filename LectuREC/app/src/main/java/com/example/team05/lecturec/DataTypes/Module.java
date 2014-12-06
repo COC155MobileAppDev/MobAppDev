@@ -1,5 +1,6 @@
 package com.example.team05.lecturec.DataTypes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,25 +14,47 @@ public class Module {
     private boolean archived;
     private ArrayList<ModuleTime> moduleTimes;
 
-    private Session[] sessions;
+    private ArrayList<Session> sessions;
+    private ArrayList<Folder> folders;
 
 
-    public Module(int i, String n, boolean a){
+    public Module(int i, String n){
 
         id = i;
         name = n;
-        archived = a;
+        archived = false;
+
+        System.out.println(name);
+
+        moduleTimes = new ArrayList<ModuleTime>();
+
+        sessions = new ArrayList<Session>();
+        folders = new ArrayList<Folder>();
 
     }
 
+    //Setters
+    public void setName(String n){  name = n;   }
+    public void setArchiveState(Boolean state){ archived = state;   }
+    public void setModuleTimes(ArrayList<ModuleTime> mTimes) {  moduleTimes = mTimes;   }
+    public void setSessions(ArrayList<Session> sessionArrayList){   sessions = sessionArrayList;    }
+    public void setFolders(ArrayList<Folder> folderArrayList){  folders = folderArrayList;  }
+
+    //Getters
     public int getID(){	return id;  }
     public String getName(){	return name;  }
     public boolean getArchiveState(){	return archived;  }
+    public ArrayList<ModuleTime> getModuleTimes() { return moduleTimes; }
+    public ArrayList<Session> getSessions(){ return sessions;   }
+    public ArrayList<Folder> getFolders(){  return folders; }
 
 
-    public void setName(String n){ name = n; }
 
-    public void addModuleTime(ModuleTime mt){ moduleTimes.add(mt); }
+    //ModuleTime Editors
+    public void addModuleTime(ModuleTime mt){
+        moduleTimes.add(mt);
+    }
+
     public void removeModuleTime(int mtID){
         
         for (Iterator<ModuleTime> iterator = moduleTimes.iterator(); iterator.hasNext();){
@@ -42,4 +65,29 @@ public class Module {
         }
 
     }
+
+
+    //Session Editors
+    public void addSession(Session session){
+        sessions.add(session);
+    }
+
+    public void removeSession(int sID){
+
+        for (Iterator<Session> iterator = sessions.iterator(); iterator.hasNext();){
+
+            Session ss = iterator.next();
+            if (ss.getID() == sID) iterator.remove();
+
+        }
+
+    }
+
+
+    //Folder Editors
+    public void addFolder(Folder folder){
+        folders.add(folder);
+    }
+
+
 }
