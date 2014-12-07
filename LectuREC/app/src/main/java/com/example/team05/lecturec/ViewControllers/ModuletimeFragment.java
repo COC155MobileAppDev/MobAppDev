@@ -7,48 +7,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
+import android.widget.FrameLayout;
+import android.widget.ListView;
+
+import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.CustomExtensions.ModuleTimeAdapter;
+import com.example.team05.lecturec.DataTypes.Module;
+import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ModuletimeFragment.OnModuletimeFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ModuletimeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
 
-
-//create public functions
 
 public class ModuletimeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnModuletimeFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ModuletimeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    private FrameLayout mtFragmentLayout;
+    private ListView lView;
+
+    private ArrayList<ModuleTime> moduleTimes;
+
     public static ModuletimeFragment newInstance(String param1, String param2) {
         ModuletimeFragment fragment = new ModuletimeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        //args.putString(ARG_PARAM1, param1);
+        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,16 +47,20 @@ public class ModuletimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        /*
-        Bundle bundle = this.getArguments();
-
-        System.out.println("Day in Frag = " + bundle.getString("day"));
         */
+
+        Bundle bundle = getArguments();
+
+        moduleTimes = (ArrayList<ModuleTime>)bundle.get("moduleTimes");
+
+        System.out.println("Number of mTimes = " + moduleTimes.size());
+
 
     }
 
@@ -77,12 +68,22 @@ public class ModuletimeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = getArguments();
 
-        System.out.println("Day in Frag = " + bundle.getString("day"));
+        mtFragmentLayout = (FrameLayout)inflater.inflate(R.layout.fragment_moduletime, container, false);
+
+        lView = (ListView)mtFragmentLayout.findViewById(R.id.moduleTimeListView);
+
+        ModuleTimeAdapter mtAdapter = new ModuleTimeAdapter(getActivity().getApplicationContext(), R.layout.listview_row_moduletime, moduleTimes);
+        mtAdapter.setFragmentManager(getFragmentManager());
+
+
+        View mtListHeader = (View)inflater.inflate(R.layout.listview_header_moduletime, null);
+        lView.addHeaderView(mtListHeader);
+
+        lView.setAdapter(mtAdapter);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_moduletime, container, false);
+        return mtFragmentLayout;
     }
 
 
@@ -113,19 +114,22 @@ public class ModuletimeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnModuletimeFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onModuletimeFragmentInteraction(Uri uri);
+
+        /**
+         * This interface must be implemented by activities that contain this
+         * fragment to allow an interaction in this fragment to be communicated
+         * to the activity and potentially other fragments contained in that
+         * activity.
+         * <p/>
+         * See the Android Training lesson <a href=
+         * "http://developer.android.com/training/basics/fragments/communicating.html"
+         * >Communicating with Other Fragments</a> for more information.
+         */
+
     }
+
 
 }

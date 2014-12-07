@@ -84,24 +84,13 @@
             android:layout_height="wrap_content"
             android:text="Add Another Time"
             android:onClick=""/>
-        <!--
-        <Button
-            android:id="@+id/buttonSelectTime"
-            android:layout_marginTop="20dp"
-            android:textSize="25dp"
+        
+        
+        <ListView
+            android:id="@+id/moduleTimeListView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Time" />
-
-
-
-        <TextView
-            android:id="@+id/txtTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time" />
-
-        -->
+            android:layout_height="wrap_content" />
+        
 
     </LinearLayout>
 

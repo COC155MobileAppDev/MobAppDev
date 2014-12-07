@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -16,6 +17,12 @@ import com.example.team05.lecturec.R;
 
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener{
+
+    private View callerView; //The view/element that called this fragment
+
+    public void setCallerView(View cV){
+        callerView = cV;
+    }
 
 
     @Override
@@ -26,8 +33,7 @@ public class TimePickerFragment extends DialogFragment
         int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+        return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
 
     }
 
@@ -35,10 +41,9 @@ public class TimePickerFragment extends DialogFragment
         // Do something with the time chosen by the user
        // txtTime.setText(hourOfDay+":"+minute);
 
+        Button btn = ((Button) callerView);
 
+        btn.setText(hourOfDay + " : " + minute);
 
-        String timeString = hourOfDay+" : "+minute; // <-- just for example, you'll want to do better time-formatting here.
-        Button b = (Button)getActivity().findViewById(R.id.button1);
-        b.setText(timeString);
     }
 }
