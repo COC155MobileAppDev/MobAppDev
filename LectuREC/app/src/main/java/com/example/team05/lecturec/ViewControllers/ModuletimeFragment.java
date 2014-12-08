@@ -17,19 +17,28 @@ import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.CustomExtensions.ModuleTimeAdapter;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
+import com.example.team05.lecturec.DataTypes.Time;
 import com.example.team05.lecturec.R;
 
 import java.util.ArrayList;
 
 
-public class ModuletimeFragment extends Fragment {
+public class ModuletimeFragment extends Fragment
+        implements View.OnClickListener {
 
     private OnModuletimeFragmentInteractionListener mListener;
+
+    ModuleTimeAdapter moduleTimeAdapter;
 
     private FrameLayout mtFragmentLayout;
     private ListView lView;
 
     private ArrayList<ModuleTime> moduleTimes;
+
+
+    public ModuletimeFragment() {
+        // Required empty public constructor
+    }
 
     public static ModuletimeFragment newInstance(String param1, String param2) {
         ModuletimeFragment fragment = new ModuletimeFragment();
@@ -38,10 +47,6 @@ public class ModuletimeFragment extends Fragment {
         //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public ModuletimeFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -71,19 +76,69 @@ public class ModuletimeFragment extends Fragment {
 
         mtFragmentLayout = (FrameLayout)inflater.inflate(R.layout.fragment_moduletime, container, false);
 
+
         lView = (ListView)mtFragmentLayout.findViewById(R.id.moduleTimeListView);
 
-        ModuleTimeAdapter mtAdapter = new ModuleTimeAdapter(getActivity().getApplicationContext(), R.layout.listview_row_moduletime, moduleTimes);
-        mtAdapter.setFragmentManager(getFragmentManager());
+        moduleTimeAdapter = new ModuleTimeAdapter(getActivity().getApplicationContext(), R.layout.listview_row_moduletime, moduleTimes);
+        moduleTimeAdapter.setFragmentManager(getFragmentManager());
+        moduleTimeAdapter.setParentFragment(this);
 
 
         View mtListHeader = (View)inflater.inflate(R.layout.listview_header_moduletime, null);
         lView.addHeaderView(mtListHeader);
 
-        lView.setAdapter(mtAdapter);
+        lView.setAdapter(moduleTimeAdapter);
 
         // Inflate the layout for this fragment
         return mtFragmentLayout;
+    }
+
+    @Override
+    public void onClick(View v){
+
+
+
+    }
+
+
+    public void setModuleTimeStartTime(ModuleTime selectedModuleTime, Time time){
+
+        System.out.println("T1");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+        //System.out.println("index of selected module in parent list is: " + index);
+
+        //System.out.println("New time = " + time.getHours() +":" + time.getMinutes());
+
+        moduleTimes.get(index).setStartTime(time);
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setModuleTimeEndTime(ModuleTime selectedModuleTime, Time time){
+
+        System.out.println("T2");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+
+        moduleTimes.get(index).setEndTime(time);
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setModuleTimeNotifyState(ModuleTime selectedModuleTime, boolean checked){
+
+        System.out.println("T3");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+        System.out.println("index of notify selected module in parent list is: " + index);
+
+        moduleTimes.get(index).setNotification(checked);
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
     }
 
 

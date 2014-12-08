@@ -34,6 +34,7 @@ import java.util.Calendar;
 public class NewmoduleActivity extends FragmentActivity
         implements ModuletimeFragment.OnModuletimeFragmentInteractionListener {
 
+    private boolean newMode;
 
     private FragmentTabHost timeTabHost;
 
@@ -63,15 +64,7 @@ public class NewmoduleActivity extends FragmentActivity
 
     }
 
-    public void showTimePickerDialog(View view) {
 
-
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setCallerView(view);
-
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-
-    }
 
 
 

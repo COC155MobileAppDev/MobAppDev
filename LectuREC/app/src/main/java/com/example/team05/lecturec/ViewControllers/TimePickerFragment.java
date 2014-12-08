@@ -13,13 +13,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.team05.lecturec.DataTypes.ModuleTime;
+import com.example.team05.lecturec.DataTypes.Time;
 import com.example.team05.lecturec.R;
 
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener{
 
+    private ModuletimeFragment parentFragment;
+    private ModuleTime moduleTime;
     private View callerView; //The view/element that called this fragment
 
+    public void setParentFragmentAndSelectedModuleTime(ModuletimeFragment mtF, ModuleTime mt){
+        parentFragment = mtF;
+        moduleTime = mt;
+    }
     public void setCallerView(View cV){
         callerView = cV;
     }
@@ -37,13 +45,23 @@ public class TimePickerFragment extends DialogFragment
 
     }
 
+
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
-       // txtTime.setText(hourOfDay+":"+minute);
+
+        Time time = new Time(hourOfDay, minute, 0);
 
         Button btn = ((Button) callerView);
 
-        btn.setText(hourOfDay + " : " + minute);
+        switch (btn.getId()){
+            case R.id.startTimeBtn:
+                parentFragment.setModuleTimeStartTime(moduleTime, time);
+                break;
+            case R.id.endTimeBtn:
+                parentFragment.setModuleTimeEndTime(moduleTime, time);
+                break;
+        }
 
     }
+
+
 }
