@@ -36,14 +36,23 @@
 
     <string name="add_module_hint">Add Module</string>
     <string name="add_module_button_text">Add Module</string>
-    <string name="refresh_button_text">Refresh</string>
+    <string name="delete_module_button_text">Delete Module</string>
+    <string name="edit_module_hint">Edit Module</string>
+    <string name="update_module_button_text">Update Module</string>
+
+
 
     <string name="save_audio_filename_hint">Add filename</string>
     <string name="save_audio_filename_text">Save Audio</string>
-    <string name="retrieve_audio_filename_text">Retrieve Module</string>
+    <string name="retrieve_audio_filename_text">Retrieve Filename</string>
+    <string name="delete_audio_filename_text">Delete Audio</string>
 
     <string name="new_session_text">New Session</string>
     <string name="view_sessions_text">View Sessions</string>
+    <string name="delete_session_text">Delete Session</string>
+    <string name="edit_session_hint">Edit Session</string>
+    <string name="edit_session_text">Update Session</string>
+
 
 
     <string name="title_activity_newmodule">NewmoduleActivity</string>
@@ -57,13 +66,24 @@
     <string name="title_activity_test">TestActivity</string>
 
     <string name="capture_image_text">Capture Image</string>
-
+    <string name="delete_image_text">Delete Image</string>
 
 
     <string name="create_folder_hint">Folder Name</string>
     <string name="create_folder_text">Create Folder</string>
+    <string name="delete_folder_text">Delete Folder</string>
+    <string name="delete_folder_with_sessions_text">Delete Folder with sessions</string>
+    <string name="delete_folder_without_sessions_text">Delete Folder without sessions</string>
+    <string name="edit_folder_hint">Edit Folder</string>
+    <string name="edit_folder_text">Update Folder</string>
+
 
     <string name="add_module_time_text">Add Module Time</string>
+    <string name="delete_module_time_text">Delete Module Time</string>
+    <string name="edit_start_time_hint">Edit Start Time</string>
+    <string name="edit_end_time_hint">Edit End Time</string>
+    <string name="edit_notification_hint">Edit Notification Time</string>
+    <string name="edit_module_time_text">Update Module Time</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,7 +12,7 @@
         android:layout_height="fill_parent">
 
         <LinearLayout
-            android:id="@+id/module_layout"
+            android:id="@+id/module_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -27,22 +27,48 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/add_module_hint" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/module_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_module_button_text"
                 android:onClick="addModule"/>
 
-            <!--<Button
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/refresh_button_text"
-                android:onClick="refresh"/>-->
+                android:text="@string/delete_module_button_text"
+                android:onClick="deleteButtonModule"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/audio_layout"
+            android:id="@+id/module_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_module_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_module_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_module_button_text"
+                android:onClick="editButtonModule"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/audio_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -57,22 +83,29 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/save_audio_filename_hint" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/audio_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save_audio_filename_text"
                 android:onClick="saveAudio"/>
 
-            <!--<Button
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/retrieve_audio_filename_text"
-                android:onClick="retrieveAudioFilenames"/>-->
+                android:text="@string/delete_audio_filename_text"
+                android:onClick="deleteButtonAudio"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/session_layout"
+            android:id="@+id/session_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -81,22 +114,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_session_text"
                 android:onClick="newSession"/>
 
-            <!--<Button
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/view_sessions_text"
-                android:onClick="retrieveSessions"/>-->
+                android:text="@string/delete_session_text"
+                android:onClick="deleteButtonSession"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/image_layout"
+            android:id="@+id/session_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_session_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_session_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_session_text"
+                android:onClick="editButtonSession"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/image_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -105,16 +164,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/image_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/capture_image_text"
                 android:onClick="captureImage"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_image_text"
+                android:onClick="deleteButtonImage"/>
+
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/folder_layout"
+            android:id="@+id/folder_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -122,6 +195,13 @@
                 android:id="@+id/foldersview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/folder_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/create_folder_edittext"
@@ -137,8 +217,53 @@
 
         </LinearLayout>
 
+            <!--<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_folder_text"
+                android:onClick="deleteButtonFolder"/>-->
+
         <LinearLayout
-            android:id="@+id/module_time_layout"
+            android:id="@+id/folder_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_folder_with_sessions_text"
+                android:onClick="deleteButtonFolderWithSessions"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_folder_without_sessions_text"
+                android:onClick="deleteButtonFolderWithoutSessions"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/folder_layout_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_folder_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_folder_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_folder_text"
+                android:onClick="editButtonFolder"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/module_time_layout_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -147,15 +272,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/module_time_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_module_time_text"
                 android:onClick="addModuleTime"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_module_time_text"
+                android:onClick="deleteButtonModuleTime"/>
+
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/module_time_layout_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_module_time_start_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_start_time_hint" />
+
+            <EditText
+                android:id="@+id/edit_module_time_end_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_end_time_hint" />
+
+            <EditText
+                android:id="@+id/edit_module_time_notification_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_notification_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/module_time_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_module_time_text"
+                android:onClick="editButtonModuleTime"/>
+
+        </LinearLayout>
+    
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

@@ -73,20 +73,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SESSION_MODULE_ID_FOREIGN = "_module_id";
     public static final String COLUMN_SESSION_FOLDER_ID_FOREIGN = "_folder_id";
 
-    //old version
-    /*private static final String DATABASE_CREATE_SESSION = "create table "
-            + TABLE_SESSION
-            + "("
-            + COLUMN_SESSION_ID + " integer primary key autoincrement, "
-            + COLUMN_SESSION_NAME + " text not null, "
-            + COLUMN_SESSION_MODULE_ID_FOREIGN + " integer, foreign key("
-                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
-                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
-            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer, foreign key("
-                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
-                + TABLE_FOLDER + "(" + COLUMN_FOLDER_ID + ") "
-            + ")";*/
-
     private static final String DATABASE_CREATE_SESSION = "create table "
             + TABLE_SESSION
             + "("
