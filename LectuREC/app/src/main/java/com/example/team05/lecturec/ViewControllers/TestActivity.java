@@ -25,7 +25,7 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-
+        //modules
         TextView modulesView = (TextView)findViewById(R.id.modulesview);
 
         Cursor cursorModule = getModules();
@@ -39,8 +39,49 @@ public class TestActivity extends Activity {
             String displayModule = cursorModule.getString(cursorModule.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
             modulesView.append(" ");
             modulesView.append(displayModule);
+
+            Integer displayModuleArchive = cursorModule.getInt(cursorModule.getColumnIndex(dbHelper.COLUMN_MODULE_ARCHIVE));
+            modulesView.append(" ");
+            modulesView.append(displayModuleArchive.toString());
             modulesView.append("\n");
         }
+
+
+        //module_times
+        TextView moduletimesView = (TextView)findViewById(R.id.moduletimeview);
+
+        Cursor cursorModuleTime = getModuleTimes();
+
+        while (cursorModuleTime.moveToNext()) {
+            Integer displayModuleTimeId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayModuleTimeId.toString());
+
+            /*
+            String displayDay = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_DAY));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayDay);
+            */
+
+            String displayStartTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayStartTime);
+
+            String displayEndTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayEndTime);
+
+            Integer displayNotificationStatus = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayNotificationStatus.toString());
+
+            Integer displayModuleTimeModuleId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
+            moduletimesView.append(" ");
+            moduletimesView.append(displayModuleTimeModuleId.toString());
+
+            moduletimesView.append("\n");
+        }
+
 
         //audio filenames
         TextView audiofilenamesView = (TextView)findViewById(R.id.audiofilenamesview);
@@ -62,7 +103,32 @@ public class TestActivity extends Activity {
             audiofilenamesView.append(" ");
             System.out.println(displayAudioSessionId.toString());
             audiofilenamesView.append(displayAudioSessionId.toString());
+
             audiofilenamesView.append("\n");
+        }
+
+
+        //images
+        TextView imagesView = (TextView)findViewById(R.id.imageview);
+
+        Cursor cursorImage = getImages();
+
+        while (cursorImage.moveToNext()) {
+            Integer displayImageId = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            imagesView.append(" ");
+            imagesView.append(displayImageId.toString());
+
+            String displayImageFile = cursorImage.getString(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
+            imagesView.append(" ");
+            imagesView.append(displayImageFile);
+
+
+            Integer displayImageSession = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
+            imagesView.append(" ");
+            imagesView.append(displayImageSession.toString());
+
+
+            imagesView.append("\n");
         }
 
 
@@ -98,28 +164,6 @@ public class TestActivity extends Activity {
             sessionsView.append("\n");
         }
 
-        //images
-        TextView imagesView = (TextView)findViewById(R.id.imageview);
-
-        Cursor cursorImage = getImages();
-
-        while (cursorImage.moveToNext()) {
-            Integer displayImageId = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
-            imagesView.append(" ");
-            imagesView.append(displayImageId.toString());
-
-            String displayImageFile = cursorImage.getString(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
-            imagesView.append(" ");
-            imagesView.append(displayImageFile);
-
-
-            Integer displayImageSession = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
-            imagesView.append(" ");
-            imagesView.append(displayImageSession.toString());
-
-
-            imagesView.append("\n");
-        }
 
         //folders
         TextView foldersView = (TextView)findViewById(R.id.foldersview);
@@ -144,39 +188,6 @@ public class TestActivity extends Activity {
             foldersView.append("\n");
         }
 
-        //module_times
-        TextView moduletimesView = (TextView)findViewById(R.id.moduletimeview);
-
-        Cursor cursorModuleTime = getModuleTimes();
-
-        while (cursorModuleTime.moveToNext()) {
-            Integer displayModuleTimeId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
-            moduletimesView.append(" ");
-            moduletimesView.append(displayModuleTimeId.toString());
-
-            /*
-            String displayDay = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_DAY));
-            moduletimesView.append(" ");
-            moduletimesView.append(displayDay);
-            */
-
-            String displayStartTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
-            moduletimesView.append(" ");
-            moduletimesView.append(displayStartTime);
-
-            String displayEndTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
-            moduletimesView.append(" ");
-            moduletimesView.append(displayEndTime);
-
-            /*
-            Integer displayModuleTimeModule = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
-            moduletimesView.append(" ");
-            moduletimesView.append(displayModuleTimeModule.toString());
-
-            */
-            moduletimesView.append("\n");
-        }
-
     }
 
 
@@ -184,18 +195,53 @@ public class TestActivity extends Activity {
 
     //MODULES
     private Cursor getModules() {
-        // Run query
+
         Uri uri = DBProvider.MODULE_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
-                                                dbHelper.COLUMN_MODULE_NAME
-                                            };
+                                                dbHelper.COLUMN_MODULE_NAME,
+                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
 
-        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
         return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
 
+    private Cursor getModulesById(Integer moduleId) {
+
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
+                                                dbHelper.COLUMN_MODULE_NAME,
+                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
+        String selection = dbHelper.COLUMN_MODULE_ID + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonModuleById(View view) {
+        //modules by module id
+        TextView modulesByIdView = (TextView)findViewById(R.id.modulesbyidview);
+        modulesByIdView.setText("");
+
+        //Cursor cursorModuleById = getModulesById(2);
+        Cursor cursorModuleById = getModulesById(Integer.parseInt(((EditText)findViewById(R.id.module_id_edittext)).getText().toString())); //static module_id
+
+        while (cursorModuleById.moveToNext()) {
+            Integer displaymoduleId = cursorModuleById.getInt(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            modulesByIdView.append(" ");
+            modulesByIdView.append(displaymoduleId.toString());
+
+            String displayModule = cursorModuleById.getString(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
+            modulesByIdView.append(" ");
+            modulesByIdView.append(displayModule);
+
+            Integer displayModuleArchive = cursorModuleById.getInt(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_ARCHIVE));
+            modulesByIdView.append(" ");
+            modulesByIdView.append(displayModuleArchive.toString());
+            modulesByIdView.append("\n");
+        }
     }
 
     public void addModule(View view) {
@@ -203,15 +249,14 @@ public class TestActivity extends Activity {
         ContentValues values = new ContentValues();
 
         values.put(DBHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.add_module_edittext)).getText().toString() );
+        values.put(DBHelper.COLUMN_MODULE_ARCHIVE, 0 );
 
         Uri uri = getContentResolver().insert(DBProvider.MODULE_URI, values);
         retrieveModules(view);
     }
 
     public void deleteButtonModule(View view) {
-        System.out.println("second function");
         deleteModule(0);
-        System.out.println("nearly end of function");
         retrieveModules(view);
     }
 
@@ -220,7 +265,7 @@ public class TestActivity extends Activity {
         Cursor cursorModuleDelete;
 
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID };
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID   };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = dbHelper.COLUMN_MODULE_ID + " DESC";
@@ -232,20 +277,17 @@ public class TestActivity extends Activity {
             cursorModuleDelete.moveToFirst();
 
             Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
-            System.out.println("The last id is: " + lastModuleid);
 
             String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleid)};
-            System.out.println("The selectargs_2 is: " + selectionArgs_2[0]);
 
             int rowDeleteModule = getContentResolver().delete(DBProvider.MODULE_URI, selection_2, selectionArgs_2);
 
         }
-        System.out.println("end of function");
     }
 
     public void editButtonModule(View view) {
-        editModule("E", 0, 1);
+        editModule("E", 0, 1); //these value are NOT used
         retrieveModules(view);
     }
 
@@ -265,7 +307,8 @@ public class TestActivity extends Activity {
         //using my dummy data
         Uri uri = DBProvider.MODULE_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
-                                                dbHelper.COLUMN_MODULE_NAME  };
+                                                dbHelper.COLUMN_MODULE_NAME,
+                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = dbHelper.COLUMN_MODULE_ID + " DESC";
@@ -280,6 +323,8 @@ public class TestActivity extends Activity {
 
             ContentValues values = new ContentValues();
             values.put(dbHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.edit_module_edittext)).getText().toString() ); // module parameter
+            values.put(dbHelper.COLUMN_MODULE_ARCHIVE, Integer.parseInt(((EditText)findViewById(R.id.is_archive_edittext)).getText().toString()) ); // module parameter
+
             String selection_2 = dbHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(editModuleid)};
 
@@ -294,29 +339,273 @@ public class TestActivity extends Activity {
         startActivity(intent);
     }
 
-    //audio
-    private Cursor getAudio() {
-        // Run query
-        Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
-                dbHelper.COLUMN_AUDIO_NAME,
-                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN
-        };
-        String selection = null;                //according to session_id = ? !!!!!!!
-        String[] selectionArgs = null;          //according to session_id variable !!!!!!!
+
+    //moduletimes
+    public void addModuleTime(View view) {
+        ContentValues values = new ContentValues();
+        //Integer module_time_module_id = 3;
+        //Integer notification = 1;
+        Integer day = 2;
+        //String start_time = "11:00:00"; //HH:MM:SS
+        //String end_time = "13:00:00"; //HH:MM:SS
+
+        values.put(DBHelper.COLUMN_MODULE_TIME_DAY, day );
+        values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, ((EditText)findViewById(R.id.add_module_time_start_edittext)).getText().toString() );
+        values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, ((EditText)findViewById(R.id.add_module_time_end_edittext)).getText().toString() );
+        values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, Integer.parseInt(((EditText)findViewById(R.id.add_module_time_notification_edittext)).getText().toString()) );
+        values.put(DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_module_time_module_id_edittext)).getText().toString()) );
+
+        Uri uri = getContentResolver().insert(DBProvider.MODULE_TIME_URI, values);
+        retrieveModuleTimes(view);
+    }
+
+    private Cursor getModuleTimes() {
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
+                                                dbHelper.COLUMN_MODULE_TIME_DAY,
+                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
+                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String selection = null;                //module_id = ?
+        String[] selectionArgs = null;          //module_id
+        String sortOrder = null;
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    private Cursor getModuleTimesByModuleId(Integer moduleId) {
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
+                                                dbHelper.COLUMN_MODULE_TIME_DAY,
+                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
+                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String selection =  dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
         return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
     }
 
+    public void getButtonModuleTimeModuleById(View view) {
+        //module times by module id
+        TextView moduleTimeModulesByIdView = (TextView)findViewById(R.id.moduletimemodulebyidview);
+        moduleTimeModulesByIdView.setText("");
+
+        Cursor cursorModuleTimeModuleById = getModuleTimesByModuleId(Integer.parseInt(((EditText)findViewById(R.id.module_time_module_id_edittext)).getText().toString())); //static module_id
+
+        while (cursorModuleTimeModuleById.moveToNext()) {
+            Integer displayModuleTimeModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            moduleTimeModulesByIdView.append(" ");
+            moduleTimeModulesByIdView.append(displayModuleTimeModuleId.toString());
+
+            String displayModuleTimeStartTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
+            moduleTimeModulesByIdView.append(" ");
+            moduleTimeModulesByIdView.append(displayModuleTimeStartTime);
+
+            String displayModuleTimeEndTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
+            moduleTimeModulesByIdView.append(" ");
+            moduleTimeModulesByIdView.append(displayModuleTimeEndTime);
+
+            Integer displayNotificationStatus = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION));
+            moduleTimeModulesByIdView.append(" ");
+            moduleTimeModulesByIdView.append(displayNotificationStatus.toString());
+
+            Integer displayModuleTimeByModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
+            moduleTimeModulesByIdView.append(" ");
+            moduleTimeModulesByIdView.append(displayModuleTimeByModuleId.toString());
+
+            moduleTimeModulesByIdView.append("\n");
+        }
+    }
+
+    public void deleteButtonModuleTime(View view) {
+        deleteModuleTime(0);
+        retrieveModuleTimes(view);
+    }
+
+    public void deleteModuleTime(Integer deleteId) {
+
+        Cursor cursorModuleTimeDelete;
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
+
+        cursorModuleTimeDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (cursorModuleTimeDelete.getCount() != 0) {
+
+            cursorModuleTimeDelete.moveToFirst();
+
+            Integer lastModuleTimeid = cursorModuleTimeDelete.getInt(cursorModuleTimeDelete.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+
+            String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleTimeid)};
+
+            int rowDeleteModuleTime = getContentResolver().delete(DBProvider.MODULE_TIME_URI, selection_2, selectionArgs_2);
+
+        }
+    }
+
+    public void editButtonModuleTime(View view) {
+        editModuleTime(2, "15:00", "16:00", 0);
+        retrieveModuleTimes(view);
+    }
+
+    public void editModuleTime(Integer moduleTimeId, String sTime, String eTime, Integer notification) {
+
+        Cursor cursorEditModuleTime;
+
+        //using in real app and change the fields accordingly to the table
+        /*
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
+        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+        */
+
+        //using my dummy data
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
+                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION    };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
+
+        cursorEditModuleTime = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (cursorEditModuleTime.getCount() != 0) {
+
+            cursorEditModuleTime.moveToFirst();
+
+            Integer editModuleTimeid = cursorEditModuleTime.getInt(cursorEditModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+
+            String startEditText = ((EditText)findViewById(R.id.edit_module_time_start_edittext)).getText().toString();
+            String endEditText = ((EditText)findViewById(R.id.edit_module_time_end_edittext)).getText().toString();
+            Integer notificationText = Integer.parseInt(((EditText)findViewById(R.id.edit_module_time_notification_edittext)).getText().toString() );
+
+            ContentValues values = new ContentValues();
+
+            if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+            } else
+            if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+            } else
+            if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+            } else
+            if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+            } else
+            if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+            } else
+            if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+            } else
+            if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+            } else
+            if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
+                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+            }
+
+            String selection_2 = dbHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(editModuleTimeid)};
+
+            int rowEditModuleTime = getContentResolver().update(DBProvider.MODULE_TIME_URI, values, selection_2, selectionArgs_2);
+        }
+
+    }
+
+    public void retrieveModuleTimes(View view) {
+        Intent intent_module_time = getIntent();
+        finish();
+        startActivity(intent_module_time);
+    }
+
+
+    //audio
+    private Cursor getAudio() {
+        // Run query
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
+                                                dbHelper.COLUMN_AUDIO_NAME,
+                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    //audio
+    private Cursor getAudioBySessionId(Integer sessionId) {
+        // Run query
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
+                                                dbHelper.COLUMN_AUDIO_NAME,
+                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonAudioBySessionId(View view) {
+
+        TextView audiofilenamesbySessionIdView = (TextView)findViewById(R.id.audiofilenamesbysessionidview);
+        audiofilenamesbySessionIdView.setText("");
+
+        Cursor cursorAudiobySessionId = getAudioBySessionId(Integer.parseInt(((EditText)findViewById(R.id.get_audio_filename_session_id)).getText().toString()) );
+
+        while (cursorAudiobySessionId.moveToNext()) {
+            Integer displayAudioId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioId.toString());
+
+            String displayAudioFilename = cursorAudiobySessionId.getString(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_NAME));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioFilename);
+
+            Integer displayAudioSessionId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioSessionId.toString());
+
+            audiofilenamesbySessionIdView.append("\n");
+        }
+
+    }
+
     public void saveAudio(View view) {
 
-        Integer audio_session_id = 1;
-
         ContentValues values = new ContentValues();
+        String audio_name = "audio-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
+        //Integer audio_session_id = 1;
 
-        values.put(DBHelper.COLUMN_AUDIO_NAME, ((EditText)findViewById(R.id.add_audio_filename)).getText().toString() );
-        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, audio_session_id );
+        values.put(DBHelper.COLUMN_AUDIO_NAME, audio_name );
+        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_audio_filename_session_id)).getText().toString()) );
 
         Uri uri = getContentResolver().insert(DBProvider.AUDIO_URI, values);
         retrieveAudioFilenames(view);
@@ -359,11 +648,79 @@ public class TestActivity extends Activity {
         startActivity(intent_audio);
     }
 
+
+    //image
+    public void captureImage(View view) {
+
+        ContentValues values = new ContentValues();
+        Integer image_session_id = 1;
+        String image_name = "image-2014_12_06-01_14_22";
+
+        values.put(DBHelper.COLUMN_IMAGE_FILE, image_name );
+        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, image_session_id );
+
+        Uri uri = getContentResolver().insert(DBProvider.IMAGE_URI, values);
+        retrieveImages(view);
+    }
+
+    private Cursor getImages() {
+        // Run query
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
+                dbHelper.COLUMN_IMAGE_FILE,
+                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN
+        };
+        String selection = null;                //according to session_id = ?
+        String[] selectionArgs = null;          //according to session_id variable
+        String sortOrder = null;
+
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void deleteButtonImage(View view) {
+        deleteImage(0);
+        retrieveImages(view);
+    }
+
+    public void deleteImage(Integer deleteId) {
+
+        Cursor cursorImageDelete;
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_IMAGE_ID + " DESC";
+
+        cursorImageDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (cursorImageDelete.getCount() != 0) {
+
+            cursorImageDelete.moveToFirst();
+
+            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+
+            String selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastImageid)};
+
+            int rowDeleteImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
+
+        }
+    }
+
+    public void retrieveImages(View view) {
+        Intent intent_image = getIntent();
+        finish();
+        startActivity(intent_image);
+    }
+
+
     //session
     public void newSession(View view) {
 
         ContentValues values = new ContentValues();
-        String session_name = "audio-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
+        String session_name = "session-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
         Integer module = 4;
         Integer folder = 3;
 
@@ -379,10 +736,10 @@ public class TestActivity extends Activity {
         // Run query
         Uri uri = DBProvider.SESSION_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                dbHelper.COLUMN_SESSION_NAME,
-                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
-                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN
-        };
+                                                dbHelper.COLUMN_SESSION_NAME,
+                                                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
+                                                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN
+                                        };
         String selection = null;                //according to module_id = ?
         String[] selectionArgs = null;          //according to module_id variable
         String sortOrder = null;
@@ -473,71 +830,6 @@ public class TestActivity extends Activity {
         startActivity(intent_session);
     }
 
-    //image
-    public void captureImage(View view) {
-
-        ContentValues values = new ContentValues();
-        Integer image_session_id = 1;
-        String image_name = "image-2014_12_06-01_14_22";
-
-        values.put(DBHelper.COLUMN_IMAGE_FILE, image_name );
-        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, image_session_id );
-
-        Uri uri = getContentResolver().insert(DBProvider.IMAGE_URI, values);
-        retrieveImages(view);
-    }
-
-    private Cursor getImages() {
-        // Run query
-        Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
-                dbHelper.COLUMN_IMAGE_FILE,
-                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN
-        };
-        String selection = null;                //according to session_id = ?
-        String[] selectionArgs = null;          //according to session_id variable
-        String sortOrder = null;
-
-        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
-        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    }
-
-    public void deleteButtonImage(View view) {
-        deleteImage(0);
-        retrieveImages(view);
-    }
-
-    public void deleteImage(Integer deleteId) {
-
-        Cursor cursorImageDelete;
-
-        Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_IMAGE_ID + " DESC";
-
-        cursorImageDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-
-        if (cursorImageDelete.getCount() != 0) {
-
-            cursorImageDelete.moveToFirst();
-
-            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
-
-            String selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
-            String[] selectionArgs_2 = new String[]{Integer.toString(lastImageid)};
-
-            int rowDeleteImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
-
-        }
-    }
-
-    public void retrieveImages(View view) {
-        Intent intent_image = getIntent();
-        finish();
-        startActivity(intent_image);
-    }
 
     //folder
     public void createFolder(View view) {
@@ -723,162 +1015,7 @@ public class TestActivity extends Activity {
         startActivity(intent_folder);
     }
 
-    //moduletimes
-    public void addModuleTime(View view) {
-        ContentValues values = new ContentValues();
-        Integer module_time_module_id = 3;
-        Integer notification = 1;
-        Integer day = 2;
-        String start_time = "11:00:00"; //HH:MM:SS
-        String end_time = "13:00:00"; //HH:MM:SS
 
-        values.put(DBHelper.COLUMN_MODULE_TIME_DAY, day );
-        values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, start_time );
-        values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, end_time );
-        values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, notification );
-        values.put(DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN, module_time_module_id );
-
-        Uri uri = getContentResolver().insert(DBProvider.MODULE_TIME_URI, values);
-        retrieveModuleTimes(view);
-    }
-
-    private Cursor getModuleTimes() {
-        // Run query
-        Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
-                dbHelper.COLUMN_MODULE_TIME_DAY,
-                dbHelper.COLUMN_MODULE_TIME_START_TIME,
-                dbHelper.COLUMN_MODULE_TIME_END_TIME,
-                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
-                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN
-        };
-        String selection = null;                //according to module_id = ?
-        String[] selectionArgs = null;          //according to module_id variable
-        String sortOrder = null;
-
-        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
-        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    }
-
-    public void deleteButtonModuleTime(View view) {
-        deleteModuleTime(0);
-        retrieveModuleTimes(view);
-    }
-
-    public void deleteModuleTime(Integer deleteId) {
-
-        Cursor cursorModuleTimeDelete;
-
-        Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
-
-        cursorModuleTimeDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-
-        if (cursorModuleTimeDelete.getCount() != 0) {
-
-            cursorModuleTimeDelete.moveToFirst();
-
-            Integer lastModuleTimeid = cursorModuleTimeDelete.getInt(cursorModuleTimeDelete.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
-
-            String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
-            String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleTimeid)};
-
-            int rowDeleteModuleTime = getContentResolver().delete(DBProvider.MODULE_TIME_URI, selection_2, selectionArgs_2);
-
-        }
-    }
-
-    public void editButtonModuleTime(View view) {
-        editModuleTime(2, "15:00", "16:00", 0);
-        retrieveModuleTimes(view);
-    }
-
-    public void editModuleTime(Integer moduleTimeId, String sTime, String eTime, Integer notification) {
-
-        Cursor cursorEditModuleTime;
-
-        //using in real app and change the fields accordingly to the table
-        /*
-        Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
-        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
-        String sortOrder = null;
-        */
-
-        //using my dummy data
-        Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
-                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION    };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
-
-        cursorEditModuleTime = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-
-        if (cursorEditModuleTime.getCount() != 0) {
-
-            cursorEditModuleTime.moveToFirst();
-
-            Integer editModuleTimeid = cursorEditModuleTime.getInt(cursorEditModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
-
-            String startEditText = ((EditText)findViewById(R.id.edit_module_time_start_edittext)).getText().toString();
-            String endEditText = ((EditText)findViewById(R.id.edit_module_time_end_edittext)).getText().toString();
-            Integer notificationText = Integer.parseInt(((EditText)findViewById(R.id.edit_module_time_notification_edittext)).getText().toString() );
-
-            ContentValues values = new ContentValues();
-
-            if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
-            } else
-                if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
-                    values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
-                } else
-                    if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
-                        values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                        values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
-                    } else
-                        if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
-                            values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                            values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
-                        } else
-                            if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
-                                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
-                            } else
-                                if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
-                                    values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                                    values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
-                                } else
-                                    if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
-                                        values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                                        values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                                        values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
-                                    } else
-                                        if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
-                                            values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                                            values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                                            values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
-                                        }
-
-            String selection_2 = dbHelper.COLUMN_MODULE_TIME_ID + " = ?";
-            String[] selectionArgs_2 = new String[]{Integer.toString(editModuleTimeid)};
-
-            int rowEditModuleTime = getContentResolver().update(DBProvider.MODULE_TIME_URI, values, selection_2, selectionArgs_2);
-        }
-
-    }
-
-    public void retrieveModuleTimes(View view) {
-        Intent intent_module_time = getIntent();
-        finish();
-        startActivity(intent_module_time);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
