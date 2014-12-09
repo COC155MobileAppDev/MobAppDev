@@ -7,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.CustomExtensions.ModuleTimeAdapter;
-import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.DataTypes.Time;
 import com.example.team05.lecturec.R;
@@ -23,15 +21,20 @@ import com.example.team05.lecturec.R;
 import java.util.ArrayList;
 
 
-public class ModuletimeFragment extends Fragment
-        implements View.OnClickListener {
+public class ModuletimeFragment extends Fragment {
 
     private OnModuletimeFragmentInteractionListener mListener;
 
+    private NewmoduleActivity parentActivity;
+
+    int day;
     ModuleTimeAdapter moduleTimeAdapter;
 
     private FrameLayout mtFragmentLayout;
     private ListView lView;
+    private Button addNewTimeButton;
+
+    private int newModuleTimeCounter = 0;
 
     private ArrayList<ModuleTime> moduleTimes;
 
@@ -43,8 +46,7 @@ public class ModuletimeFragment extends Fragment
     public static ModuletimeFragment newInstance(String param1, String param2) {
         ModuletimeFragment fragment = new ModuletimeFragment();
         Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
+        //put stuff in bundle if needed
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,19 +55,15 @@ public class ModuletimeFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        */
+        parentActivity = (NewmoduleActivity)getActivity();
 
         Bundle bundle = getArguments();
 
+        day = bundle.getInt("day");
         moduleTimes = (ArrayList<ModuleTime>)bundle.get("moduleTimes");
 
+        System.out.println("Day val: " + day);
         System.out.println("Number of mTimes = " + moduleTimes.size());
-
 
     }
 
@@ -86,16 +84,51 @@ public class ModuletimeFragment extends Fragment
 
         View mtListHeader = (View)inflater.inflate(R.layout.listview_header_moduletime, null);
         lView.addHeaderView(mtListHeader);
+        View mtListFooter = (View)inflater.inflate(R.layout.listview_footer_moduletime, null);
+        lView.addFooterView(mtListFooter);
 
         lView.setAdapter(moduleTimeAdapter);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("called");
+
+                switch (v.getId()) {
+                    case R.id.addNewTimeBtn:
+                        addNewModuleTime(v);
+                        break;
+                }
+
+
+            }
+        };
+
+        addNewTimeButton = (Button)mtFragmentLayout.findViewById(R.id.addNewTimeBtn);
+        addNewTimeButton.setOnClickListener(onClickListener);
+
 
         // Inflate the layout for this fragment
         return mtFragmentLayout;
     }
 
-    @Override
-    public void onClick(View v){
 
+    private void addNewModuleTime(View v){
+
+        System.out.println("addNewModuleTime called");
+
+        System.out.println("old val of newModuleCounter: " + newModuleTimeCounter);
+
+        Time defaultTime = new Time(0, 0, 0);
+
+        ModuleTime newModuleTime = new ModuleTime(newModuleTimeCounter--, day, defaultTime, defaultTime, true );
+
+        System.out.println("new val of newModuleCounter: " + newModuleTimeCounter);
+
+        moduleTimes.add(newModuleTime);
+
+        moduleTimeAdapter.notifyDataSetChanged();
 
 
     }
@@ -136,6 +169,18 @@ public class ModuletimeFragment extends Fragment
         System.out.println("index of notify selected module in parent list is: " + index);
 
         moduleTimes.get(index).setNotification(checked);
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setModuleTimeDeletion(ModuleTime selectedModuleTime){
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+
+        parentActivity.addToDeleteList(moduleTimes.get(index));
+
+        moduleTimes.remove(index);
 
         moduleTimeAdapter.notifyDataSetChanged();
 

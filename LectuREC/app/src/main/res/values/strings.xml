@@ -63,7 +63,12 @@
     <string name="create_folder_hint">Folder Name</string>
     <string name="create_folder_text">Create Folder</string>
 
-    <string name="add_module_time_text">Add Module Time</string>
+    <string name="delete_text">Delete</string>
+    <string name="add_module_time">Add Module Time +</string>
+    <string name="save_text">SAVE</string>
 
+
+
+    <string name="add_module_time_text">Add Module Time</string>
 
 </resources>

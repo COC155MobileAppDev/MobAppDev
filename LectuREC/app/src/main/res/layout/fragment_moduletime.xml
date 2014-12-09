@@ -4,18 +4,9 @@
     android:layout_height="wrap_content"
     tools:context="com.example.team05.lecturec.ViewControllers.ModuletimeFragment">
 
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/moduleTimeListView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-        
-        <ListView
-            android:id="@+id/moduleTimeListView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

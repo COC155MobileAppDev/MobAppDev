@@ -8,6 +8,14 @@
 
 
     <TextView
+        android:id="@+id/deleteHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Delete"
+        android:layout_weight="1" />
+
+    <TextView
         android:id="@+id/startHeader"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

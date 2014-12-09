@@ -4,6 +4,15 @@
     android:layout_height="fill_parent"
     android:layout_weight="3">
 
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#aaff0000"
+        android:text="@string/delete_text" />
+
     <Button
         android:id="@+id/startTimeBtn"
         android:layout_width="wrap_content"

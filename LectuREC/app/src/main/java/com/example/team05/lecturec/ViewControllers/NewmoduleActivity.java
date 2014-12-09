@@ -28,6 +28,7 @@ import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -49,6 +50,10 @@ public class NewmoduleActivity extends FragmentActivity
     private ArrayList<ModuleTime> satMTs = new ArrayList<ModuleTime>();
     private ArrayList<ModuleTime> sunMTs = new ArrayList<ModuleTime>();
 
+    private ArrayList<ModuleTime> newMTs = new ArrayList<ModuleTime>();
+    private ArrayList<ModuleTime> editedMTs = new ArrayList<ModuleTime>();
+    private ArrayList<ModuleTime> deletingMTs = new ArrayList<ModuleTime>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +61,8 @@ public class NewmoduleActivity extends FragmentActivity
         setContentView(R.layout.activity_newmodule);
 
         ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-        setupModuleTimeStores(mList.get(0));
+        currentModule = mList.get(0);
+        setupModuleTimeStores();
 
         setupTabsWithFragments();
 
@@ -64,13 +70,8 @@ public class NewmoduleActivity extends FragmentActivity
 
     }
 
-
-
-
-
-    public void setupModuleTimeStores(Module cm){
-
-        currentModule = cm;
+    //Populating ArrayList<ModuleTime> by day
+    private void setupModuleTimeStores(){
 
         System.out.println("mList Hi " + currentModule.getName());
 
@@ -106,7 +107,8 @@ public class NewmoduleActivity extends FragmentActivity
 
     }
 
-    public void setupTabsWithFragments(){
+    //Setting up tabbed fragments and relative data
+    private void setupTabsWithFragments(){
 
         timeTabHost = (FragmentTabHost)findViewById(R.id.timeTabHost);
         timeTabHost.setup(this, getSupportFragmentManager(), R.id.timeTabContent);
@@ -114,30 +116,35 @@ public class NewmoduleActivity extends FragmentActivity
 
         Intent intent = new Intent(getApplicationContext(), ModuletimeFragment.class);
 
-
+        intent.putExtra("day", 0);
         intent.putExtra("moduleTimes", monMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Mon").setIndicator("Mon", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 1);
         intent.putExtra("moduleTimes", tueMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Tue").setIndicator("Tue", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 2);
         intent.putExtra("moduleTimes", wedMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Wed").setIndicator("Wed", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 3);
         intent.putExtra("moduleTimes", thuMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Thu").setIndicator("Thu", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 4);
         intent.putExtra("moduleTimes", friMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Fri").setIndicator("Fri", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 5);
         intent.putExtra("moduleTimes", satMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Sat").setIndicator("Sat", null), ModuletimeFragment.class, intent.getExtras());
 
+        intent.putExtra("day", 6);
         intent.putExtra("moduleTimes", sunMTs);
         timeTabHost.addTab(timeTabHost.newTabSpec("Sun").setIndicator("Sun", null), ModuletimeFragment.class, intent.getExtras());
 
     }
-
 
 
     @Override
@@ -165,6 +172,35 @@ public class NewmoduleActivity extends FragmentActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void addToNewList(ModuleTime mt){
+
+
+
+    }
+
+    public void addToEditList(ModuleTime mt, int day){
+
+
+
+    }
+
+
+    public void addToDeleteList(ModuleTime deletingMT){
+
+        boolean found = false;
+
+        for (ModuleTime mtFinder:allMTs){
+            if (mtFinder.getID() == deletingMT.getID()) found = true;
+        }
+
+        if (found) deletingMTs.add(deletingMT);
+
+        System.out.println("The deleting ID is: " + deletingMT.getID());
+
     }
 
 

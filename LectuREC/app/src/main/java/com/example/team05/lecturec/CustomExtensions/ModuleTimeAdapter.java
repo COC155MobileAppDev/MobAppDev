@@ -55,53 +55,60 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.startTimeBtn)
-                    showTimePickerDialog(v, moduleTime);
-                if (v.getId() == R.id.endTimeBtn)
-                    showTimePickerDialog(v, moduleTime);
-                if (v.getId() == R.id.notifySwitch)
-                    parentFragment.setModuleTimeNotifyState(moduleTime, ((Switch)v).isChecked());
+
+                switch (v.getId()){
+                    case R.id.startTimeBtn:
+                        showTimePickerDialog(v, moduleTime);
+                        break;
+                    case R.id.endTimeBtn:
+                        showTimePickerDialog(v, moduleTime);
+                        break;
+                    case R.id.notifySwitch:
+                        parentFragment.setModuleTimeNotifyState(moduleTime, ((Switch)v).isChecked());
+                        break;
+                    case R.id.deleteBtn:
+                        parentFragment.setModuleTimeDeletion(moduleTime);
+                        break;
+                }
+
             }
         };
 
 
-        if (row == null){
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-            LayoutInflater inflater = LayoutInflater.from(context);
-            row = inflater.inflate(layoutResourceID, parent, false);
+        if (row == null) row = inflater.inflate(layoutResourceID, parent, false);
+        else holder = (RowHolder)row.getTag();
+
+        holder = new RowHolder();
+        holder.startTimeButton = (Button)row.findViewById(R.id.startTimeBtn);
+        holder.startTimeButton.setOnClickListener(onClickListener);
+
+        holder.endTimeButton = (Button)row.findViewById(R.id.endTimeBtn);
+        holder.endTimeButton.setOnClickListener(onClickListener);
+
+        holder.notifySwitch = (Switch)row.findViewById(R.id.notifySwitch);
+        holder.notifySwitch.setOnClickListener(onClickListener);
+
+        holder.deleteButton = (Button)row.findViewById(R.id.deleteBtn);
+        holder.deleteButton.setOnClickListener(onClickListener);
 
 
-            holder = new RowHolder();
-            holder.startTimeButton = (Button)row.findViewById(R.id.startTimeBtn);
-            holder.startTimeButton.setOnClickListener(onClickListener);
-
-            holder.endTimeButton = (Button)row.findViewById(R.id.endTimeBtn);
-            holder.endTimeButton.setOnClickListener(onClickListener);
-
-            holder.notifySwitch = (Switch)row.findViewById(R.id.notifySwitch);
-            holder.notifySwitch.setOnClickListener(onClickListener);
+        row.setTag(holder);
 
 
-            row.setTag(holder);
 
-        }else {
+        int hours;
+        int minutes;
 
-            holder = (RowHolder)row.getTag();
+        hours = moduleTime.getStart().getHours();
+        minutes = moduleTime.getStart().getMinutes();
+        holder.startTimeButton.setText(String.format("%02d:%02d", hours, minutes));
 
-        }
+        hours = moduleTime.getEnd().getHours();
+        minutes = moduleTime.getEnd().getMinutes();
 
-        String hours;
-        String minutes;
-
-        hours = Integer.toString(moduleTime.getStart().getHours());
-        minutes = Integer.toString(moduleTime.getStart().getMinutes());
-
-        holder.startTimeButton.setText(hours + ":" + minutes);
-
-        hours = Integer.toString(moduleTime.getEnd().getHours());
-        minutes = Integer.toString(moduleTime.getEnd().getMinutes());
-
-        holder.endTimeButton.setText(hours + ":" + minutes);
+        holder.endTimeButton.setText(String.format("%02d:%02d", hours, minutes));
 
         holder.notifySwitch.setChecked(moduleTime.getNotificationState());
 
@@ -116,6 +123,8 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
         Button startTimeButton;
         Button endTimeButton;
         Switch notifySwitch;
+
+        Button deleteButton;
 
     }
 

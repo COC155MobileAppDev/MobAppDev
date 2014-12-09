@@ -1,30 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
     tools:ignore="MergeRootFrame" >
 
-
-
-    <TextView android:text="@string/moduleName"
+    <TextView
+        android:id="@+id/moduleNameLabel"
+        android:text="@string/moduleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:id="@+id/moduleEditField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText" />
+        android:layout_below="@+id/moduleNameLabel"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/moduleNameDisplay"
+        android:text="@string/moduleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moduleEditField"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <Button
+        android:id="@+id/saveNewModuleBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save_text"
+        android:background="#aa42ff00" />
 
 
     <!-- Main Activity View's Content-->
     <android.support.v4.app.FragmentTabHost
         android:id="@+id/timeTabHost"
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_above="@id/saveNewModuleBtn"
+        android:layout_below="@+id/moduleNameDisplay">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -43,29 +66,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:layout_marginTop="50dp">
-
-
-
-            </FrameLayout>
-
-
+                android:layout_marginTop="50dp" />
 
         </LinearLayout>
 
     </android.support.v4.app.FragmentTabHost>
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:id="@+id/Save"/>
 
 
-
-
-
-</LinearLayout>
+</RelativeLayout>
 
 
 
