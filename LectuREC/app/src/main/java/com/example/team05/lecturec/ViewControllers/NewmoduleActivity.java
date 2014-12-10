@@ -1,28 +1,24 @@
 package com.example.team05.lecturec.ViewControllers;
 
-import android.app.Activity;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentTabHost;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
+
+
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
@@ -39,8 +35,18 @@ public class NewmoduleActivity extends FragmentActivity
 
     private FragmentTabHost timeTabHost;
 
+    private EditText moduleEditField;
+    private TextView moduleNameDisplay;
+
+    private Button deleteModuleButton;
+    private Button archiveModuleButton;
+    private Button saveModuleButton;
+
+
+
     private Module currentModule;
-    private ArrayList<ModuleTime> allMTs = new ArrayList<ModuleTime>();
+    private boolean moduleNameChange = false;
+    private ArrayList<ModuleTime> originalMTs = new ArrayList<ModuleTime>();
 
     private ArrayList<ModuleTime> monMTs = new ArrayList<ModuleTime>();
     private ArrayList<ModuleTime> tueMTs = new ArrayList<ModuleTime>();
@@ -51,6 +57,8 @@ public class NewmoduleActivity extends FragmentActivity
     private ArrayList<ModuleTime> sunMTs = new ArrayList<ModuleTime>();
 
     private ArrayList<ModuleTime> newMTs = new ArrayList<ModuleTime>();
+    private int newModuleTimeCounter = 0;
+
     private ArrayList<ModuleTime> editedMTs = new ArrayList<ModuleTime>();
     private ArrayList<ModuleTime> deletingMTs = new ArrayList<ModuleTime>();
 
@@ -60,13 +68,76 @@ public class NewmoduleActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newmodule);
 
-        ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-        currentModule = mList.get(0);
+        Bundle passedData = getIntent().getExtras();
+        newMode = passedData.getBoolean("newMode", true);
+
+
+        moduleNameDisplay = (TextView)findViewById(R.id.moduleNameDisplay);
+
+
+        deleteModuleButton = (Button)findViewById(R.id.deleteModuleBtn);
+        archiveModuleButton = (Button)findViewById(R.id.archiveModuleBtn);
+        saveModuleButton = (Button)findViewById(R.id.saveModuleBtn);
+
+
+        if (newMode) {
+
+            currentModule = new Module(-1, "");
+
+
+            setTitle("New Module");
+
+            deleteModuleButton.setVisibility(View.GONE);
+            archiveModuleButton.setVisibility(View.GONE);
+
+            LinearLayout.LayoutParams saveBtnLayoutParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+
+            saveModuleButton.setLayoutParams(saveBtnLayoutParam);
+
+        } else {
+
+            currentModule = (Module)passedData.getSerializable("currentModule");
+
+            setTitle("Edit \"" + currentModule.getName() + "\" Module");
+
+        }
+
+        setupModuleEditField();
+
         setupModuleTimeStores();
 
         setupTabsWithFragments();
 
-        //TODO find a way to store all edited mTimes and pull them back into this activity object store instance
+    }
+
+    private void setupModuleEditField(){
+
+        moduleEditField = (EditText)findViewById(R.id.moduleEditField);
+        moduleEditField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                moduleNameDisplay.setText(s);
+                currentModule.setName(s.toString());
+                moduleNameChange = true;
+                System.out.println("run");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+        });
+
+        if (newMode) moduleEditField.setText("");
+        else moduleEditField.setText(currentModule.getName());
+        moduleNameChange = false;
 
     }
 
@@ -75,9 +146,9 @@ public class NewmoduleActivity extends FragmentActivity
 
         System.out.println("mList Hi " + currentModule.getName());
 
-        allMTs = currentModule.getModuleTimes();
+        originalMTs = currentModule.getModuleTimes();
 
-        for (ModuleTime mt: allMTs){
+        for (ModuleTime mt: originalMTs){
 
             switch (mt.getDay()){
                 case 0:
@@ -147,6 +218,13 @@ public class NewmoduleActivity extends FragmentActivity
     }
 
 
+
+    //Counter value to temp set id for new moduleTime objects (always negative)
+    public int getNewModuleTimeCounter() {
+        return --newModuleTimeCounter;
+    }
+
+
     @Override
     public void onModuletimeFragmentInteraction(Uri uri) {
 
@@ -175,31 +253,109 @@ public class NewmoduleActivity extends FragmentActivity
     }
 
 
+    //UI Event handlers
+    public void onModuleSaveClick(View v){
 
+        if (newMode) DataManager.addNewModule(currentModule, newMTs);
+        else DataManager.editExistingModule(currentModule, moduleNameChange, newMTs, editedMTs, deletingMTs);
+
+    }
+
+    public void onModuleArchiveClick(View v){
+
+        DataManager.archiveExistingModule(currentModule);
+
+    }
+
+    public void onModuleDeleteClick(View v){
+
+        DataManager.deletingExistingModule(currentModule);
+
+    }
+
+
+
+    //Adding to MTs to add, edit, and deleting, such that on save, all these MT lists are passed to Data Manager
     public void addToNewList(ModuleTime mt){
+        
+        newMTs.add(mt);
 
+        System.out.println("NMActivty new added w/ id: " + mt.getID());
 
+        for (ModuleTime nMT:newMTs)
+            System.out.println("mt in new list id is: " + nMT.getID());
 
     }
 
-    public void addToEditList(ModuleTime mt, int day){
+    public void addToEditList(ModuleTime mt){
 
+        System.out.println("addToEditList called");
 
+        int mtID = mt.getID();
+
+        int index = -1;
+
+        if (mtID < 0){
+
+            for (ModuleTime findMT:newMTs) if (findMT.getID() == mtID) index = newMTs.indexOf(findMT);
+
+            System.out.println(String.format("New MT with id: %d and index of %d", mtID, index));
+
+            if (index >= 0) newMTs.set(index, mt);
+
+        } else if (mtID > 0){
+
+            for (ModuleTime findMT:editedMTs) if (findMT.getID() == mtID) index = editedMTs.indexOf(findMT);
+
+            System.out.println(String.format("Edit MT with id: %d and index of %d", mtID, index));
+
+            if (index >= 0) editedMTs.set(index, mt);
+            else editedMTs.add(mt);
+
+        }
+
+        for (ModuleTime eMT:editedMTs)
+            System.out.println("mt in edit list id is: " + eMT.getID());
 
     }
-
 
     public void addToDeleteList(ModuleTime deletingMT){
 
-        boolean found = false;
+        //TODO new vs existing module time
 
-        for (ModuleTime mtFinder:allMTs){
-            if (mtFinder.getID() == deletingMT.getID()) found = true;
+        int index = -1;
+
+        if (deletingMT.getID() > 0) {
+
+            for (ModuleTime mtFinder:editedMTs)
+                if (mtFinder.getID() == deletingMT.getID()) index = editedMTs.indexOf(mtFinder);
+
+
+            if (index >= 0)
+                editedMTs.remove(deletingMT);
+
+
+            originalMTs.remove(deletingMT);
+
+            deletingMTs.add(deletingMT);
+
+
+        } else if (deletingMT.getID() < 0){
+
+            for (ModuleTime mtFinder:newMTs)
+                if (mtFinder.getID() == deletingMT.getID()) index = newMTs.indexOf(mtFinder);
+
+            if (index >= 0)
+                newMTs.remove(deletingMT);
+
+
+
         }
 
-        if (found) deletingMTs.add(deletingMT);
-
         System.out.println("The deleting ID is: " + deletingMT.getID());
+
+        for (ModuleTime dMT:deletingMTs)
+            System.out.println("mt in deleting list id is: " + dMT.getID());
 
     }
 

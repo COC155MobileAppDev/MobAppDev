@@ -1,9 +1,11 @@
 package com.example.team05.lecturec.DataTypes;
 
+import java.io.Serializable;
+
 /**
  * Created by Johnbastian on 05/12/2014.
  */
-public class Time {
+public class Time implements Serializable {
 
     private int hours;
     private int minutes;

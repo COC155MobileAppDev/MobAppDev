@@ -48,17 +48,21 @@ public class TimePickerFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        Time time = new Time(hourOfDay, minute, 0);
+        if (view.isShown()) {
 
-        Button btn = ((Button) callerView);
+            Time time = new Time(hourOfDay, minute, 0);
 
-        switch (btn.getId()){
-            case R.id.startTimeBtn:
-                parentFragment.setModuleTimeStartTime(moduleTime, time);
-                break;
-            case R.id.endTimeBtn:
-                parentFragment.setModuleTimeEndTime(moduleTime, time);
-                break;
+            Button btn = ((Button) callerView);
+
+            switch (btn.getId()){
+                case R.id.startTimeBtn:
+                    parentFragment.setModuleTimeStartTime(moduleTime, time);
+                    break;
+                case R.id.endTimeBtn:
+                    parentFragment.setModuleTimeEndTime(moduleTime, time);
+                    break;
+            }
+
         }
 
     }

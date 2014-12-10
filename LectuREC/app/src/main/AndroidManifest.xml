@@ -50,7 +50,6 @@
         
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
-            android:label="@string/title_activity_newmodule"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data

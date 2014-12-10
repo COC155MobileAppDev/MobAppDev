@@ -114,63 +114,27 @@ public class ModuletimeFragment extends Fragment {
     }
 
 
+
+    //Add and delete module time managing methods
     private void addNewModuleTime(View v){
 
         System.out.println("addNewModuleTime called");
 
-        System.out.println("old val of newModuleCounter: " + newModuleTimeCounter);
+        //System.out.println("old val of newModuleCounter: " + );
 
         Time defaultTime = new Time(0, 0, 0);
 
-        ModuleTime newModuleTime = new ModuleTime(newModuleTimeCounter--, day, defaultTime, defaultTime, true );
+        ModuleTime newModuleTime =
+                new ModuleTime(parentActivity.getNewModuleTimeCounter(), day, defaultTime, defaultTime, true );
 
-        System.out.println("new val of newModuleCounter: " + newModuleTimeCounter);
+        //System.out.println("new val of newModuleCounter: " + newModuleTimeCounter);
 
         moduleTimes.add(newModuleTime);
 
-        moduleTimeAdapter.notifyDataSetChanged();
-
-
-    }
-
-
-    public void setModuleTimeStartTime(ModuleTime selectedModuleTime, Time time){
-
-        System.out.println("T1");
-
-        int index = moduleTimes.indexOf(selectedModuleTime);
-        //System.out.println("index of selected module in parent list is: " + index);
-
-        //System.out.println("New time = " + time.getHours() +":" + time.getMinutes());
-
-        moduleTimes.get(index).setStartTime(time);
+        parentActivity.addToNewList(newModuleTime);
 
         moduleTimeAdapter.notifyDataSetChanged();
 
-    }
-
-    public void setModuleTimeEndTime(ModuleTime selectedModuleTime, Time time){
-
-        System.out.println("T2");
-
-        int index = moduleTimes.indexOf(selectedModuleTime);
-
-        moduleTimes.get(index).setEndTime(time);
-
-        moduleTimeAdapter.notifyDataSetChanged();
-
-    }
-
-    public void setModuleTimeNotifyState(ModuleTime selectedModuleTime, boolean checked){
-
-        System.out.println("T3");
-
-        int index = moduleTimes.indexOf(selectedModuleTime);
-        System.out.println("index of notify selected module in parent list is: " + index);
-
-        moduleTimes.get(index).setNotification(checked);
-
-        moduleTimeAdapter.notifyDataSetChanged();
 
     }
 
@@ -186,6 +150,50 @@ public class ModuletimeFragment extends Fragment {
 
     }
 
+
+
+    //Data changing methods
+    public void setModuleTimeStartTime(ModuleTime selectedModuleTime, Time time){
+
+        System.out.println("T1");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+
+        moduleTimes.get(index).setStartTime(time);
+
+        parentActivity.addToEditList(moduleTimes.get(index));
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setModuleTimeEndTime(ModuleTime selectedModuleTime, Time time){
+
+        System.out.println("T2");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+
+        moduleTimes.get(index).setEndTime(time);
+
+        parentActivity.addToEditList(moduleTimes.get(index));
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setModuleTimeNotifyState(ModuleTime selectedModuleTime, boolean checked){
+
+        System.out.println("T3");
+
+        int index = moduleTimes.indexOf(selectedModuleTime);
+
+        moduleTimes.get(index).setNotification(checked);
+
+        parentActivity.addToEditList(moduleTimes.get(index));
+
+        moduleTimeAdapter.notifyDataSetChanged();
+
+    }
 
 
 
@@ -213,7 +221,6 @@ public class ModuletimeFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     public interface OnModuletimeFragmentInteractionListener {
         public void onModuletimeFragmentInteraction(Uri uri);

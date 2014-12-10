@@ -15,7 +15,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentTabHost;
 
+import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class MainActivity extends FragmentActivity
@@ -89,6 +94,9 @@ public class MainActivity extends FragmentActivity
             case 2:
                 mTitle = getString(R.string.newModuleMenu);
                 Intent newmoduleIntent = new Intent(this, NewmoduleActivity.class);
+                newmoduleIntent.putExtra("newMode", false);
+                ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+                newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
                 startActivity(newmoduleIntent);
                 break;
             case 3:

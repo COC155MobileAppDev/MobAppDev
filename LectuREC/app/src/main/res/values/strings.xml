@@ -45,15 +45,6 @@
     <string name="new_session_text">New Session</string>
     <string name="view_sessions_text">View Sessions</string>
 
-
-    <string name="title_activity_newmodule">NewmoduleActivity</string>
-
-
-    <string name="moduleName">Module Name</string>
-    <string name="change_time">Change the time</string>
-
-
-
     <string name="title_activity_test">TestActivity</string>
 
     <string name="capture_image_text">Capture Image</string>
@@ -63,6 +54,9 @@
     <string name="create_folder_hint">Folder Name</string>
     <string name="create_folder_text">Create Folder</string>
 
+
+    <string name="moduleName">Module Name:</string>
+    <string name="moduleNameHint">Enter Module Name</string>
     <string name="delete_text">Delete</string>
     <string name="add_module_time">Add Module Time +</string>
     <string name="save_text">SAVE</string>
