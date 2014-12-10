@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +84,35 @@ public class TestActivity extends Activity {
         }
 
 
+        //sessions
+        TextView sessionsView = (TextView)findViewById(R.id.sessionview);
+
+        Cursor cursorSession = getSessions();
+
+        while (cursorSession.moveToNext()) {
+            Integer displaySessionId = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            sessionsView.append(" ");
+            sessionsView.append(displaySessionId.toString());
+
+            String displaySessionName = cursorSession.getString(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_NAME));
+            sessionsView.append(" ");
+            sessionsView.append(displaySessionName);
+
+
+            Integer displaySessionModule = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
+            sessionsView.append(" ");
+            sessionsView.append(displaySessionModule.toString());
+
+
+            Integer displaySessionFolder = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
+            sessionsView.append(" ");
+            sessionsView.append(displaySessionFolder.toString());
+
+
+            sessionsView.append("\n");
+        }
+
+
         //audio filenames
         TextView audiofilenamesView = (TextView)findViewById(R.id.audiofilenamesview);
 
@@ -94,7 +124,7 @@ public class TestActivity extends Activity {
             System.out.println(displayAudioId.toString());
             audiofilenamesView.append(displayAudioId.toString());
 
-            String displayAudioFilename = cursorAudio.getString(cursorAudio.getColumnIndex(dbHelper.COLUMN_AUDIO_NAME));
+            String displayAudioFilename = cursorAudio.getString(cursorAudio.getColumnIndex(dbHelper.COLUMN_AUDIO_FILE));
             audiofilenamesView.append(" ");
             System.out.println(displayAudioFilename);
             audiofilenamesView.append(displayAudioFilename);
@@ -132,39 +162,6 @@ public class TestActivity extends Activity {
         }
 
 
-        //sessions
-        TextView sessionsView = (TextView)findViewById(R.id.sessionview);
-
-        Cursor cursorSession = getSessions();
-
-        while (cursorSession.moveToNext()) {
-            Integer displaySessionId = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
-            sessionsView.append(" ");
-            System.out.println(displaySessionId.toString());
-            sessionsView.append(displaySessionId.toString());
-
-            String displaySessionName = cursorSession.getString(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_NAME));
-            sessionsView.append(" ");
-            System.out.println(displaySessionName);
-            sessionsView.append(displaySessionName);
-
-            /*
-            Integer displaySessionModule = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
-            sessionsView.append(" ");
-            System.out.println(displaySessionModule.toString());
-            sessionsView.append(displaySessionModule.toString());
-            */
-
-            Integer displaySessionFolder = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
-            sessionsView.append(" ");
-            System.out.println(displaySessionFolder.toString());
-            sessionsView.append(displaySessionFolder.toString());
-
-
-            sessionsView.append("\n");
-        }
-
-
         //folders
         TextView foldersView = (TextView)findViewById(R.id.foldersview);
 
@@ -179,12 +176,11 @@ public class TestActivity extends Activity {
             foldersView.append(" ");
             foldersView.append(displayFolderName);
 
-            /*
             Integer displayFolderModule = cursorFolder.getInt(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
             foldersView.append(" ");
             foldersView.append(displayFolderModule.toString());
 
-            */
+
             foldersView.append("\n");
         }
 
@@ -278,12 +274,38 @@ public class TestActivity extends Activity {
 
             Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
 
+            deleteModuleWithModuleTimes(lastModuleid);
+
             String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleid)};
 
             int rowDeleteModule = getContentResolver().delete(DBProvider.MODULE_URI, selection_2, selectionArgs_2);
 
         }
+    }
+
+    public void deleteModuleWithModuleTimes(Integer moduleId) {
+
+        Cursor cursorModuleWithModuleTimes;
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID   };
+        String selection = dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+
+        cursorModuleWithModuleTimes = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (cursorModuleWithModuleTimes.moveToNext()) {
+
+            Integer eachModuleTimeid = cursorModuleWithModuleTimes.getInt(cursorModuleWithModuleTimes.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+
+            String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(eachModuleTimeid)};
+
+            int rowDeleteEachModuleTime = getContentResolver().delete(DBProvider.MODULE_TIME_URI, selection_2, selectionArgs_2);
+        }
+
     }
 
     public void editButtonModule(View view) {
@@ -545,188 +567,25 @@ public class TestActivity extends Activity {
     }
 
 
-    //audio
-    private Cursor getAudio() {
-        // Run query
-        Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
-                                                dbHelper.COLUMN_AUDIO_NAME,
-                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = null;
-
-        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    }
-
-    //audio
-    private Cursor getAudioBySessionId(Integer sessionId) {
-        // Run query
-        Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
-                                                dbHelper.COLUMN_AUDIO_NAME,
-                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
-        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ? ";
-        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
-        String sortOrder = null;
-
-        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    }
-
-    public void getButtonAudioBySessionId(View view) {
-
-        TextView audiofilenamesbySessionIdView = (TextView)findViewById(R.id.audiofilenamesbysessionidview);
-        audiofilenamesbySessionIdView.setText("");
-
-        Cursor cursorAudiobySessionId = getAudioBySessionId(Integer.parseInt(((EditText)findViewById(R.id.get_audio_filename_session_id)).getText().toString()) );
-
-        while (cursorAudiobySessionId.moveToNext()) {
-            Integer displayAudioId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
-            audiofilenamesbySessionIdView.append(" ");
-            audiofilenamesbySessionIdView.append(displayAudioId.toString());
-
-            String displayAudioFilename = cursorAudiobySessionId.getString(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_NAME));
-            audiofilenamesbySessionIdView.append(" ");
-            audiofilenamesbySessionIdView.append(displayAudioFilename);
-
-            Integer displayAudioSessionId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
-            audiofilenamesbySessionIdView.append(" ");
-            audiofilenamesbySessionIdView.append(displayAudioSessionId.toString());
-
-            audiofilenamesbySessionIdView.append("\n");
-        }
-
-    }
-
-    public void saveAudio(View view) {
-
-        ContentValues values = new ContentValues();
-        String audio_name = "audio-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
-        //Integer audio_session_id = 1;
-
-        values.put(DBHelper.COLUMN_AUDIO_NAME, audio_name );
-        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_audio_filename_session_id)).getText().toString()) );
-
-        Uri uri = getContentResolver().insert(DBProvider.AUDIO_URI, values);
-        retrieveAudioFilenames(view);
-    }
-
-    public void deleteButtonAudio(View view) {
-        deleteAudio(0);
-        retrieveAudioFilenames(view);
-    }
-
-    public void deleteAudio(Integer deleteId) {
-
-        Cursor cursorAudioDelete;
-
-        Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID  };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_AUDIO_ID + " DESC";
-
-        cursorAudioDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-
-        if (cursorAudioDelete.getCount() != 0) {
-
-            cursorAudioDelete.moveToFirst();
-
-            Integer lastAudioid = cursorAudioDelete.getInt(cursorAudioDelete.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
-
-            String selection_2 = DBHelper.COLUMN_AUDIO_ID + " = ?";
-            String[] selectionArgs_2 = new String[]{Integer.toString(lastAudioid)};
-
-            int rowDeleteAudio = getContentResolver().delete(DBProvider.AUDIO_URI, selection_2, selectionArgs_2);
-
-        }
-    }
-
-    public void retrieveAudioFilenames(View view) {
-        Intent intent_audio = getIntent();
-        finish();
-        startActivity(intent_audio);
-    }
-
-
-    //image
-    public void captureImage(View view) {
-
-        ContentValues values = new ContentValues();
-        Integer image_session_id = 1;
-        String image_name = "image-2014_12_06-01_14_22";
-
-        values.put(DBHelper.COLUMN_IMAGE_FILE, image_name );
-        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, image_session_id );
-
-        Uri uri = getContentResolver().insert(DBProvider.IMAGE_URI, values);
-        retrieveImages(view);
-    }
-
-    private Cursor getImages() {
-        // Run query
-        Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
-                dbHelper.COLUMN_IMAGE_FILE,
-                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN
-        };
-        String selection = null;                //according to session_id = ?
-        String[] selectionArgs = null;          //according to session_id variable
-        String sortOrder = null;
-
-        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
-        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    }
-
-    public void deleteButtonImage(View view) {
-        deleteImage(0);
-        retrieveImages(view);
-    }
-
-    public void deleteImage(Integer deleteId) {
-
-        Cursor cursorImageDelete;
-
-        Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
-        String selection = null;
-        String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_IMAGE_ID + " DESC";
-
-        cursorImageDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-
-        if (cursorImageDelete.getCount() != 0) {
-
-            cursorImageDelete.moveToFirst();
-
-            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
-
-            String selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
-            String[] selectionArgs_2 = new String[]{Integer.toString(lastImageid)};
-
-            int rowDeleteImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
-
-        }
-    }
-
-    public void retrieveImages(View view) {
-        Intent intent_image = getIntent();
-        finish();
-        startActivity(intent_image);
-    }
-
-
     //session
     public void newSession(View view) {
 
         ContentValues values = new ContentValues();
         String session_name = "session-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
-        Integer module = 4;
-        Integer folder = 3;
+        //Integer module = 4;
+        //Integer folder = 3;
 
         values.put(DBHelper.COLUMN_SESSION_NAME, session_name );
-        values.put(DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN, module);
-        values.put(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, folder);
+        values.put(DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_session_module_id)).getText().toString()));
+
+        if (((EditText)findViewById(R.id.add_session_folder_id)).getText().toString().matches("")) {
+            values.putNull(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN);
+        } else {
+            values.put(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_session_folder_id)).getText().toString()));
+        }
+
+        //values.put(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_session_folder_id)).getText().toString()));
+        //values.putNull(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN); //take null values
 
         Uri uri = getContentResolver().insert(DBProvider.SESSION_URI, values);
         retrieveSessions(view);
@@ -736,16 +595,56 @@ public class TestActivity extends Activity {
         // Run query
         Uri uri = DBProvider.SESSION_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                                                dbHelper.COLUMN_SESSION_NAME,
-                                                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
-                                                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN
-                                        };
-        String selection = null;                //according to module_id = ?
-        String[] selectionArgs = null;          //according to module_id variable
+                dbHelper.COLUMN_SESSION_NAME,
+                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
+                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+        String selection = null;
+        String[] selectionArgs = null;
         String sortOrder = null;
 
-        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
         return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    private Cursor getSessionsByModuleId(Integer moduleId) {
+        Uri uri = DBProvider.SESSION_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
+                dbHelper.COLUMN_SESSION_NAME,
+                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
+                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+        String selection = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonSessionByModuleId(View view) {
+
+        TextView sessionbyModuleIdView = (TextView)findViewById(R.id.sessionsmoduleidview);
+        sessionbyModuleIdView.setText("");
+
+        Cursor cursorSessionbyModuleId = getSessionsByModuleId(Integer.parseInt(((EditText)findViewById(R.id.get_session_module_id_edittext)).getText().toString()) );
+
+        while (cursorSessionbyModuleId.moveToNext()) {
+            Integer displaySessionId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            sessionbyModuleIdView.append(" ");
+            sessionbyModuleIdView.append(displaySessionId.toString());
+
+            String displaySessionName = cursorSessionbyModuleId.getString(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_NAME));
+            sessionbyModuleIdView.append(" ");
+            sessionbyModuleIdView.append(displaySessionName);
+
+            Integer displaySessionModuleId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
+            sessionbyModuleIdView.append(" ");
+            sessionbyModuleIdView.append(displaySessionModuleId.toString());
+
+            Integer displaySessionFolderId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
+            sessionbyModuleIdView.append(" ");
+            sessionbyModuleIdView.append(displaySessionFolderId.toString());
+
+            sessionbyModuleIdView.append("\n");
+        }
+
     }
 
     public void deleteButtonSession(View view) {
@@ -800,8 +699,8 @@ public class TestActivity extends Activity {
         //using my dummy data
         Uri uri = DBProvider.SESSION_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                                                dbHelper.COLUMN_SESSION_NAME,
-                                                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+                dbHelper.COLUMN_SESSION_NAME,
+                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = dbHelper.COLUMN_SESSION_ID + " DESC";
@@ -831,13 +730,219 @@ public class TestActivity extends Activity {
     }
 
 
+    //audio
+    private Cursor getAudio() {
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
+                                                dbHelper.COLUMN_AUDIO_FILE,
+                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    private Cursor getAudioBySessionId(Integer sessionId) {
+        // Run query
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
+                                                dbHelper.COLUMN_AUDIO_FILE,
+                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonAudioBySessionId(View view) {
+
+        TextView audiofilenamesbySessionIdView = (TextView)findViewById(R.id.audiofilenamesbysessionidview);
+        audiofilenamesbySessionIdView.setText("");
+
+        Cursor cursorAudiobySessionId = getAudioBySessionId(Integer.parseInt(((EditText)findViewById(R.id.get_audio_filename_session_id)).getText().toString()) );
+
+        while (cursorAudiobySessionId.moveToNext()) {
+            Integer displayAudioId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioId.toString());
+
+            String displayAudioFilename = cursorAudiobySessionId.getString(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_FILE));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioFilename);
+
+            Integer displayAudioSessionId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
+            audiofilenamesbySessionIdView.append(" ");
+            audiofilenamesbySessionIdView.append(displayAudioSessionId.toString());
+
+            audiofilenamesbySessionIdView.append("\n");
+        }
+
+    }
+
+    public void saveAudio(View view) {
+
+        ContentValues values = new ContentValues();
+        String audio_filename = "audio-2014_12_05-22_30_12"; //YYYY-MM-DD HH:MM:SS or can just use 'now' format!!!
+        //Integer audio_session_id = 1;
+
+        values.put(DBHelper.COLUMN_AUDIO_FILE, audio_filename );
+        values.put(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_audio_filename_session_id)).getText().toString()) );
+
+        Uri uri = getContentResolver().insert(DBProvider.AUDIO_URI, values);
+        retrieveAudioFilenames(view);
+    }
+
+    public void deleteButtonAudio(View view) {
+        deleteAudio(0);
+        retrieveAudioFilenames(view);
+    }
+
+    public void deleteAudio(Integer deleteId) {
+
+        Cursor cursorAudioDelete;
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID  };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_AUDIO_ID + " DESC";
+
+        cursorAudioDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (cursorAudioDelete.getCount() != 0) {
+
+            cursorAudioDelete.moveToFirst();
+
+            Integer lastAudioid = cursorAudioDelete.getInt(cursorAudioDelete.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+
+            String selection_2 = DBHelper.COLUMN_AUDIO_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastAudioid)};
+
+            int rowDeleteAudio = getContentResolver().delete(DBProvider.AUDIO_URI, selection_2, selectionArgs_2);
+
+        }
+    }
+
+    public void retrieveAudioFilenames(View view) {
+        Intent intent_audio = getIntent();
+        finish();
+        startActivity(intent_audio);
+    }
+
+
+    //image
+    public void captureImage(View view) {
+
+        ContentValues values = new ContentValues();
+        //Integer image_session_id = 1;
+        String image_name = "image-2014_12_06-01_14_22";
+
+        values.put(DBHelper.COLUMN_IMAGE_FILE, image_name );
+        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.add_image_filename_session_id)).getText().toString()) );
+
+
+        Uri uri = getContentResolver().insert(DBProvider.IMAGE_URI, values);
+        retrieveImages(view);
+    }
+
+    private Cursor getImages() {
+        // Run query
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
+                                                dbHelper.COLUMN_IMAGE_FILE,
+                                                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    private Cursor getImagesBySessionId(Integer sessionId) {
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
+                                                dbHelper.COLUMN_IMAGE_FILE,
+                                                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
+        String selection = dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonImageBySessionId(View view) {
+
+        TextView imagefilebySessionIdView = (TextView)findViewById(R.id.imagefilenamesbysessionidview);
+        imagefilebySessionIdView.setText("");
+
+        Cursor cursorImagebySessionId = getImagesBySessionId(Integer.parseInt(((EditText) findViewById(R.id.get_image_filename_session_id)).getText().toString()));
+
+        while (cursorImagebySessionId.moveToNext()) {
+            Integer displayImageId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            imagefilebySessionIdView.append(" ");
+            imagefilebySessionIdView.append(displayImageId.toString());
+
+            String displayImageFilename = cursorImagebySessionId.getString(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
+            imagefilebySessionIdView.append(" ");
+            imagefilebySessionIdView.append(displayImageFilename);
+
+            Integer displayImageSessionId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
+            imagefilebySessionIdView.append(" ");
+            imagefilebySessionIdView.append(displayImageSessionId.toString());
+
+            imagefilebySessionIdView.append("\n");
+        }
+
+    }
+
+    public void deleteButtonImage(View view) {
+        deleteImage(0);
+        retrieveImages(view);
+    }
+
+    public void deleteImage(Integer deleteId) {
+
+        Cursor cursorImageDelete;
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_IMAGE_ID + " DESC";
+
+        cursorImageDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (cursorImageDelete.getCount() != 0) {
+
+            cursorImageDelete.moveToFirst();
+
+            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+
+            String selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastImageid)};
+
+            int rowDeleteImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
+
+        }
+    }
+
+    public void retrieveImages(View view) {
+        Intent intent_image = getIntent();
+        finish();
+        startActivity(intent_image);
+    }
+
+
     //folder
     public void createFolder(View view) {
         ContentValues values = new ContentValues();
-        Integer folder_module_id = 2;
+        //Integer folder_module_id = 2;
 
         values.put(DBHelper.COLUMN_FOLDER_NAME, ((EditText)findViewById(R.id.create_folder_edittext)).getText().toString() );
-        values.put(DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN, folder_module_id );
+        values.put(DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.create_folder_module_id_edittext)).getText().toString()) );
 
         Uri uri = getContentResolver().insert(DBProvider.FOLDER_URI, values);
         retrieveFolders(view);
@@ -847,14 +952,50 @@ public class TestActivity extends Activity {
         // Run query
         Uri uri = DBProvider.FOLDER_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
-                dbHelper.COLUMN_FOLDER_NAME,
-                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN
-        };
-        String selection = null;                //according to module_id = ?
-        String[] selectionArgs = null;          //according to module_id variable
+                                                dbHelper.COLUMN_FOLDER_NAME,
+                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String selection = null;
+        String[] selectionArgs = null;
         String sortOrder = null;
 
         return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    private Cursor getFoldersByModuleId(Integer moduleId) {
+
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
+                                                dbHelper.COLUMN_FOLDER_NAME,
+                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN  };
+        String selection =  dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+
+        return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    }
+
+    public void getButtonFolderModuleById(View view) {
+        //folders by module id
+        TextView foldersModulesByIdView = (TextView)findViewById(R.id.foldersmoduleidview);
+        foldersModulesByIdView.setText("");
+
+        Cursor cursorFolderModuleById = getFoldersByModuleId(Integer.parseInt(((EditText)findViewById(R.id.get_folder_module_id_edittext)).getText().toString()) ); //static module_id
+
+        while (cursorFolderModuleById.moveToNext()) {
+            Integer displayFolderId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            foldersModulesByIdView.append(" ");
+            foldersModulesByIdView.append(displayFolderId.toString());
+
+            String displayFolderName = cursorFolderModuleById.getString(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_NAME));
+            foldersModulesByIdView.append(" ");
+            foldersModulesByIdView.append(displayFolderName);
+
+            Integer displayFolderModuleId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
+            foldersModulesByIdView.append(" ");
+            foldersModulesByIdView.append(displayFolderModuleId.toString());
+
+            foldersModulesByIdView.append("\n");
+        }
     }
 
     //dont need if using the deleteButtonFolderWithSessions and deleteButtonFolderWithoutSessions buttons !!!!!!!
@@ -881,7 +1022,7 @@ public class TestActivity extends Activity {
 
     public void deleteFolder(Integer deleteId) {
 
-        /* testing purposes
+        //testing purposes
         Cursor cursorFolderDelete;
 
         Uri uri = DBProvider.FOLDER_URI;
@@ -902,18 +1043,18 @@ public class TestActivity extends Activity {
             String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
 
             int rowDeleteFolder = getContentResolver().delete(DBProvider.FOLDER_URI, selection_2, selectionArgs_2);
-        }*/
+        }
 
         // now dynamic!!
+        /*
         Uri uri = DBProvider.FOLDER_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
         String selection = DBHelper.COLUMN_FOLDER_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(deleteId)};
 
         int rowDeleteFolder = getContentResolver().delete(DBProvider.FOLDER_URI, selection, selectionArgs);
-
+        */
     }
-
 
     public void deleteFolderWithSessions(Integer folderId) {
 
@@ -930,6 +1071,7 @@ public class TestActivity extends Activity {
         while (cursorFolderWithSessions.moveToNext()) {
 
             Integer eachSessionid = cursorFolderWithSessions.getInt(cursorFolderWithSessions.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+
             String selection_2 = DBHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachSessionid)};
 

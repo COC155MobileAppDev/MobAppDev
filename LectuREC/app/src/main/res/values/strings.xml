@@ -64,32 +64,49 @@
 
 
     <string name="add_audio_filename_session_id_hint">Session Id</string>
-    <string name="save_audio_filename_hint">Add filename</string>
+    <!--<string name="save_audio_filename_hint">Add filename</string>--> <!--dont need mate!!!-->
     <string name="save_audio_filename_text">Save Audio</string>
-    <string name="retrieve_audio_filename_text">Retrieve Filename</string>
+    <!--<string name="retrieve_audio_filename_text">Retrieve Filename</string>--> <!--dont need mate!!!-->
     <string name="delete_audio_filename_text">Delete Audio</string>
     <string name="get_audio_filename_session_id_hint">Session Id</string>
     <string name="get_audio_filename_session_id_text">Get Session Id</string>
 
 
+
+    <string name="add_image_filename_session_id_hint">Session Id</string>
     <string name="capture_image_text">Capture Image</string>
     <string name="delete_image_text">Delete Image</string>
+    <string name="get_image_filename_session_id_hint">Session Id</string>
+    <string name="get_image_filename_session_id_text">Get Session Id</string>
 
 
+
+
+    <string name="add_session_module_id_hint">Module Id</string>
+    <string name="add_session_folder_id_hint">Folder Id</string>
     <string name="new_session_text">New Session</string>
     <string name="view_sessions_text">View Sessions</string>
     <string name="delete_session_text">Delete Session</string>
     <string name="edit_session_hint">Edit Session</string>
     <string name="edit_session_text">Update Session</string>
+    <string name="get_session_module_id_hint">Module Id</string>
+    <string name="get_session_module_id_text">Get Module Id</string>
+
+
 
 
     <string name="create_folder_hint">Folder Name</string>
+    <string name="create_folder_module_id_hint">Module Id</string>
     <string name="create_folder_text">Create Folder</string>
     <string name="delete_folder_text">Delete Folder</string>
     <string name="delete_folder_with_sessions_text">Delete Folder with sessions</string>
     <string name="delete_folder_without_sessions_text">Delete Folder without sessions</string>
     <string name="edit_folder_hint">Edit Folder</string>
     <string name="edit_folder_text">Update Folder</string>
+    <string name="get_folder_module_id_hint">Module Id</string>
+    <string name="get_folder_module_id_text">Get Module Id</string>
+
+
 
 
     <!--                    MY STRINGS PRASH  !!!!      END!!!                   -->

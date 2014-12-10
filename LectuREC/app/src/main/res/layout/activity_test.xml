@@ -271,6 +271,7 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:id="@+id/seperator_layout_2"
             android:layout_width="fill_parent"
@@ -283,6 +284,122 @@
                 android:text="@string/seperator_line"/>
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/session_layout_1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/sessionview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/add_session_module_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_session_module_id_hint" />
+
+            <EditText
+                android:id="@+id/add_session_folder_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_session_folder_id_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_session_text"
+                android:onClick="newSession"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_session_text"
+                android:onClick="deleteButtonSession"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_session_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_session_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_session_text"
+                android:onClick="editButtonSession"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/sessionsmoduleidview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_layout_6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/get_session_module_id_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/get_session_module_id_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/get_session_module_id_text"
+                android:onClick="getButtonSessionByModuleId"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/seperator_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/seperator_view_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seperator_line"/>
+
+        </LinearLayout>
+
 
 
         <LinearLayout
@@ -362,12 +479,12 @@
 
 
         <LinearLayout
-            android:id="@+id/seperator_layout_3"
+            android:id="@+id/seperator_layout_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/seperator_view_3"
+                android:id="@+id/seperator_view_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seperator_line"/>
@@ -392,6 +509,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/add_image_filename_session_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_image_filename_session_id_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/image_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -406,68 +536,34 @@
 
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/seperator_layout_4"
+            android:id="@+id/image_layout_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/seperator_view_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/seperator_line"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/session_layout_1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/sessionview"
+                android:id="@+id/imagefilenamesbysessionidview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/session_layout_2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_session_text"
-                android:onClick="newSession"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_session_text"
-                android:onClick="deleteButtonSession"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/session_layout_3"
+            android:id="@+id/image_layout_5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edit_session_edittext"
+                android:id="@+id/get_image_filename_session_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/edit_session_hint" />
+                android:hint="@string/get_image_filename_session_id_hint" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/edit_session_text"
-                android:onClick="editButtonSession"/>
+                android:text="@string/get_image_filename_session_id_text"
+                android:onClick="getButtonImageBySessionId"/>
 
         </LinearLayout>
 
@@ -509,6 +605,19 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/create_folder_hint" />
 
+            <EditText
+                android:id="@+id/create_folder_module_id_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_folder_module_id_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/folder_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -518,7 +627,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/folder_layout_3"
+            android:id="@+id/folder_layout_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -537,7 +646,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/folder_layout_4"
+            android:id="@+id/folder_layout_5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -552,6 +661,38 @@
                 android:layout_height="wrap_content"
                 android:text="@string/edit_folder_text"
                 android:onClick="editButtonFolder"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/folder_layout_6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/foldersmoduleidview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/folder_layout_7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/get_folder_module_id_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/get_folder_module_id_hint" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/get_folder_module_id_text"
+                android:onClick="getButtonFolderModuleById"/>
 
         </LinearLayout>
 
