@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <!--                    REQUIRED STRINGS                                       -->
 
     <string name="app_name">LectuREC</string>
@@ -20,10 +21,12 @@
     <string name="aboutMenu">About</string>
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
+    <string name="action_delete">Delete</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_section2">Section2</string>
     <string name="title_activity_settings_activity">Settings</string>
+
 
 
     <!--    New Module and Fragments Strings   -->
@@ -43,6 +46,9 @@
 
 
     <!--                   REQUIRED STRINGS END                                   -->
+
+
+
 
 
 
@@ -77,9 +83,7 @@
 
 
     <string name="add_audio_filename_session_id_hint">Session Id</string>
-    <!--<string name="save_audio_filename_hint">Add filename</string>--> <!--dont need mate!!!-->
     <string name="save_audio_filename_text">Save Audio</string>
-    <!--<string name="retrieve_audio_filename_text">Retrieve Filename</string>--> <!--dont need mate!!!-->
     <string name="delete_audio_filename_text">Delete Audio</string>
     <string name="get_audio_filename_session_id_hint">Session Id</string>
     <string name="get_audio_filename_session_id_text">Get Session Id</string>
@@ -127,6 +131,15 @@
 
 
 
+
+    <!--                    FA STRINGS                                       -->
+
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="title_activity_selectedsession">SelectedsessionActivity</string>
+
+
+    <!--                    FA STRINGS END                                  -->
 
 
 </resources>

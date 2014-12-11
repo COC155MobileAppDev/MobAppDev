@@ -53,6 +53,8 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+
+        // Set up TabHost
         fTabHost = (FragmentTabHost)findViewById(R.id.fTabHost);
 
         fTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
@@ -111,13 +113,17 @@ public class MainActivity extends FragmentActivity
                 startActivity(shareIntent);
                 break;
             case 5:
-                //mTitle = getString(R.string.aboutMenu);
+                mTitle = getString(R.string.aboutMenu);
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
             case 6:
                 Intent testIntent = new Intent(this, TestActivity.class);
                 startActivity(testIntent);
+                break;
+            case 7:
+                Intent ssIntent = new Intent(this, SelectedsessionActivity.class);
+                startActivity(ssIntent);
                 break;
         }
     }
@@ -153,8 +159,8 @@ public class MainActivity extends FragmentActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            //Intent aboutIntent = new Intent(this, SettingsActivity.class);
-            //startActivity(aboutIntent);
+            Intent aboutIntent = new Intent(this, SettingsActivity.class);
+            startActivity(aboutIntent);
             return true;
         }
 
