@@ -208,8 +208,8 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        db = dbHelper.getWritableDatabase();
 
+        db = dbHelper.getWritableDatabase();
         int rowsDeleted = 0;
 
         //older version
@@ -218,6 +218,7 @@ public class DBProvider extends ContentProvider {
             rowsDeleted = db.delete(dbHelper.TABLE_MODULES, selection, selectionArgs);
         }
         */
+        if (selectionArgs.length == 0){ return rowsDeleted; }
 
         switch (uriMatcher.match(uri)) {
             case MODULES:
@@ -243,6 +244,8 @@ public class DBProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
+
+        System.out.println("test4");
 
         return rowsDeleted;
     }

@@ -44,8 +44,8 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_MODULE_TIME_END_TIME + " text not null, "
             + COLUMN_MODULE_TIME_NOTIFICATION + " integer, "
             + COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " integer, foreign key("
-            + COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + ") references "
-            + TABLE_MODULES + "(" + COLUMN_MODULE_ID + ") "
+                + COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + ") references "
+                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + ") "
             + ")";
 
 
@@ -73,27 +73,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SESSION_MODULE_ID_FOREIGN = "_module_id";
     public static final String COLUMN_SESSION_FOLDER_ID_FOREIGN = "_folder_id";
 
-    //old version
-    /*private static final String DATABASE_CREATE_SESSION = "create table "
-            + TABLE_SESSION
-            + "("
-            + COLUMN_SESSION_ID + " integer primary key autoincrement, "
-            + COLUMN_SESSION_NAME + " text not null, "
-            + COLUMN_SESSION_MODULE_ID_FOREIGN + " integer, foreign key("
-                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
-                + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
-            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer, foreign key("
-                + COLUMN_SESSION_MODULE_ID_FOREIGN + ") references "
-                + TABLE_FOLDER + "(" + COLUMN_FOLDER_ID + ") "
-            + ")";*/
-
     private static final String DATABASE_CREATE_SESSION = "create table "
             + TABLE_SESSION
             + "("
             + COLUMN_SESSION_ID + " integer primary key autoincrement, "
             + COLUMN_SESSION_NAME + " text not null, "
             + COLUMN_SESSION_MODULE_ID_FOREIGN + " integer, "
-            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer, "
+            + COLUMN_SESSION_FOLDER_ID_FOREIGN + " integer null, "          //folder id is NULL
             + "foreign key(" + COLUMN_SESSION_MODULE_ID_FOREIGN
                 + ") references "
                 + TABLE_MODULES + "(" + COLUMN_MODULE_ID + "), "
@@ -106,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //audio table
     public static final String TABLE_AUDIO = "audio";
     public static final String COLUMN_AUDIO_ID = "_audio_id";
-    public static final String COLUMN_AUDIO_NAME = "audio_name";
+    //public static final String COLUMN_AUDIO_NAME = "audio_name";
     public static final String COLUMN_AUDIO_FILE = "audio_file";
     public static final String COLUMN_AUDIO_DURATION = "audio_duration";
     public static final String COLUMN_AUDIO_START_TIME = "audio_start_time";
@@ -116,7 +102,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + TABLE_AUDIO
             + "("
             + COLUMN_AUDIO_ID + " integer primary key autoincrement, "
-            + COLUMN_AUDIO_NAME + " text not null, "
+            //+ COLUMN_AUDIO_NAME + " text not null, "
             + COLUMN_AUDIO_FILE + " text, "
             + COLUMN_AUDIO_DURATION + " text, "
             + COLUMN_AUDIO_START_TIME + " text, "
