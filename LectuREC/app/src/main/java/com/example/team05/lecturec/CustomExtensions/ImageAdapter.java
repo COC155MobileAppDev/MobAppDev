@@ -1,4 +1,4 @@
-package com.example.team05.lecturec.ViewControllers;
+package com.example.team05.lecturec.CustomExtensions;
 
 import android.content.Context;
 import android.view.LayoutInflater;
