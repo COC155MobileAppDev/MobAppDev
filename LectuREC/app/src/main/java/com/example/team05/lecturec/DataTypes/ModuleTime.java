@@ -1,9 +1,11 @@
 package com.example.team05.lecturec.DataTypes;
 
+import java.io.Serializable;
+
 /*
   Created by Johnbastian on 01/12/2014.
  */
-public class ModuleTime {
+public class ModuleTime implements Serializable {
 
     private int id;
     private int day;

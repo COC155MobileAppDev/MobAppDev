@@ -12,16 +12,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentTabHost;
 
+import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        ModuleFragment.OnModuleFragmentInteractionListener,
-        ArchiveFragment.OnArchiveFragmentInteractionListener {
+        ModuleListFragment.OnModuleListFragmentInteractionListener,
+        ArchiveListFragment.OnArchiveListFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -49,24 +53,26 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+
+        // Set up TabHost
         fTabHost = (FragmentTabHost)findViewById(R.id.fTabHost);
 
         fTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 
-        fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleFragment.class, null);
-        fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveFragment.class, null);
+        fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleListFragment.class, null);
+        fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveListFragment.class, null);
 
 
     }
 
     @Override
-    public void OnModuleFragmentInteractionListener(Uri uri) {
+    public void OnModuleListFragmentInteractionListener(Uri uri) {
         //Do sommin
     }
 
 
     @Override
-    public void OnArchiveFragmentInteractionListener(Uri uri) {
+    public void OnArchiveListFragmentInteractionListener(Uri uri) {
         //Do sommin
     }
 
@@ -88,7 +94,10 @@ public class MainActivity extends FragmentActivity
                 break;
             case 2:
                 mTitle = getString(R.string.newModuleMenu);
-                Intent newmoduleIntent = new Intent(this, NewmoduleActivity.class);
+                Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
+                newmoduleIntent.putExtra("newMode", true);
+                ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+                newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
                 startActivity(newmoduleIntent);
                 break;
             case 3:
@@ -104,13 +113,17 @@ public class MainActivity extends FragmentActivity
                 startActivity(shareIntent);
                 break;
             case 5:
-                //mTitle = getString(R.string.aboutMenu);
+                mTitle = getString(R.string.aboutMenu);
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
             case 6:
                 Intent testIntent = new Intent(this, TestActivity.class);
                 startActivity(testIntent);
+                break;
+            case 7:
+                Intent ssIntent = new Intent(this, SelectedsessionActivity.class);
+                startActivity(ssIntent);
                 break;
         }
     }
@@ -146,8 +159,8 @@ public class MainActivity extends FragmentActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            //Intent aboutIntent = new Intent(this, SettingsActivity.class);
-            //startActivity(aboutIntent);
+            Intent aboutIntent = new Intent(this, SettingsActivity.class);
+            startActivity(aboutIntent);
             return true;
         }
 

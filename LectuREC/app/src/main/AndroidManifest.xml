@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.team05.lecturec" >
 
-    <uses-permission
-        android:name="com.example.team05.lecturec.myProviderPermission">
+    <uses-permission android:name="com.example.team05.lecturec.myProviderPermission" >
     </uses-permission>
-
-
 
     <application
         android:allowBackup="true"
@@ -14,7 +11,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
+        <provider
+            android:name="com.example.team05.lecturec.ModelControllers.DBProvider"
+            android:authorities="com.example.team05.lecturec"
+            android:enabled="true"
+            android:permission="com.example.team05.lecturec.myProviderPermission" >
+        </provider>
 
+
+        <!--
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.LoadingActivity"
             android:label="@string/title_activity_loading" >
@@ -24,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        -->
 
 
         <activity
@@ -36,9 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.AboutActivity"
             android:label="@string/title_activity_about"
@@ -47,15 +49,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
-        
         <activity
-            android:name="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
-            android:label="@string/title_activity_newmodule"
-            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
+            android:name="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
+            android:windowSoftInputMode="adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
+            android:label="@string/title_activity_module" >
+         </activity>
+
+
 
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.TestActivity"
@@ -64,14 +71,23 @@
 
 
 
-        <provider
-            android:name=".ModelControllers.DBProvider"
-            android:authorities="com.example.team05.lecturec"
-            android:enabled="true"
-            android:permission="com.example.team05.lecturec.myProviderPermission">
-        </provider>
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity"
+            android:label="@string/title_activity_selectedsession"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
+        </activity>
 
     </application>
 
-    
 </manifest>

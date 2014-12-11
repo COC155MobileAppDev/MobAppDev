@@ -1,69 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LectuREC</string>
 
+    <!--                    REQUIRED STRINGS                                       -->
+
+    <string name="app_name">LectuREC</string>
     <string name="title_activity_loading">LoadingActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="title_section1">Home</string>
     <string name="title_section2">Modules</string>
     <string name="title_section3">Archive</string>
     <string name="title_section4">Share App</string>
     <string name="title_section5">About</string>
-
     <string name="moduleMenu">Module</string>
     <string name="newModuleMenu">New Module</string>
     <string name="archiveMenu">Archive</string>
     <string name="shareMenu">Share</string>
     <string name="aboutMenu">About</string>
-
-
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
-
-
+    <string name="action_delete">Delete</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="hello_world">Hello world!</string>
-
     <string name="title_activity_section2">Section2</string>
     <string name="title_activity_settings_activity">Settings</string>
 
 
 
-    <string name="add_module_hint">Add Module</string>
-    <string name="add_module_button_text">Add Module</string>
-    <string name="refresh_button_text">Refresh</string>
-
-    <string name="save_audio_filename_hint">Add filename</string>
-    <string name="save_audio_filename_text">Save Audio</string>
-    <string name="retrieve_audio_filename_text">Retrieve Module</string>
-
-    <string name="new_session_text">New Session</string>
-    <string name="view_sessions_text">View Sessions</string>
-
-
-    <string name="title_activity_newmodule">NewmoduleActivity</string>
-
-
-    <string name="moduleName">Module Name</string>
+    <!--    New Module and Fragments Strings   -->
+    <string name="moduleName">Module Name:</string>
     <string name="change_time">Change the time</string>
+    <string name="moduleNameHint">Enter Module Name</string>
+
+    <string name="add_module_time">Add Module Time +</string>
+    <string name="delete_text">DELETE</string>
+    <string name="archive_text">ARCHIVE</string>
+    <string name="save_text">SAVE</string>
 
 
+    <!--    Module Activity Strings -->
+    <string name="title_activity_module">ModuleActivity</string>
+
+
+
+    <!--                   REQUIRED STRINGS END                                   -->
+
+
+
+
+
+
+    <!--                    MY STRINGS PRASH  !!!!      START !!!                  -->
+
+    <string name="seperator_line">---------------------------------------------------------</string>
 
     <string name="title_activity_test">TestActivity</string>
 
+    <string name="add_module_hint">Add Module</string>
+    <string name="add_module_button_text">Add Module</string>
+    <string name="delete_module_button_text">Delete Module</string>
+    <string name="edit_module_hint">Edit Module</string>
+    <string name="update_module_button_text">Update Module</string>
+    <string name="is_archive_hint">Is Archive</string>
+    <string name="module_id_hint">Module id</string>
+    <string name="get_module_by_id_button_text">Get by Mod_Id</string>
+
+
+    <string name="add_start_time_hint">Start Module Time</string>
+    <string name="add_end_time_hint">End Module Time</string>
+    <string name="add_notification_hint">Notification S</string>
+    <string name="add_module_time_module_id_hint">Module Id</string>
+    <string name="add_module_time_text">Add Module Time</string>
+    <string name="delete_module_time_text">Delete Module Time</string>
+    <string name="edit_start_time_hint">Edit Start Time</string>
+    <string name="edit_end_time_hint">Edit End Time</string>
+    <string name="edit_notification_hint">Edit Notification Status</string>
+    <string name="edit_module_time_text">Update Module Time</string>
+    <string name="module_time_module_id_hint">Module Id</string>
+    <string name="get_module_time_module_by_id_button_text">Get Module Id</string>
+
+
+    <string name="add_audio_filename_session_id_hint">Session Id</string>
+    <string name="save_audio_filename_text">Save Audio</string>
+    <string name="delete_audio_filename_text">Delete Audio</string>
+    <string name="get_audio_filename_session_id_hint">Session Id</string>
+    <string name="get_audio_filename_session_id_text">Get Session Id</string>
+
+
+
+    <string name="add_image_filename_session_id_hint">Session Id</string>
     <string name="capture_image_text">Capture Image</string>
+    <string name="delete_image_text">Delete Image</string>
+    <string name="get_image_filename_session_id_hint">Session Id</string>
+    <string name="get_image_filename_session_id_text">Get Session Id</string>
+
+
+
+
+    <string name="add_session_module_id_hint">Module Id</string>
+    <string name="add_session_folder_id_hint">Folder Id</string>
+    <string name="new_session_text">New Session</string>
+    <string name="view_sessions_text">View Sessions</string>
+    <string name="delete_session_text">Delete Session</string>
+    <string name="edit_session_hint">Edit Session</string>
+    <string name="edit_session_text">Update Session</string>
+    <string name="get_session_module_id_hint">Module Id</string>
+    <string name="get_session_module_id_text">Get Module Id</string>
+
 
 
 
     <string name="create_folder_hint">Folder Name</string>
+    <string name="create_folder_module_id_hint">Module Id</string>
     <string name="create_folder_text">Create Folder</string>
+    <string name="delete_folder_text">Delete Folder</string>
+    <string name="delete_folder_with_sessions_text">Delete Folder with sessions</string>
+    <string name="delete_folder_without_sessions_text">Delete Folder without sessions</string>
+    <string name="edit_folder_hint">Edit Folder</string>
+    <string name="edit_folder_text">Update Folder</string>
+    <string name="get_folder_module_id_hint">Module Id</string>
+    <string name="get_folder_module_id_text">Get Module Id</string>
 
-    <string name="add_module_time_text">Add Module Time</string>
+
+
+
+    <!--                    MY STRINGS PRASH  !!!!      END!!!                   -->
+
+
+
+
+
+    <!--                    FA STRINGS                                       -->
+
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="title_activity_selectedsession">SelectedsessionActivity</string>
+
+
+    <!--                    FA STRINGS END                                  -->
 
 
 </resources>
