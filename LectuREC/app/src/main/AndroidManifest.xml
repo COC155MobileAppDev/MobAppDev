@@ -10,14 +10,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <provider
             android:name="com.example.team05.lecturec.ModelControllers.DBProvider"
             android:authorities="com.example.team05.lecturec"
             android:enabled="true"
             android:permission="com.example.team05.lecturec.myProviderPermission" >
         </provider>
-
 
         <!--
         <activity
@@ -30,7 +28,6 @@
             </intent-filter>
         </activity>
         -->
-
 
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.MainActivity"
@@ -60,17 +57,11 @@
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
             android:label="@string/title_activity_module" >
-         </activity>
-
-
-
+        </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
-
-
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -87,7 +78,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
-
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
+            android:label="@string/title_activity_new_session"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.ModuleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
+        </activity>
     </application>
 
 </manifest>

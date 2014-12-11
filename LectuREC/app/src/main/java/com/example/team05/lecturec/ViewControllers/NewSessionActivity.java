@@ -1,39 +1,25 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
 
-import java.io.Serializable;
-
-public class ModuleActivity extends Activity {
-
-    Module selectedModule;
+public class NewSessionActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_module);
-
-        Bundle passedData = getIntent().getExtras();
-        selectedModule = (Module)passedData.getSerializable("selectedModule");
-
-        ((TextView)findViewById(R.id.moduleActivityTextView)).setText(selectedModule.getName());
-
+        setContentView(R.layout.activity_new_session);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_module, menu);
+        getMenuInflater().inflate(R.menu.menu_new_session, menu);
         return true;
     }
 
@@ -51,16 +37,4 @@ public class ModuleActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public void editModuleButton(View v){
-
-        Intent editModuleIntent = new Intent(this, NewModuleActivity.class);
-        editModuleIntent.putExtra("newMode", false);
-        editModuleIntent.putExtra("currentModule", (Serializable)selectedModule);
-        startActivity(editModuleIntent);
-
-    }
-
-
 }
