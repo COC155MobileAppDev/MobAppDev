@@ -65,6 +65,12 @@ public class ModuleTimeFragment extends Fragment {
         System.out.println("Day val: " + day);
         System.out.println("Number of mTimes = " + moduleTimes.size());
 
+        /*
+-        Bundle bundle = this.getArguments();
+-
+-        System.out.println("Day in Frag = " + bundle.getString("day"));
+-        */
+
     }
 
     @Override
