@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+
+import android.support.v4.app.Fragment;
 
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.CustomExtensions.ModuleAdapter;
@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import static android.widget.AdapterView.*;
+
 
 public class ModuleListFragment extends Fragment {
 
@@ -75,7 +76,6 @@ public class ModuleListFragment extends Fragment {
             }
         });
         moduleListview.setAdapter(moduleAdapter);
-
 
 
         // Inflate the layout for this fragment
