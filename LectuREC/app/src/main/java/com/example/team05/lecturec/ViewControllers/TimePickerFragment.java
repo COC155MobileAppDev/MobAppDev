@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.team05.lecturec.DataTypes.ModuleTime;
@@ -20,11 +19,11 @@ import com.example.team05.lecturec.R;
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener{
 
-    private ModuletimeFragment parentFragment;
+    private ModuleTimeFragment parentFragment;
     private ModuleTime moduleTime;
     private View callerView; //The view/element that called this fragment
 
-    public void setParentFragmentAndSelectedModuleTime(ModuletimeFragment mtF, ModuleTime mt){
+    public void setParentFragmentAndSelectedModuleTime(ModuleTimeFragment mtF, ModuleTime mt){
         parentFragment = mtF;
         moduleTime = mt;
     }

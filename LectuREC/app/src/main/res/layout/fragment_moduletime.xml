@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.team05.lecturec.ViewControllers.ModuletimeFragment">
+    tools:context="com.example.team05.lecturec.ViewControllers.ModuleTimeFragment">
 
     <ListView
         android:id="@+id/moduleTimeListView"

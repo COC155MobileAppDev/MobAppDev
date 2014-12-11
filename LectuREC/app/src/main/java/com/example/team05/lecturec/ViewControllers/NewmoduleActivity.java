@@ -12,24 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 
 
 import com.example.team05.lecturec.Controllers.DataManager;
-import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-public class NewmoduleActivity extends FragmentActivity
-        implements ModuletimeFragment.OnModuletimeFragmentInteractionListener {
+public class NewModuleActivity extends FragmentActivity
+        implements ModuleTimeFragment.OnModuletimeFragmentInteractionListener {
 
     private boolean newMode;
 
@@ -185,35 +181,35 @@ public class NewmoduleActivity extends FragmentActivity
         timeTabHost.setup(this, getSupportFragmentManager(), R.id.timeTabContent);
 
 
-        Intent intent = new Intent(getApplicationContext(), ModuletimeFragment.class);
+        Intent intent = new Intent(getApplicationContext(), ModuleTimeFragment.class);
 
         intent.putExtra("day", 0);
         intent.putExtra("moduleTimes", monMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Mon").setIndicator("Mon", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Mon").setIndicator("Mon", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 1);
         intent.putExtra("moduleTimes", tueMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Tue").setIndicator("Tue", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Tue").setIndicator("Tue", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 2);
         intent.putExtra("moduleTimes", wedMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Wed").setIndicator("Wed", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Wed").setIndicator("Wed", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 3);
         intent.putExtra("moduleTimes", thuMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Thu").setIndicator("Thu", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Thu").setIndicator("Thu", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 4);
         intent.putExtra("moduleTimes", friMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Fri").setIndicator("Fri", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Fri").setIndicator("Fri", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 5);
         intent.putExtra("moduleTimes", satMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Sat").setIndicator("Sat", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Sat").setIndicator("Sat", null), ModuleTimeFragment.class, intent.getExtras());
 
         intent.putExtra("day", 6);
         intent.putExtra("moduleTimes", sunMTs);
-        timeTabHost.addTab(timeTabHost.newTabSpec("Sun").setIndicator("Sun", null), ModuletimeFragment.class, intent.getExtras());
+        timeTabHost.addTab(timeTabHost.newTabSpec("Sun").setIndicator("Sun", null), ModuleTimeFragment.class, intent.getExtras());
 
     }
 

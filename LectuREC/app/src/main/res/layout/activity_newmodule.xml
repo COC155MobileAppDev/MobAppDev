@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.team05.lecturec.ViewControllers.NewmoduleActivity"
+    tools:context="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
     tools:ignore="MergeRootFrame" >
 
     <TextView
@@ -46,7 +46,7 @@
             android:id="@+id/deleteModuleBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/save_text"
+            android:text="@string/delete_text"
             android:background="#aaff0000"
             android:layout_weight="1"
             android:onClick="onModuleDeleteClick"/>
@@ -55,7 +55,7 @@
             android:id="@+id/archiveModuleBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/save_text"
+            android:text="@string/archive_text"
             android:background="#aafff900"
             android:layout_weight="1"
             android:onClick="onModuleArchiveClick"/>

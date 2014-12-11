@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentTabHost;
 
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
@@ -25,8 +24,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        ModuleFragment.OnModuleFragmentInteractionListener,
-        ArchiveFragment.OnArchiveFragmentInteractionListener {
+        ModuleListFragment.OnModuleListFragmentInteractionListener,
+        ArchiveListFragment.OnArchiveListFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -58,20 +57,20 @@ public class MainActivity extends FragmentActivity
 
         fTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 
-        fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleFragment.class, null);
-        fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveFragment.class, null);
+        fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleListFragment.class, null);
+        fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveListFragment.class, null);
 
 
     }
 
     @Override
-    public void OnModuleFragmentInteractionListener(Uri uri) {
+    public void OnModuleListFragmentInteractionListener(Uri uri) {
         //Do sommin
     }
 
 
     @Override
-    public void OnArchiveFragmentInteractionListener(Uri uri) {
+    public void OnArchiveListFragmentInteractionListener(Uri uri) {
         //Do sommin
     }
 
@@ -93,8 +92,8 @@ public class MainActivity extends FragmentActivity
                 break;
             case 2:
                 mTitle = getString(R.string.newModuleMenu);
-                Intent newmoduleIntent = new Intent(this, NewmoduleActivity.class);
-                newmoduleIntent.putExtra("newMode", false);
+                Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
+                newmoduleIntent.putExtra("newMode", true);
                 ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
                 newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
                 startActivity(newmoduleIntent);

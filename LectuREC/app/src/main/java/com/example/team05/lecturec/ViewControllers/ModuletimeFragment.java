@@ -21,11 +21,11 @@ import com.example.team05.lecturec.R;
 import java.util.ArrayList;
 
 
-public class ModuletimeFragment extends Fragment {
+public class ModuleTimeFragment extends Fragment {
 
     private OnModuletimeFragmentInteractionListener mListener;
 
-    private NewmoduleActivity parentActivity;
+    private NewModuleActivity parentActivity;
 
     int day;
     ModuleTimeAdapter moduleTimeAdapter;
@@ -39,12 +39,12 @@ public class ModuletimeFragment extends Fragment {
     private ArrayList<ModuleTime> moduleTimes;
 
 
-    public ModuletimeFragment() {
+    public ModuleTimeFragment() {
         // Required empty public constructor
     }
 
-    public static ModuletimeFragment newInstance(String param1, String param2) {
-        ModuletimeFragment fragment = new ModuletimeFragment();
+    public static ModuleTimeFragment newInstance(String param1, String param2) {
+        ModuleTimeFragment fragment = new ModuleTimeFragment();
         Bundle args = new Bundle();
         //put stuff in bundle if needed
         fragment.setArguments(args);
@@ -55,7 +55,7 @@ public class ModuletimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        parentActivity = (NewmoduleActivity)getActivity();
+        parentActivity = (NewModuleActivity)getActivity();
 
         Bundle bundle = getArguments();
 

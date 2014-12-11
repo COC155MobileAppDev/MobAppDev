@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TimePicker;
 
 import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.R;
-import com.example.team05.lecturec.ViewControllers.ModuletimeFragment;
+import com.example.team05.lecturec.ViewControllers.ModuleTimeFragment;
 import com.example.team05.lecturec.ViewControllers.TimePickerFragment;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
 
-    ModuletimeFragment parentFragment;
+    ModuleTimeFragment parentFragment;
     FragmentManager fragmentManager;
 
     Context context;
@@ -39,7 +37,7 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
 
     }
 
-    public void setParentFragment(ModuletimeFragment mtFragment){   parentFragment = mtFragment;    }
+    public void setParentFragment(ModuleTimeFragment mtFragment){   parentFragment = mtFragment;    }
     public void setFragmentManager(FragmentManager fm){ fragmentManager = fm;   }
 
 
@@ -47,7 +45,7 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
     public View getView(int position, View view, final ViewGroup parent){
 
         View row = view;
-        RowHolder holder;
+        ModuleTimeRowHolder holder;
 
         final ModuleTime moduleTime = moduleTimes.get(position);
 
@@ -78,9 +76,10 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         if (row == null) row = inflater.inflate(layoutResourceID, parent, false);
-        else holder = (RowHolder)row.getTag();
+        else holder = (ModuleTimeRowHolder)row.getTag();
 
-        holder = new RowHolder();
+        holder = new ModuleTimeRowHolder();
+
         holder.startTimeButton = (Button)row.findViewById(R.id.startTimeBtn);
         holder.startTimeButton.setOnClickListener(onClickListener);
 
@@ -118,7 +117,7 @@ public class ModuleTimeAdapter extends ArrayAdapter<ModuleTime> {
     }
 
 
-    static class RowHolder{
+    static class ModuleTimeRowHolder{
 
         Button startTimeButton;
         Button endTimeButton;
