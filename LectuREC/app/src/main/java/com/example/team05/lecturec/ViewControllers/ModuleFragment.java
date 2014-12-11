@@ -3,11 +3,14 @@ package com.example.team05.lecturec.ViewControllers;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.support.v4.app.Fragment;
+
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -17,8 +20,6 @@ import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
 
 import java.util.ArrayList;
-import java.util.List;
-
 public class ModuleFragment extends Fragment {
 
 
@@ -64,6 +65,7 @@ public class ModuleFragment extends Fragment {
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_1, moduleNames);
+
 
         moduleListview.setAdapter(arrayAdapter);
 
