@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
+import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
 import com.example.team05.lecturec.R;
 
 /**
