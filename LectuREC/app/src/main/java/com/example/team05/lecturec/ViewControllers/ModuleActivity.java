@@ -52,6 +52,14 @@ public class ModuleActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void startNewSessionButton(View v){
+
+        Intent newSessionIntent = new Intent(this, NewSessionActivity.class);
+        newSessionIntent.putExtra("currentModule", (Serializable)selectedModule);
+        startActivity(newSessionIntent);
+
+    }
+
 
     public void editModuleButton(View v){
 

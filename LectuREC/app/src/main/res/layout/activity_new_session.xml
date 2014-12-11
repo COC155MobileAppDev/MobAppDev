@@ -10,31 +10,47 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:orientation="horizontal"
+        android:layout_below="@id/textView">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/startRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REC"
+            android:layout_centerHorizontal="true"
+            android:onClick="startNewRecording" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button2"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2"
-        android:layout_marginTop="53dp" />
+        <Button
+            android:id="@+id/pauseRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAUSE"
+            android:layout_centerHorizontal="true"
+            android:onClick="pauseCurrentRecording" />
+
+        <Button
+            android:id="@+id/stopRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STOP"
+            android:layout_centerHorizontal="true"
+            android:onClick="stopCurrentRecording"/>
+
+        <Button
+            android:id="@+id/playRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PLAY"
+            android:layout_centerHorizontal="true"
+            android:onClick="playLastRecording" />
+
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>
