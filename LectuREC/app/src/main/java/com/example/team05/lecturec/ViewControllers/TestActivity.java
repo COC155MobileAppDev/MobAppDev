@@ -1014,7 +1014,7 @@ public class TestActivity extends Activity {
     }
 
     public void deleteButtonFolderWithoutSessions(View view) {
-        deleteFolderWithoutSessions(3, 1); // should be null!!
+        deleteFolderWithoutSessions(3, 1);
         deleteFolder(3);
         retrieveFolders(view);
         retrieveSessions(view);
@@ -1045,7 +1045,7 @@ public class TestActivity extends Activity {
             int rowDeleteFolder = getContentResolver().delete(DBProvider.FOLDER_URI, selection_2, selectionArgs_2);
         }
 
-        // now dynamic!!
+        // using static parameters!!
         /*
         Uri uri = DBProvider.FOLDER_URI;
         String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
@@ -1058,6 +1058,8 @@ public class TestActivity extends Activity {
 
     public void deleteFolderWithSessions(Integer folderId) {
 
+        //using static paramaters
+        /*
         Cursor cursorFolderWithSessions;
 
         Uri uri = DBProvider.SESSION_URI;
@@ -1077,11 +1079,56 @@ public class TestActivity extends Activity {
 
             int rowDeleteEachSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_2, selectionArgs_2);
         }
+        */
+
+        //get last folder
+        Cursor cursorLastFolder;
+
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+
+        cursorLastFolder = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        Cursor cursorLastFolderSessions;
+
+        //get all sessions in the last folder
+        if (cursorLastFolder.getCount() != 0) {
+
+            cursorLastFolder.moveToFirst();
+
+            Integer lastFolderid = cursorLastFolder.getInt(cursorLastFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+
+            Uri uri_2 = DBProvider.SESSION_URI;
+            String[] projection_2 = new String[] {   dbHelper.COLUMN_SESSION_ID   };
+            String selection_2 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
+            String sortOrder_2 = null;
+
+            cursorLastFolderSessions = getContentResolver().query(uri_2, projection_2, selection_2, selectionArgs_2, sortOrder_2);
+
+            //delete sessions in last folder
+            while (cursorLastFolderSessions.moveToNext()) {
+
+                Integer eachSessionid = cursorLastFolderSessions.getInt(cursorLastFolderSessions.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+
+                String selection_3 = DBHelper.COLUMN_SESSION_ID + " = ?";
+                String[] selectionArgs_3 = new String[]{Integer.toString(eachSessionid)};
+
+                int rowDeleteEachSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_3, selectionArgs_3);
+            }
+
+        }
+
     }
 
 
     public void deleteFolderWithoutSessions(Integer oldFolderId, Integer newFolderId) {
 
+        // using static paramaters
+        /*
         Cursor cursorFolderWithoutSessions;
 
         Uri uri = DBProvider.SESSION_URI;
@@ -1102,9 +1149,51 @@ public class TestActivity extends Activity {
 
             int rowEditFolderOfSession = getContentResolver().update(DBProvider.SESSION_URI, values, selection_2, selectionArgs_2);
         }
+        */
 
-        //deleteFolder(folderId);   //for the real thing!!
-        //deleteFolder(0);            //for testing purposes!!
+
+        //get last folder
+        Cursor cursorWithoutSessionLastFolder;
+
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String selection = null;
+        String[] selectionArgs = null;
+        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+
+        cursorWithoutSessionLastFolder = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        Cursor cursorWithoutSessionLastFolderSessions;
+
+        //get all sessions in the last folder
+        if (cursorWithoutSessionLastFolder.getCount() != 0) {
+
+            cursorWithoutSessionLastFolder.moveToFirst();
+
+            Integer lastFolderid = cursorWithoutSessionLastFolder.getInt(cursorWithoutSessionLastFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+
+            Uri uri_2 = DBProvider.SESSION_URI;
+            String[] projection_2 = new String[]{dbHelper.COLUMN_SESSION_ID};
+            String selection_2 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
+            String sortOrder_2 = null;
+
+            cursorWithoutSessionLastFolderSessions = getContentResolver().query(uri_2, projection_2, selection_2, selectionArgs_2, sortOrder_2);
+
+            //move sessions to different folder(null) before deleting last folder
+            while (cursorWithoutSessionLastFolderSessions.moveToNext()) {
+
+                ContentValues values_3 = new ContentValues();
+                values_3.putNull(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN);
+                String selection_3 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+                String[] selectionArgs_3 = new String[]{Integer.toString(lastFolderid)};
+
+                int rowMoveSessions = getContentResolver().update(DBProvider.SESSION_URI, values_3, selection_3, selectionArgs_3);
+            }
+
+        }
+
+
     }
 
     public void editButtonFolder(View view) {
