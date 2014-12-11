@@ -274,12 +274,9 @@ public class TestActivity extends Activity {
 
             Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
 
-
             deleteModuleWithModuleTimes(lastModuleid);  //delete all module times for this module
 
-            /*working on it!!!
             deleteSessionsByModule(lastModuleid);       //delete all sessions for this module
-            */
             
             String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleid)};
@@ -331,12 +328,10 @@ public class TestActivity extends Activity {
 
             Integer eachSessionId = cursorSessionsModuleId.getInt(cursorSessionsModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
 
-            /* working on it!!!
             deleteAudiosBySession(eachSessionId);   //deletes all audios in this session!!
             deleteImagesBySession(eachSessionId);   //deletes all images in this session!!
-            */
 
-            String  selection_2 = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
+            String  selection_2 = dbHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachSessionId)};
 
             int rowDeleteEachSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_2, selectionArgs_2);
@@ -734,7 +729,7 @@ public class TestActivity extends Activity {
 
             Integer eachAudioId = cursorAudiosSessionId.getInt(cursorAudiosSessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
 
-            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String  selection_2 = dbHelper.COLUMN_AUDIO_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachAudioId)};
 
             int rowDeleteEachAudio = getContentResolver().delete(DBProvider.AUDIO_URI, selection_2, selectionArgs_2);
@@ -759,7 +754,7 @@ public class TestActivity extends Activity {
 
             Integer eachImageId = cursorImagesSessionId.getInt(cursorImagesSessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
 
-            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String  selection_2 = dbHelper.COLUMN_IMAGE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachImageId)};
 
             int rowDeleteEachImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
@@ -1095,15 +1090,15 @@ public class TestActivity extends Activity {
     */
 
     public void deleteButtonFolderWithSessions(View view) {
-        deleteFolderWithSessions(2);
-        deleteFolder(2);
+        deleteFolderWithSessions(2);    //2 not used
+        deleteFolder(2);                //2 not used
         retrieveFolders(view);
         retrieveSessions(view);
     }
 
     public void deleteButtonFolderWithoutSessions(View view) {
-        deleteFolderWithoutSessions(3, 1);
-        deleteFolder(3);
+        deleteFolderWithoutSessions(3, 1);  //3, 1 not used
+        deleteFolder(3);                    //3 not used
         retrieveFolders(view);
         retrieveSessions(view);
     }
@@ -1201,6 +1196,9 @@ public class TestActivity extends Activity {
             while (cursorLastFolderSessions.moveToNext()) {
 
                 Integer eachSessionid = cursorLastFolderSessions.getInt(cursorLastFolderSessions.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+
+                deleteAudiosBySession(eachSessionid);   //deletes all audios in this session!!
+                deleteImagesBySession(eachSessionid);   //deletes all images in this session!!
 
                 String selection_3 = DBHelper.COLUMN_SESSION_ID + " = ?";
                 String[] selectionArgs_3 = new String[]{Integer.toString(eachSessionid)};
