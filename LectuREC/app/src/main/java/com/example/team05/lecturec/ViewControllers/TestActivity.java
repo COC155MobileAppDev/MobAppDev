@@ -274,8 +274,13 @@ public class TestActivity extends Activity {
 
             Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
 
-            deleteModuleWithModuleTimes(lastModuleid);
 
+            deleteModuleWithModuleTimes(lastModuleid);  //delete all module times for this module
+
+            /*working on it!!!
+            deleteSessionsByModule(lastModuleid);       //delete all sessions for this module
+            */
+            
             String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleid)};
 
@@ -306,6 +311,36 @@ public class TestActivity extends Activity {
             int rowDeleteEachModuleTime = getContentResolver().delete(DBProvider.MODULE_TIME_URI, selection_2, selectionArgs_2);
         }
 
+    }
+
+    public void deleteSessionsByModule(Integer moduleId) {
+
+        //get all sessions in that Module
+        Cursor cursorSessionsModuleId;
+
+        Uri uri = DBProvider.SESSION_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID  };
+        String selection = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(moduleId)};
+        String sortOrder = null;
+
+        cursorSessionsModuleId = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        //delete each session in that module
+        while (cursorSessionsModuleId.moveToNext()) {
+
+            Integer eachSessionId = cursorSessionsModuleId.getInt(cursorSessionsModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+
+            /* working on it!!!
+            deleteAudiosBySession(eachSessionId);   //deletes all audios in this session!!
+            deleteImagesBySession(eachSessionId);   //deletes all images in this session!!
+            */
+
+            String  selection_2 = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(eachSessionId)};
+
+            int rowDeleteEachSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_2, selectionArgs_2);
+        }
     }
 
     public void editButtonModule(View view) {
@@ -670,11 +705,64 @@ public class TestActivity extends Activity {
 
             Integer lastSessionid = cursorSessionDelete.getInt(cursorSessionDelete.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
 
+            deleteAudiosBySession(lastSessionid);   //deletes all audios in this session!!
+            deleteImagesBySession(lastSessionid);   //deletes all images in this session!!
+
             String selection_2 = DBHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastSessionid)};
 
             int rowDeleteSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_2, selectionArgs_2);
 
+        }
+    }
+
+    public void deleteAudiosBySession(Integer sessionId) {
+
+        //get all audios in that session
+        Cursor cursorAudiosSessionId;
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID  };
+        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
+        String sortOrder = null;
+
+        cursorAudiosSessionId = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        //delete each audio in that session
+        while (cursorAudiosSessionId.moveToNext()) {
+
+            Integer eachAudioId = cursorAudiosSessionId.getInt(cursorAudiosSessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+
+            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(eachAudioId)};
+
+            int rowDeleteEachAudio = getContentResolver().delete(DBProvider.AUDIO_URI, selection_2, selectionArgs_2);
+        }
+    }
+
+    public void deleteImagesBySession(Integer sessionId) {
+
+        //get all images in that session
+        Cursor cursorImagesSessionId;
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
+        String selection = dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(sessionId)};
+        String sortOrder = null;
+
+        cursorImagesSessionId = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        //delete each image in that session
+        while (cursorImagesSessionId.moveToNext()) {
+
+            Integer eachImageId = cursorImagesSessionId.getInt(cursorImagesSessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+
+            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String[] selectionArgs_2 = new String[]{Integer.toString(eachImageId)};
+
+            int rowDeleteEachImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
         }
     }
 
