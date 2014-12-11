@@ -65,11 +65,6 @@ public class ModuletimeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        /*
-        Bundle bundle = this.getArguments();
-
-        System.out.println("Day in Frag = " + bundle.getString("day"));
-        */
 
     }
 
