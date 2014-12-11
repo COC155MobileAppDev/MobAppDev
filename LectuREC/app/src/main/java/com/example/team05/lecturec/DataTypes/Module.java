@@ -1,13 +1,13 @@
 package com.example.team05.lecturec.DataTypes;
 
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /*
  Created by Johnbastian on 01/12/2014.
  */
-public class Module {
+public class Module implements Serializable {
 
     private int id;
     private String name;

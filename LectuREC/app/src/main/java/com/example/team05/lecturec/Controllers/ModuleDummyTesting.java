@@ -32,7 +32,7 @@ public class ModuleDummyTesting {
 
             ArrayList<ModuleTime> mTimes = new ArrayList<ModuleTime>();
 
-            for (int c2 = (c*2); c2 < ((c*2) + 1); c2++){
+            for (int c2 = (c*10); c2 < ((c*10) + 10); c2++){
                 
                 int randomDay = (new Random()).nextInt(6);
                 int randomTime = (new Random()).nextInt(9) + 9;
