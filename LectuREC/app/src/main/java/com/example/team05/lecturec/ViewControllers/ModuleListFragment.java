@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import android.support.v4.app.Fragment;
 
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.CustomExtensions.ModuleAdapter;
 import com.example.team05.lecturec.DataTypes.Module;
@@ -50,7 +51,7 @@ public class ModuleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        currentModules= ModuleDummyTesting.getModuleList();
+        currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
 
 
         fragmentLayout = (FrameLayout) inflater.inflate(

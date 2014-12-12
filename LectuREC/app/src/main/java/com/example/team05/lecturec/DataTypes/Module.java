@@ -12,10 +12,10 @@ public class Module implements Serializable {
     private int id;
     private String name;
     private boolean archived;
-    private ArrayList<ModuleTime> moduleTimes;
+    private ArrayList<ModuleTime> moduleTimes = new ArrayList<ModuleTime>();
 
-    private ArrayList<Session> sessions;
-    private ArrayList<Folder> folders;
+    private ArrayList<Session> sessions = new ArrayList<Session>();
+    private ArrayList<Folder> folders = new ArrayList<Folder>();
 
 
     public Module(int i, String n){
@@ -25,11 +25,6 @@ public class Module implements Serializable {
         archived = false;
 
         System.out.println(name);
-
-        moduleTimes = new ArrayList<ModuleTime>();
-
-        sessions = new ArrayList<Session>();
-        folders = new ArrayList<Folder>();
 
     }
 
