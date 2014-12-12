@@ -447,7 +447,7 @@ public class DataManager {
 
         if (addedID > 0) for (Audio audio:newAudios) addNewAudio(context, addedID, audio);
 
-        //if (addedID > 0) for (Image image:newImages) addNewImage(context, addedID, image);
+        if (addedID > 0) for (Image image:newImages) addNewImage(context, addedID, image);
 
     }
 
@@ -472,7 +472,17 @@ public class DataManager {
 
 
     //Image Editors
-    public static void addNewAudio(Context context, int sessionID, Image newImage){
+    public static void addNewImage(Context context, int sessionID, Image newImage){
+
+        ContentValues values = new ContentValues();
+        String imageName = newImage.getFile();
+
+        values.put(DBHelper.COLUMN_IMAGE_FILE, imageName );
+        values.put(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN, sessionID);
+
+
+        Uri uri = context.getContentResolver().insert(DBProvider.IMAGE_URI, values);
+
 
     }
 

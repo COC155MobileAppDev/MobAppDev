@@ -1,11 +1,14 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,10 +43,11 @@ public class NewSessionActivity extends Activity {
 
     private MediaPlayer mediaPlayer;
 
-    private File internalStoragePath;
-    private File directoryFilePath;
     private File currentAudioFile;
     private String currentAudioName;
+
+    private File currentImageFile;
+    private String currentImageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,23 @@ public class NewSessionActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 777){
+
+            if (resultCode == RESULT_OK) {
+
+                Image newImage = new Image(-1, currentImageName);
+                newImages.add(newImage);
+
+            } else if (resultCode == RESULT_CANCELED) return;
+
+
+        }
+
     }
 
 
@@ -182,6 +203,17 @@ public class NewSessionActivity extends Activity {
     public void saveSession(View v){
 
         DataManager.addNewSession(getApplicationContext(), currentModule.getID(), newSession, newAudios, newImages);
+
+    }
+
+    public void capturePicture(View v){
+
+        currentImageName = FileManager.getCurrentDateTimeFileName();
+        currentImageFile = FileManager.getImageFileFormat(getApplicationContext(), currentImageName);
+
+        Intent imageCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentImageFile));
+        startActivityForResult(imageCaptureIntent, 777);
 
     }
 

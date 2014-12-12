@@ -25,9 +25,9 @@ public class FileManager {
     }
 
     //Get File Directory with Name for Audio
-    public static File getAudioFileFormat(Context context, String fieName){
+    public static File getAudioFileFormat(Context context, String fileName){
 
-        File audioFile = getFileName(context, AUDIO_FOLDER, "Recording_",  fieName, ".3gp");
+        File audioFile = getFileName(context, AUDIO_FOLDER, "Recording_",  fileName, ".3gp");
 
         System.out.println("audioFile is: " + audioFile.getAbsolutePath());
 
@@ -36,9 +36,9 @@ public class FileManager {
     }
 
     //Get File Directory with Name for Image
-    public static File getImageFileFormat(Context context,  String fieName){
+    public static File getImageFileFormat(Context context,  String fileName){
 
-        File imageFile = getFileName(context, IMAGE_FOLDER, "Image_", fieName, ".jpg");
+        File imageFile = getFileName(context, IMAGE_FOLDER, "Image_", fileName, ".jpg");
 
         System.out.println("imageFile is: " + imageFile.getAbsolutePath());
 
@@ -49,11 +49,12 @@ public class FileManager {
     //Compose Full File Directory with File
     private static File getFileName(Context context, String folderPath, String preTextFileName, String fileName, String fileNameType){
 
-        File internalStoragePath = context.getFilesDir();
+        File internalStoragePath = context.getExternalFilesDir(null);
 
         File folderFilePath = new File(internalStoragePath.getAbsolutePath() + folderPath);
 
-        if (!folderFilePath.exists()) folderFilePath.mkdir();
+        if (!folderFilePath.exists()) folderFilePath.mkdirs();
+        if (folderFilePath.exists()) System.out.println("This directory exists: " + folderFilePath.getAbsolutePath());
 
         File currentFile = new File(folderFilePath.getAbsolutePath() + "/" + preTextFileName + fileName + fileNameType);
 

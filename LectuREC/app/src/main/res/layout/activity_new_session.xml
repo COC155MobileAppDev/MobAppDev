@@ -11,6 +11,7 @@
         android:id="@+id/textView" />
 
     <LinearLayout
+        android:id="@+id/layoutA"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -32,33 +33,35 @@
             android:layout_centerHorizontal="true"
             android:onClick="stopCurrentRecording"/>
 
-        <Button
-            android:id="@+id/playRecordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PLAY"
-            android:layout_centerHorizontal="true"
-            android:onClick="playLastRecording" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutB"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/layoutA">
 
         <Button
-            android:id="@+id/pauseRecordPlayBackBtn"
+            android:id="@+id/captureImageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PAUSE PLAYBACK"
+            android:text="CAPTURE IMAGE"
             android:layout_centerHorizontal="true"
-            android:onClick="pauseCurrentRecording" />
-
-        <Button
-            android:id="@+id/saveSessionBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SAVE"
-            android:layout_centerHorizontal="true"
-            android:onClick="saveSession" />
+            android:onClick="capturePicture" />
 
     </LinearLayout>
 
 
 
+    <Button
+        android:id="@+id/saveSessionBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:layout_centerHorizontal="true"
+        android:onClick="saveSession"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
