@@ -4,6 +4,7 @@
 
     <uses-permission android:name="com.example.team05.lecturec.myProviderPermission" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -50,13 +51,19 @@
             android:name="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:windowSoftInputMode="adjustPan" >
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
+                -->
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
-            android:label="@string/title_activity_module" >
+            android:label="@string/title_activity_module"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.TestActivity"

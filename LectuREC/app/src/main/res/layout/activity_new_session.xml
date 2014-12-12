@@ -25,14 +25,6 @@
             android:onClick="startNewRecording" />
 
         <Button
-            android:id="@+id/pauseRecordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PAUSE"
-            android:layout_centerHorizontal="true"
-            android:onClick="pauseCurrentRecording" />
-
-        <Button
             android:id="@+id/stopRecordBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +39,22 @@
             android:text="PLAY"
             android:layout_centerHorizontal="true"
             android:onClick="playLastRecording" />
+
+        <Button
+            android:id="@+id/pauseRecordPlayBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAUSE PLAYBACK"
+            android:layout_centerHorizontal="true"
+            android:onClick="pauseCurrentRecording" />
+
+        <Button
+            android:id="@+id/saveSessionBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:layout_centerHorizontal="true"
+            android:onClick="saveSession" />
 
     </LinearLayout>
 

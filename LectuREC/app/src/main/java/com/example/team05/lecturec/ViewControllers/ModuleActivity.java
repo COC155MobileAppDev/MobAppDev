@@ -15,6 +15,8 @@ import java.io.Serializable;
 
 public class ModuleActivity extends Activity {
 
+    Bundle passedData;
+
     Module selectedModule;
 
     @Override
@@ -22,10 +24,28 @@ public class ModuleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_module);
 
-        Bundle passedData = getIntent().getExtras();
-        selectedModule = (Module)passedData.getSerializable("selectedModule");
+        passedData = getIntent().getExtras();
+
+        try {
+            selectedModule = (Module)passedData.getSerializable("selectedModule");
+
+        } catch (NullPointerException exc){
+            passedData = savedInstanceState.getBundle("currentBundle");
+            selectedModule = (Module)savedInstanceState.getSerializable("selectedModule");
+        }
+
+
+
+
 
         ((TextView)findViewById(R.id.moduleActivityTextView)).setText(selectedModule.getName());
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putBundle("currentBundle", passedData);
 
     }
 
