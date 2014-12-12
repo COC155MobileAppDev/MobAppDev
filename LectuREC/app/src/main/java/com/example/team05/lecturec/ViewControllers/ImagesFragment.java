@@ -1,12 +1,19 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
@@ -26,6 +33,7 @@ public class ImagesFragment extends Fragment {
     private OnImagesFragmentInteractionListener mListener;
 
     private FrameLayout fragmentLayout;
+    private GridView gridView;
 
 
 
@@ -53,11 +61,23 @@ public class ImagesFragment extends Fragment {
                 R.layout.fragment_images, container, false);
 
 
-        GridView gridview = (GridView) fragmentLayout.findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
+        gridView = (GridView) fragmentLayout.findViewById(R.id.gridview);
+        gridView.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
+        gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
+        gridView.setMultiChoiceModeListener(new MultiChoiceModeListener());
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-       return fragmentLayout;
+                // Send intent to SingleViewActivity
+                Intent i = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
+                // Pass image index
+                i.putExtra("id", position);
+                startActivity(i);
+            }
+        });
+
+        return fragmentLayout;
 
 
 
@@ -81,6 +101,65 @@ public class ImagesFragment extends Fragment {
         mListener = null;
     }
 
+    //Checking if item is checked
+    public class CheckableLayout extends FrameLayout implements Checkable {
+        private boolean mChecked;
+
+        public CheckableLayout(Context context) {
+            super(context);
+        }
+
+        @SuppressWarnings("deprecation")
+        public void setChecked(boolean checked) {
+            mChecked = checked;
+            setBackgroundDrawable(checked ? getResources().getDrawable(
+                    R.drawable.gradient) : null);
+        }
+
+        public boolean isChecked() {
+            return mChecked;
+        }
+
+        public void toggle() {
+            setChecked(!mChecked);
+        }
+
+    }
+
+    public class MultiChoiceModeListener implements
+            GridView.MultiChoiceModeListener {
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.setTitle("Select Items");
+            mode.setSubtitle("One item selected");
+            mode.getMenuInflater().inflate(R.menu.menu_selectedsession, menu);
+
+            return true;
+        }
+
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return true;
+        }
+
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return true;
+        }
+
+        public void onDestroyActionMode(ActionMode mode) {
+        }
+
+        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            int selectCount = gridView.getCheckedItemCount();
+            switch (selectCount) {
+                case 1:
+                    mode.setSubtitle("One item selected");
+                    break;
+                default:
+                    mode.setSubtitle("" + selectCount + " items selected");
+                    break;
+            }
+        }
+
+    }
 
     public interface OnImagesFragmentInteractionListener {
         // TODO: Update argument type and name
