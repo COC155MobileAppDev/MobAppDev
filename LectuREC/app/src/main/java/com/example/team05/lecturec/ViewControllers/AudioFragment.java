@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.example.team05.lecturec.DataTypes.Audio;
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
 
@@ -35,6 +36,8 @@ public class AudioFragment extends Fragment {
     private ArrayList<String> archiveNames;
 
     private ArrayList<String> songList;
+
+    private ArrayList<Audio> audios;
 
 
     private MediaPlayer mediaPlayer;

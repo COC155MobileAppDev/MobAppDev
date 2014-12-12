@@ -17,8 +17,12 @@ import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
-import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
+import com.example.team05.lecturec.CustomExtensions.ImageAdapater;
+import com.example.team05.lecturec.CustomExtensions.ImageAdapter2;
+import com.example.team05.lecturec.DataTypes.Image;
 import com.example.team05.lecturec.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +40,8 @@ public class ImagesFragment extends Fragment {
     private GridView gridView;
 
 
+    private ArrayList<Image> images;
+
 
     public static ImagesFragment newInstance(String param1, String param2) {
         ImagesFragment fragment = new ImagesFragment();
@@ -51,6 +57,9 @@ public class ImagesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle passedBundle = getArguments();
+        images = (ArrayList<Image>)passedBundle.get("imageList");
+
     }
 
     @Override
@@ -60,9 +69,13 @@ public class ImagesFragment extends Fragment {
         fragmentLayout = (FrameLayout) inflater.inflate(
                 R.layout.fragment_images, container, false);
 
+        gridView = (GridView) fragmentLayout.findViewById(R.id.imageGridView);
 
-        gridView = (GridView) fragmentLayout.findViewById(R.id.gridview);
-        gridView.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
+        ImageAdapater imageAdapater = new ImageAdapater(getActivity().getApplicationContext(), R.layout.gridview_item, images);
+
+
+
+        gridView.setAdapter(imageAdapater);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         gridView.setMultiChoiceModeListener(new MultiChoiceModeListener());
 
@@ -72,7 +85,7 @@ public class ImagesFragment extends Fragment {
                 // Send intent to SingleViewActivity
                 Intent i = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
                 // Pass image index
-                i.putExtra("id", position);
+                i.putExtra("imageFilePath", images.get(position).getFile());
                 startActivity(i);
             }
         });

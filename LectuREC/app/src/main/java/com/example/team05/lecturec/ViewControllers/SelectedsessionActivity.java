@@ -2,7 +2,9 @@ package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.ImageFormat;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,12 +22,17 @@ import android.widget.SeekBar;
 import java.util.ArrayList;
 
 
-
+import com.example.team05.lecturec.Controllers.DataManager;
+import com.example.team05.lecturec.DataTypes.Session;
 import com.example.team05.lecturec.R;
 
 public class SelectedSessionActivity extends FragmentActivity
     implements AudioFragment.OnAudioFragmentInteractionListener,
     ImagesFragment.OnImagesFragmentInteractionListener {
+
+    Session selectedSession;
+    Bundle passedData;
+
 
     public ArrayList<String> songs;
     Cursor songCursor;
@@ -42,6 +49,14 @@ public class SelectedSessionActivity extends FragmentActivity
         setContentView(R.layout.activity_selectedsession);
 
 
+        passedData = getIntent().getExtras();
+        selectedSession = (Session)passedData.getSerializable("selectedSession");
+
+        selectedSession.setAudios(DataManager.getAudios(getApplicationContext(), selectedSession.getID()));
+        selectedSession.setImages(DataManager.getImages(getApplicationContext(), selectedSession.getID()));
+
+
+
         loadMusic();
 
         // Set up TabHost
@@ -49,8 +64,13 @@ public class SelectedSessionActivity extends FragmentActivity
 
         sessionTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 
-        sessionTabHost.addTab(sessionTabHost.newTabSpec("audio").setIndicator("Audio", null), AudioFragment.class, null);
-        sessionTabHost.addTab(sessionTabHost.newTabSpec("images").setIndicator("Images", null), ImagesFragment.class, null);
+        Intent audioIntent = new Intent(getApplicationContext(), AudioFragment.class);
+        audioIntent.putExtra("audioList", selectedSession.getAudios());
+        sessionTabHost.addTab(sessionTabHost.newTabSpec("audio").setIndicator("Audio", null), AudioFragment.class, audioIntent.getExtras());
+
+        Intent imageIntent = new Intent(getApplicationContext(), ImagesFragment.class);
+        imageIntent.putExtra("imageList", selectedSession.getImages());
+        sessionTabHost.addTab(sessionTabHost.newTabSpec("images").setIndicator("Images", null), ImagesFragment.class, imageIntent.getExtras());
 
     }
 
