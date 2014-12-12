@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity
                 startActivity(testIntent);
                 break;
             case 7:
-                Intent ssIntent = new Intent(this, SelectedsessionActivity.class);
+                Intent ssIntent = new Intent(this, SelectedSessionActivity.class);
                 startActivity(ssIntent);
                 break;
         }
