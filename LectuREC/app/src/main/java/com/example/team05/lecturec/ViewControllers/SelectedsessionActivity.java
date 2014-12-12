@@ -1,12 +1,25 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SeekBar;
+
+import java.util.ArrayList;
+
+
 
 import com.example.team05.lecturec.R;
 
@@ -14,7 +27,12 @@ public class SelectedSessionActivity extends FragmentActivity
     implements AudioFragment.OnAudioFragmentInteractionListener,
     ImagesFragment.OnImagesFragmentInteractionListener {
 
-
+    public ArrayList<String> songs;
+    Cursor songCursor;
+    SeekBar sB;
+    String fileName;
+    MediaPlayer mP;
+    AudioManager aM;
 
     private FragmentTabHost sessionTabHost;
 
@@ -24,6 +42,7 @@ public class SelectedSessionActivity extends FragmentActivity
         setContentView(R.layout.activity_selectedsession);
 
 
+        loadMusic();
 
         // Set up TabHost
         sessionTabHost = (FragmentTabHost)findViewById(R.id.fTabHost);
@@ -35,6 +54,22 @@ public class SelectedSessionActivity extends FragmentActivity
 
     }
 
+    @SuppressWarnings("deprecation")
+    private void loadMusic() {
+        String[] data = {MediaStore.Audio.Media.DATA, MediaStore.Audio.Media.DISPLAY_NAME};
+        songCursor = this.managedQuery(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, data, null, null, null);
+        songs = new ArrayList<String>();
+        if(songCursor != null){
+            while(songCursor.moveToNext()) {
+                songs.add(songCursor.getString(1).toString());
+            }
+        }
+
+    }
+
+    public ArrayList<String> getSongList(){
+        return songs;
+    }
 
     @Override
     public void OnAudioFragmentInteractionListener(Uri uri) {

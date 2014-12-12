@@ -34,7 +34,6 @@
         </activity>
         -->
 
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:label="@string/app_name" >
@@ -84,7 +83,7 @@
         </activity>
         <activity
             android:name=".ViewControllers.SelectedSessionActivity"
-            android:label="@string/title_activity_selectedsession"
+            android:label="@string/title_activity_selectedSession"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -100,6 +99,16 @@
                 android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
                 -->
         </activity>
+
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.SingleViewActivity"
+            android:label="@string/title_activity_single_view"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity" />
+        </activity>
+
     </application>
 
 </manifest>
