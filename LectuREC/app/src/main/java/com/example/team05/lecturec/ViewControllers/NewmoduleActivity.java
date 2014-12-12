@@ -252,20 +252,20 @@ public class NewModuleActivity extends FragmentActivity
     //UI Event handlers
     public void onModuleSaveClick(View v){
 
-        if (newMode) DataManager.addNewModule(currentModule, newMTs);
-        else DataManager.editExistingModule(currentModule, moduleNameChange, newMTs, editedMTs, deletingMTs);
+        if (newMode) DataManager.addNewModule(getApplicationContext(), currentModule, newMTs);
+        else DataManager.editExistingModule(getApplicationContext(), currentModule, moduleNameChange, newMTs, editedMTs, deletingMTs);
 
     }
 
     public void onModuleArchiveClick(View v){
 
-        DataManager.archiveExistingModule(currentModule);
+        DataManager.archiveExistingModule(getApplicationContext(), currentModule);
 
     }
 
     public void onModuleDeleteClick(View v){
 
-        DataManager.deletingExistingModule(currentModule);
+        DataManager.deletingExistingModule(getApplicationContext(), currentModule);
 
     }
 

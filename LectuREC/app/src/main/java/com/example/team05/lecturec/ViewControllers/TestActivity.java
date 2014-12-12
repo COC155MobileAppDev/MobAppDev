@@ -32,16 +32,16 @@ public class TestActivity extends Activity {
         Cursor cursorModule = getModules();
 
         while (cursorModule.moveToNext()) {
-            Integer displaymoduleId = cursorModule.getInt(cursorModule.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            Integer displaymoduleId = cursorModule.getInt(cursorModule.getColumnIndex(DBHelper.COLUMN_MODULE_ID));
             modulesView.append(" ");
             System.out.println(displaymoduleId.toString());
             modulesView.append(displaymoduleId.toString());
 
-            String displayModule = cursorModule.getString(cursorModule.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
+            String displayModule = cursorModule.getString(cursorModule.getColumnIndex(DBHelper.COLUMN_MODULE_NAME));
             modulesView.append(" ");
             modulesView.append(displayModule);
 
-            Integer displayModuleArchive = cursorModule.getInt(cursorModule.getColumnIndex(dbHelper.COLUMN_MODULE_ARCHIVE));
+            Integer displayModuleArchive = cursorModule.getInt(cursorModule.getColumnIndex(DBHelper.COLUMN_MODULE_ARCHIVE));
             modulesView.append(" ");
             modulesView.append(displayModuleArchive.toString());
             modulesView.append("\n");
@@ -54,29 +54,29 @@ public class TestActivity extends Activity {
         Cursor cursorModuleTime = getModuleTimes();
 
         while (cursorModuleTime.moveToNext()) {
-            Integer displayModuleTimeId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            Integer displayModuleTimeId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
             moduletimesView.append(" ");
             moduletimesView.append(displayModuleTimeId.toString());
 
             /*
-            String displayDay = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_DAY));
+            String displayDay = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_DAY));
             moduletimesView.append(" ");
             moduletimesView.append(displayDay);
             */
 
-            String displayStartTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
+            String displayStartTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_START_TIME));
             moduletimesView.append(" ");
             moduletimesView.append(displayStartTime);
 
-            String displayEndTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
+            String displayEndTime = cursorModuleTime.getString(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_END_TIME));
             moduletimesView.append(" ");
             moduletimesView.append(displayEndTime);
 
-            Integer displayNotificationStatus = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION));
+            Integer displayNotificationStatus = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION));
             moduletimesView.append(" ");
             moduletimesView.append(displayNotificationStatus.toString());
 
-            Integer displayModuleTimeModuleId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
+            Integer displayModuleTimeModuleId = cursorModuleTime.getInt(cursorModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
             moduletimesView.append(" ");
             moduletimesView.append(displayModuleTimeModuleId.toString());
 
@@ -90,21 +90,21 @@ public class TestActivity extends Activity {
         Cursor cursorSession = getSessions();
 
         while (cursorSession.moveToNext()) {
-            Integer displaySessionId = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer displaySessionId = cursorSession.getInt(cursorSession.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
             sessionsView.append(" ");
             sessionsView.append(displaySessionId.toString());
 
-            String displaySessionName = cursorSession.getString(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_NAME));
+            String displaySessionName = cursorSession.getString(cursorSession.getColumnIndex(DBHelper.COLUMN_SESSION_NAME));
             sessionsView.append(" ");
             sessionsView.append(displaySessionName);
 
 
-            Integer displaySessionModule = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
+            Integer displaySessionModule = cursorSession.getInt(cursorSession.getColumnIndex(DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
             sessionsView.append(" ");
             sessionsView.append(displaySessionModule.toString());
 
 
-            Integer displaySessionFolder = cursorSession.getInt(cursorSession.getColumnIndex(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
+            Integer displaySessionFolder = cursorSession.getInt(cursorSession.getColumnIndex(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
             sessionsView.append(" ");
             sessionsView.append(displaySessionFolder.toString());
 
@@ -119,17 +119,17 @@ public class TestActivity extends Activity {
         Cursor cursorAudio = getAudio();
 
         while (cursorAudio.moveToNext()) {
-            Integer displayAudioId = cursorAudio.getInt(cursorAudio.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            Integer displayAudioId = cursorAudio.getInt(cursorAudio.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
             audiofilenamesView.append(" ");
             System.out.println(displayAudioId.toString());
             audiofilenamesView.append(displayAudioId.toString());
 
-            String displayAudioFilename = cursorAudio.getString(cursorAudio.getColumnIndex(dbHelper.COLUMN_AUDIO_FILE));
+            String displayAudioFilename = cursorAudio.getString(cursorAudio.getColumnIndex(DBHelper.COLUMN_AUDIO_FILE));
             audiofilenamesView.append(" ");
             System.out.println(displayAudioFilename);
             audiofilenamesView.append(displayAudioFilename);
 
-            Integer displayAudioSessionId = cursorAudio.getInt(cursorAudio.getColumnIndex(dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
+            Integer displayAudioSessionId = cursorAudio.getInt(cursorAudio.getColumnIndex(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
             audiofilenamesView.append(" ");
             System.out.println(displayAudioSessionId.toString());
             audiofilenamesView.append(displayAudioSessionId.toString());
@@ -144,16 +144,16 @@ public class TestActivity extends Activity {
         Cursor cursorImage = getImages();
 
         while (cursorImage.moveToNext()) {
-            Integer displayImageId = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            Integer displayImageId = cursorImage.getInt(cursorImage.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
             imagesView.append(" ");
             imagesView.append(displayImageId.toString());
 
-            String displayImageFile = cursorImage.getString(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
+            String displayImageFile = cursorImage.getString(cursorImage.getColumnIndex(DBHelper.COLUMN_IMAGE_FILE));
             imagesView.append(" ");
             imagesView.append(displayImageFile);
 
 
-            Integer displayImageSession = cursorImage.getInt(cursorImage.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
+            Integer displayImageSession = cursorImage.getInt(cursorImage.getColumnIndex(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
             imagesView.append(" ");
             imagesView.append(displayImageSession.toString());
 
@@ -168,15 +168,15 @@ public class TestActivity extends Activity {
         Cursor cursorFolder = getFolders();
 
         while (cursorFolder.moveToNext()) {
-            Integer displayFolderId = cursorFolder.getInt(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer displayFolderId = cursorFolder.getInt(cursorFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
             foldersView.append(" ");
             foldersView.append(displayFolderId.toString());
 
-            String displayFolderName = cursorFolder.getString(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_NAME));
+            String displayFolderName = cursorFolder.getString(cursorFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_NAME));
             foldersView.append(" ");
             foldersView.append(displayFolderName);
 
-            Integer displayFolderModule = cursorFolder.getInt(cursorFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
+            Integer displayFolderModule = cursorFolder.getInt(cursorFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
             foldersView.append(" ");
             foldersView.append(displayFolderModule.toString());
 
@@ -187,15 +187,15 @@ public class TestActivity extends Activity {
     }
 
 
-    DBHelper dbHelper;
+    //DBHelper DBHelper;
 
     //MODULES
     private Cursor getModules() {
 
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
-                                                dbHelper.COLUMN_MODULE_NAME,
-                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID,
+                                                DBHelper.COLUMN_MODULE_NAME,
+                                                DBHelper.COLUMN_MODULE_ARCHIVE  };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
@@ -206,10 +206,10 @@ public class TestActivity extends Activity {
     private Cursor getModulesById(Integer moduleId) {
 
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
-                                                dbHelper.COLUMN_MODULE_NAME,
-                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID,
+                                                DBHelper.COLUMN_MODULE_NAME,
+                                                DBHelper.COLUMN_MODULE_ARCHIVE  };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -225,15 +225,15 @@ public class TestActivity extends Activity {
         Cursor cursorModuleById = getModulesById(Integer.parseInt(((EditText)findViewById(R.id.module_id_edittext)).getText().toString())); //static module_id
 
         while (cursorModuleById.moveToNext()) {
-            Integer displaymoduleId = cursorModuleById.getInt(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            Integer displaymoduleId = cursorModuleById.getInt(cursorModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_ID));
             modulesByIdView.append(" ");
             modulesByIdView.append(displaymoduleId.toString());
 
-            String displayModule = cursorModuleById.getString(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_NAME));
+            String displayModule = cursorModuleById.getString(cursorModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_NAME));
             modulesByIdView.append(" ");
             modulesByIdView.append(displayModule);
 
-            Integer displayModuleArchive = cursorModuleById.getInt(cursorModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_ARCHIVE));
+            Integer displayModuleArchive = cursorModuleById.getInt(cursorModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_ARCHIVE));
             modulesByIdView.append(" ");
             modulesByIdView.append(displayModuleArchive.toString());
             modulesByIdView.append("\n");
@@ -261,10 +261,10 @@ public class TestActivity extends Activity {
         Cursor cursorModuleDelete;
 
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID   };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID   };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_MODULE_ID + " DESC";
 
         cursorModuleDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -272,14 +272,11 @@ public class TestActivity extends Activity {
 
             cursorModuleDelete.moveToFirst();
 
-            Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
-
+            Integer lastModuleid = cursorModuleDelete.getInt(cursorModuleDelete.getColumnIndex(DBHelper.COLUMN_MODULE_ID));
 
             deleteModuleWithModuleTimes(lastModuleid);  //delete all module times for this module
 
-            /*working on it!!!
             deleteSessionsByModule(lastModuleid);       //delete all sessions for this module
-            */
             
             String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleid)};
@@ -294,8 +291,8 @@ public class TestActivity extends Activity {
         Cursor cursorModuleWithModuleTimes;
 
         Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID   };
-        String selection = dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID   };
+        String selection = DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -303,7 +300,7 @@ public class TestActivity extends Activity {
 
         while (cursorModuleWithModuleTimes.moveToNext()) {
 
-            Integer eachModuleTimeid = cursorModuleWithModuleTimes.getInt(cursorModuleWithModuleTimes.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            Integer eachModuleTimeid = cursorModuleWithModuleTimes.getInt(cursorModuleWithModuleTimes.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
 
             String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachModuleTimeid)};
@@ -319,8 +316,8 @@ public class TestActivity extends Activity {
         Cursor cursorSessionsModuleId;
 
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID  };
-        String selection = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID  };
+        String selection = DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -329,14 +326,12 @@ public class TestActivity extends Activity {
         //delete each session in that module
         while (cursorSessionsModuleId.moveToNext()) {
 
-            Integer eachSessionId = cursorSessionsModuleId.getInt(cursorSessionsModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer eachSessionId = cursorSessionsModuleId.getInt(cursorSessionsModuleId.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
 
-            /* working on it!!!
             deleteAudiosBySession(eachSessionId);   //deletes all audios in this session!!
             deleteImagesBySession(eachSessionId);   //deletes all images in this session!!
-            */
 
-            String  selection_2 = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ?";
+            String  selection_2 = DBHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachSessionId)};
 
             int rowDeleteEachSession = getContentResolver().delete(DBProvider.SESSION_URI, selection_2, selectionArgs_2);
@@ -355,20 +350,20 @@ public class TestActivity extends Activity {
         //using in real app
         /*
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID  };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
         */
 
         //using my dummy data
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID,
-                                                dbHelper.COLUMN_MODULE_NAME,
-                                                dbHelper.COLUMN_MODULE_ARCHIVE  };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID,
+                                                DBHelper.COLUMN_MODULE_NAME,
+                                                DBHelper.COLUMN_MODULE_ARCHIVE  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_MODULE_ID + " DESC";
 
         cursorEditModule = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -376,13 +371,13 @@ public class TestActivity extends Activity {
 
             cursorEditModule.moveToFirst();
 
-            Integer editModuleid = cursorEditModule.getInt(cursorEditModule.getColumnIndex(dbHelper.COLUMN_MODULE_ID));
+            Integer editModuleid = cursorEditModule.getInt(cursorEditModule.getColumnIndex(DBHelper.COLUMN_MODULE_ID));
 
             ContentValues values = new ContentValues();
-            values.put(dbHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.edit_module_edittext)).getText().toString() ); // module parameter
-            values.put(dbHelper.COLUMN_MODULE_ARCHIVE, Integer.parseInt(((EditText)findViewById(R.id.is_archive_edittext)).getText().toString()) ); // module parameter
+            values.put(DBHelper.COLUMN_MODULE_NAME, ((EditText)findViewById(R.id.edit_module_edittext)).getText().toString() ); // module parameter
+            values.put(DBHelper.COLUMN_MODULE_ARCHIVE, Integer.parseInt(((EditText)findViewById(R.id.is_archive_edittext)).getText().toString()) ); // module parameter
 
-            String selection_2 = dbHelper.COLUMN_MODULE_ID + " = ?";
+            String selection_2 = DBHelper.COLUMN_MODULE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(editModuleid)};
 
             int rowEditModule = getContentResolver().update(DBProvider.MODULE_URI, values, selection_2, selectionArgs_2);
@@ -419,12 +414,12 @@ public class TestActivity extends Activity {
     private Cursor getModuleTimes() {
 
         Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
-                                                dbHelper.COLUMN_MODULE_TIME_DAY,
-                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
-                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID,
+                                                DBHelper.COLUMN_MODULE_TIME_DAY,
+                                                DBHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_NOTIFICATION,
+                                                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
         String selection = null;                //module_id = ?
         String[] selectionArgs = null;          //module_id
         String sortOrder = null;
@@ -436,13 +431,13 @@ public class TestActivity extends Activity {
     private Cursor getModuleTimesByModuleId(Integer moduleId) {
 
         Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
-                                                dbHelper.COLUMN_MODULE_TIME_DAY,
-                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION,
-                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
-        String selection =  dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID,
+                                                DBHelper.COLUMN_MODULE_TIME_DAY,
+                                                DBHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_NOTIFICATION,
+                                                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String selection =  DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -457,23 +452,23 @@ public class TestActivity extends Activity {
         Cursor cursorModuleTimeModuleById = getModuleTimesByModuleId(Integer.parseInt(((EditText)findViewById(R.id.module_time_module_id_edittext)).getText().toString())); //static module_id
 
         while (cursorModuleTimeModuleById.moveToNext()) {
-            Integer displayModuleTimeModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            Integer displayModuleTimeModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
             moduleTimeModulesByIdView.append(" ");
             moduleTimeModulesByIdView.append(displayModuleTimeModuleId.toString());
 
-            String displayModuleTimeStartTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_START_TIME));
+            String displayModuleTimeStartTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_START_TIME));
             moduleTimeModulesByIdView.append(" ");
             moduleTimeModulesByIdView.append(displayModuleTimeStartTime);
 
-            String displayModuleTimeEndTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_END_TIME));
+            String displayModuleTimeEndTime = cursorModuleTimeModuleById.getString(cursorModuleTimeModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_END_TIME));
             moduleTimeModulesByIdView.append(" ");
             moduleTimeModulesByIdView.append(displayModuleTimeEndTime);
 
-            Integer displayNotificationStatus = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION));
+            Integer displayNotificationStatus = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION));
             moduleTimeModulesByIdView.append(" ");
             moduleTimeModulesByIdView.append(displayNotificationStatus.toString());
 
-            Integer displayModuleTimeByModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
+            Integer displayModuleTimeByModuleId = cursorModuleTimeModuleById.getInt(cursorModuleTimeModuleById.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN));
             moduleTimeModulesByIdView.append(" ");
             moduleTimeModulesByIdView.append(displayModuleTimeByModuleId.toString());
 
@@ -491,10 +486,10 @@ public class TestActivity extends Activity {
         Cursor cursorModuleTimeDelete;
 
         Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_MODULE_TIME_ID + " DESC";
 
         cursorModuleTimeDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -502,7 +497,7 @@ public class TestActivity extends Activity {
 
             cursorModuleTimeDelete.moveToFirst();
 
-            Integer lastModuleTimeid = cursorModuleTimeDelete.getInt(cursorModuleTimeDelete.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            Integer lastModuleTimeid = cursorModuleTimeDelete.getInt(cursorModuleTimeDelete.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
 
             String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastModuleTimeid)};
@@ -524,21 +519,21 @@ public class TestActivity extends Activity {
         //using in real app and change the fields accordingly to the table
         /*
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID  };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
         */
 
         //using my dummy data
         Uri uri = DBProvider.MODULE_TIME_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_TIME_ID,
-                                                dbHelper.COLUMN_MODULE_TIME_START_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_END_TIME,
-                                                dbHelper.COLUMN_MODULE_TIME_NOTIFICATION    };
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID,
+                                                DBHelper.COLUMN_MODULE_TIME_START_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_END_TIME,
+                                                DBHelper.COLUMN_MODULE_TIME_NOTIFICATION    };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_MODULE_TIME_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_MODULE_TIME_ID + " DESC";
 
         cursorEditModuleTime = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -546,7 +541,7 @@ public class TestActivity extends Activity {
 
             cursorEditModuleTime.moveToFirst();
 
-            Integer editModuleTimeid = cursorEditModuleTime.getInt(cursorEditModuleTime.getColumnIndex(dbHelper.COLUMN_MODULE_TIME_ID));
+            Integer editModuleTimeid = cursorEditModuleTime.getInt(cursorEditModuleTime.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
 
             String startEditText = ((EditText)findViewById(R.id.edit_module_time_start_edittext)).getText().toString();
             String endEditText = ((EditText)findViewById(R.id.edit_module_time_end_edittext)).getText().toString();
@@ -555,39 +550,39 @@ public class TestActivity extends Activity {
             ContentValues values = new ContentValues();
 
             if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
             } else
             if ((startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
             } else
             if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 0)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
             } else
             if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
             } else
             if (!(startEditText.matches("")) && (endEditText.matches("")) && (notificationText == 1)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
             } else
             if ((startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
             } else
             if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 0)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 0 );
             } else
             if (!(startEditText.matches("")) && !(endEditText.matches("")) && (notificationText == 1)) {
-                values.put(dbHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
-                values.put(dbHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
+                values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, startEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, endEditText );
+                values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, 1 );
             }
 
-            String selection_2 = dbHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String selection_2 = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(editModuleTimeid)};
 
             int rowEditModuleTime = getContentResolver().update(DBProvider.MODULE_TIME_URI, values, selection_2, selectionArgs_2);
@@ -629,10 +624,10 @@ public class TestActivity extends Activity {
     private Cursor getSessions(){
         // Run query
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                dbHelper.COLUMN_SESSION_NAME,
-                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
-                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID,
+                DBHelper.COLUMN_SESSION_NAME,
+                DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
+                DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
@@ -642,11 +637,11 @@ public class TestActivity extends Activity {
 
     private Cursor getSessionsByModuleId(Integer moduleId) {
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                dbHelper.COLUMN_SESSION_NAME,
-                dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
-                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
-        String selection = dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID,
+                DBHelper.COLUMN_SESSION_NAME,
+                DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN,
+                DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+        String selection = DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -661,19 +656,19 @@ public class TestActivity extends Activity {
         Cursor cursorSessionbyModuleId = getSessionsByModuleId(Integer.parseInt(((EditText)findViewById(R.id.get_session_module_id_edittext)).getText().toString()) );
 
         while (cursorSessionbyModuleId.moveToNext()) {
-            Integer displaySessionId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer displaySessionId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
             sessionbyModuleIdView.append(" ");
             sessionbyModuleIdView.append(displaySessionId.toString());
 
-            String displaySessionName = cursorSessionbyModuleId.getString(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_NAME));
+            String displaySessionName = cursorSessionbyModuleId.getString(cursorSessionbyModuleId.getColumnIndex(DBHelper.COLUMN_SESSION_NAME));
             sessionbyModuleIdView.append(" ");
             sessionbyModuleIdView.append(displaySessionName);
 
-            Integer displaySessionModuleId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
+            Integer displaySessionModuleId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(DBHelper.COLUMN_SESSION_MODULE_ID_FOREIGN));
             sessionbyModuleIdView.append(" ");
             sessionbyModuleIdView.append(displaySessionModuleId.toString());
 
-            Integer displaySessionFolderId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
+            Integer displaySessionFolderId = cursorSessionbyModuleId.getInt(cursorSessionbyModuleId.getColumnIndex(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN));
             sessionbyModuleIdView.append(" ");
             sessionbyModuleIdView.append(displaySessionFolderId.toString());
 
@@ -692,10 +687,10 @@ public class TestActivity extends Activity {
         Cursor cursorSessionDelete;
 
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_SESSION_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_SESSION_ID + " DESC";
 
         cursorSessionDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -703,7 +698,7 @@ public class TestActivity extends Activity {
 
             cursorSessionDelete.moveToFirst();
 
-            Integer lastSessionid = cursorSessionDelete.getInt(cursorSessionDelete.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer lastSessionid = cursorSessionDelete.getInt(cursorSessionDelete.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
 
             deleteAudiosBySession(lastSessionid);   //deletes all audios in this session!!
             deleteImagesBySession(lastSessionid);   //deletes all images in this session!!
@@ -722,8 +717,8 @@ public class TestActivity extends Activity {
         Cursor cursorAudiosSessionId;
 
         Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID  };
-        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
+        String selection = DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(sessionId)};
         String sortOrder = null;
 
@@ -732,9 +727,9 @@ public class TestActivity extends Activity {
         //delete each audio in that session
         while (cursorAudiosSessionId.moveToNext()) {
 
-            Integer eachAudioId = cursorAudiosSessionId.getInt(cursorAudiosSessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            Integer eachAudioId = cursorAudiosSessionId.getInt(cursorAudiosSessionId.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
 
-            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String  selection_2 = DBHelper.COLUMN_AUDIO_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachAudioId)};
 
             int rowDeleteEachAudio = getContentResolver().delete(DBProvider.AUDIO_URI, selection_2, selectionArgs_2);
@@ -747,8 +742,8 @@ public class TestActivity extends Activity {
         Cursor cursorImagesSessionId;
 
         Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
-        String selection = dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
+        String selection = DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(sessionId)};
         String sortOrder = null;
 
@@ -757,9 +752,9 @@ public class TestActivity extends Activity {
         //delete each image in that session
         while (cursorImagesSessionId.moveToNext()) {
 
-            Integer eachImageId = cursorImagesSessionId.getInt(cursorImagesSessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            Integer eachImageId = cursorImagesSessionId.getInt(cursorImagesSessionId.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
 
-            String  selection_2 = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+            String  selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachImageId)};
 
             int rowDeleteEachImage = getContentResolver().delete(DBProvider.IMAGE_URI, selection_2, selectionArgs_2);
@@ -778,20 +773,20 @@ public class TestActivity extends Activity {
         //using in real app and change the fields accordingly to the table
         /*
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID  };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
         */
 
         //using my dummy data
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                dbHelper.COLUMN_SESSION_NAME,
-                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID,
+                DBHelper.COLUMN_SESSION_NAME,
+                DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN   };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_SESSION_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_SESSION_ID + " DESC";
 
         cursorEditSession = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -799,11 +794,11 @@ public class TestActivity extends Activity {
 
             cursorEditSession.moveToFirst();
 
-            Integer editSessionid = cursorEditSession.getInt(cursorEditSession.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer editSessionid = cursorEditSession.getInt(cursorEditSession.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
 
             ContentValues values = new ContentValues();
-            values.put(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.edit_session_edittext)).getText().toString()) ); //edittext is folder selection number
-            String selection_2 = dbHelper.COLUMN_SESSION_ID + " = ?";
+            values.put(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, Integer.parseInt(((EditText)findViewById(R.id.edit_session_edittext)).getText().toString()) ); //edittext is folder selection number
+            String selection_2 = DBHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(editSessionid)};
 
             int rowEditSession = getContentResolver().update(DBProvider.SESSION_URI, values, selection_2, selectionArgs_2);
@@ -822,9 +817,9 @@ public class TestActivity extends Activity {
     private Cursor getAudio() {
 
         Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
-                                                dbHelper.COLUMN_AUDIO_FILE,
-                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID,
+                                                DBHelper.COLUMN_AUDIO_FILE,
+                                                DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
@@ -835,10 +830,10 @@ public class TestActivity extends Activity {
     private Cursor getAudioBySessionId(Integer sessionId) {
         // Run query
         Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID,
-                                                dbHelper.COLUMN_AUDIO_FILE,
-                                                dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
-        String selection = dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID,
+                                                DBHelper.COLUMN_AUDIO_FILE,
+                                                DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN    };
+        String selection = DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(sessionId)};
         String sortOrder = null;
 
@@ -853,15 +848,15 @@ public class TestActivity extends Activity {
         Cursor cursorAudiobySessionId = getAudioBySessionId(Integer.parseInt(((EditText)findViewById(R.id.get_audio_filename_session_id)).getText().toString()) );
 
         while (cursorAudiobySessionId.moveToNext()) {
-            Integer displayAudioId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            Integer displayAudioId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
             audiofilenamesbySessionIdView.append(" ");
             audiofilenamesbySessionIdView.append(displayAudioId.toString());
 
-            String displayAudioFilename = cursorAudiobySessionId.getString(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_FILE));
+            String displayAudioFilename = cursorAudiobySessionId.getString(cursorAudiobySessionId.getColumnIndex(DBHelper.COLUMN_AUDIO_FILE));
             audiofilenamesbySessionIdView.append(" ");
             audiofilenamesbySessionIdView.append(displayAudioFilename);
 
-            Integer displayAudioSessionId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(dbHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
+            Integer displayAudioSessionId = cursorAudiobySessionId.getInt(cursorAudiobySessionId.getColumnIndex(DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN));
             audiofilenamesbySessionIdView.append(" ");
             audiofilenamesbySessionIdView.append(displayAudioSessionId.toString());
 
@@ -893,10 +888,10 @@ public class TestActivity extends Activity {
         Cursor cursorAudioDelete;
 
         Uri uri = DBProvider.AUDIO_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_AUDIO_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_AUDIO_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_AUDIO_ID + " DESC";
 
         cursorAudioDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -904,7 +899,7 @@ public class TestActivity extends Activity {
 
             cursorAudioDelete.moveToFirst();
 
-            Integer lastAudioid = cursorAudioDelete.getInt(cursorAudioDelete.getColumnIndex(dbHelper.COLUMN_AUDIO_ID));
+            Integer lastAudioid = cursorAudioDelete.getInt(cursorAudioDelete.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
 
             String selection_2 = DBHelper.COLUMN_AUDIO_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastAudioid)};
@@ -939,9 +934,9 @@ public class TestActivity extends Activity {
     private Cursor getImages() {
         // Run query
         Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
-                                                dbHelper.COLUMN_IMAGE_FILE,
-                                                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID,
+                                                DBHelper.COLUMN_IMAGE_FILE,
+                                                DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
@@ -951,10 +946,10 @@ public class TestActivity extends Activity {
 
     private Cursor getImagesBySessionId(Integer sessionId) {
         Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID,
-                                                dbHelper.COLUMN_IMAGE_FILE,
-                                                dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
-        String selection = dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID,
+                                                DBHelper.COLUMN_IMAGE_FILE,
+                                                DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN    };
+        String selection = DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(sessionId)};
         String sortOrder = null;
 
@@ -969,15 +964,15 @@ public class TestActivity extends Activity {
         Cursor cursorImagebySessionId = getImagesBySessionId(Integer.parseInt(((EditText) findViewById(R.id.get_image_filename_session_id)).getText().toString()));
 
         while (cursorImagebySessionId.moveToNext()) {
-            Integer displayImageId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            Integer displayImageId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
             imagefilebySessionIdView.append(" ");
             imagefilebySessionIdView.append(displayImageId.toString());
 
-            String displayImageFilename = cursorImagebySessionId.getString(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_FILE));
+            String displayImageFilename = cursorImagebySessionId.getString(cursorImagebySessionId.getColumnIndex(DBHelper.COLUMN_IMAGE_FILE));
             imagefilebySessionIdView.append(" ");
             imagefilebySessionIdView.append(displayImageFilename);
 
-            Integer displayImageSessionId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(dbHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
+            Integer displayImageSessionId = cursorImagebySessionId.getInt(cursorImagebySessionId.getColumnIndex(DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN));
             imagefilebySessionIdView.append(" ");
             imagefilebySessionIdView.append(displayImageSessionId.toString());
 
@@ -996,10 +991,10 @@ public class TestActivity extends Activity {
         Cursor cursorImageDelete;
 
         Uri uri = DBProvider.IMAGE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_IMAGE_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_IMAGE_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_IMAGE_ID + " DESC";
 
         cursorImageDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -1007,7 +1002,7 @@ public class TestActivity extends Activity {
 
             cursorImageDelete.moveToFirst();
 
-            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(dbHelper.COLUMN_IMAGE_ID));
+            Integer lastImageid = cursorImageDelete.getInt(cursorImageDelete.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
 
             String selection_2 = DBHelper.COLUMN_IMAGE_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastImageid)};
@@ -1039,9 +1034,9 @@ public class TestActivity extends Activity {
     private Cursor getFolders() {
         // Run query
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
-                                                dbHelper.COLUMN_FOLDER_NAME,
-                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID,
+                                                DBHelper.COLUMN_FOLDER_NAME,
+                                                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN    };
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
@@ -1052,10 +1047,10 @@ public class TestActivity extends Activity {
     private Cursor getFoldersByModuleId(Integer moduleId) {
 
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
-                                                dbHelper.COLUMN_FOLDER_NAME,
-                                                dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN  };
-        String selection =  dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN + " = ? ";
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID,
+                                                DBHelper.COLUMN_FOLDER_NAME,
+                                                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN  };
+        String selection =  DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN + " = ? ";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
 
@@ -1070,15 +1065,15 @@ public class TestActivity extends Activity {
         Cursor cursorFolderModuleById = getFoldersByModuleId(Integer.parseInt(((EditText)findViewById(R.id.get_folder_module_id_edittext)).getText().toString()) ); //static module_id
 
         while (cursorFolderModuleById.moveToNext()) {
-            Integer displayFolderId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer displayFolderId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
             foldersModulesByIdView.append(" ");
             foldersModulesByIdView.append(displayFolderId.toString());
 
-            String displayFolderName = cursorFolderModuleById.getString(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_NAME));
+            String displayFolderName = cursorFolderModuleById.getString(cursorFolderModuleById.getColumnIndex(DBHelper.COLUMN_FOLDER_NAME));
             foldersModulesByIdView.append(" ");
             foldersModulesByIdView.append(displayFolderName);
 
-            Integer displayFolderModuleId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(dbHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
+            Integer displayFolderModuleId = cursorFolderModuleById.getInt(cursorFolderModuleById.getColumnIndex(DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN));
             foldersModulesByIdView.append(" ");
             foldersModulesByIdView.append(displayFolderModuleId.toString());
 
@@ -1095,15 +1090,15 @@ public class TestActivity extends Activity {
     */
 
     public void deleteButtonFolderWithSessions(View view) {
-        deleteFolderWithSessions(2);
-        deleteFolder(2);
+        deleteFolderWithSessions(2);    //2 not used
+        deleteFolder(2);                //2 not used
         retrieveFolders(view);
         retrieveSessions(view);
     }
 
     public void deleteButtonFolderWithoutSessions(View view) {
-        deleteFolderWithoutSessions(3, 1);
-        deleteFolder(3);
+        deleteFolderWithoutSessions(3, 1);  //3, 1 not used
+        deleteFolder(3);                    //3 not used
         retrieveFolders(view);
         retrieveSessions(view);
     }
@@ -1114,10 +1109,10 @@ public class TestActivity extends Activity {
         Cursor cursorFolderDelete;
 
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_FOLDER_ID + " DESC";
 
         cursorFolderDelete = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -1125,7 +1120,7 @@ public class TestActivity extends Activity {
 
             cursorFolderDelete.moveToFirst();
 
-            Integer lastFolderid = cursorFolderDelete.getInt(cursorFolderDelete.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer lastFolderid = cursorFolderDelete.getInt(cursorFolderDelete.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
 
             String selection_2 = DBHelper.COLUMN_FOLDER_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
@@ -1136,7 +1131,7 @@ public class TestActivity extends Activity {
         // using static parameters!!
         /*
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID  };
         String selection = DBHelper.COLUMN_FOLDER_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(deleteId)};
 
@@ -1151,8 +1146,8 @@ public class TestActivity extends Activity {
         Cursor cursorFolderWithSessions;
 
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID  };
-        String selection = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID  };
+        String selection = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(folderId)};
         String sortOrder = null;
 
@@ -1160,7 +1155,7 @@ public class TestActivity extends Activity {
 
         while (cursorFolderWithSessions.moveToNext()) {
 
-            Integer eachSessionid = cursorFolderWithSessions.getInt(cursorFolderWithSessions.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+            Integer eachSessionid = cursorFolderWithSessions.getInt(cursorFolderWithSessions.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
 
             String selection_2 = DBHelper.COLUMN_SESSION_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(eachSessionid)};
@@ -1173,10 +1168,10 @@ public class TestActivity extends Activity {
         Cursor cursorLastFolder;
 
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_FOLDER_ID + " DESC";
 
         cursorLastFolder = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -1187,11 +1182,11 @@ public class TestActivity extends Activity {
 
             cursorLastFolder.moveToFirst();
 
-            Integer lastFolderid = cursorLastFolder.getInt(cursorLastFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer lastFolderid = cursorLastFolder.getInt(cursorLastFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
 
             Uri uri_2 = DBProvider.SESSION_URI;
-            String[] projection_2 = new String[] {   dbHelper.COLUMN_SESSION_ID   };
-            String selection_2 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+            String[] projection_2 = new String[] {   DBHelper.COLUMN_SESSION_ID   };
+            String selection_2 = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
             String sortOrder_2 = null;
 
@@ -1200,7 +1195,10 @@ public class TestActivity extends Activity {
             //delete sessions in last folder
             while (cursorLastFolderSessions.moveToNext()) {
 
-                Integer eachSessionid = cursorLastFolderSessions.getInt(cursorLastFolderSessions.getColumnIndex(dbHelper.COLUMN_SESSION_ID));
+                Integer eachSessionid = cursorLastFolderSessions.getInt(cursorLastFolderSessions.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
+
+                deleteAudiosBySession(eachSessionid);   //deletes all audios in this session!!
+                deleteImagesBySession(eachSessionid);   //deletes all images in this session!!
 
                 String selection_3 = DBHelper.COLUMN_SESSION_ID + " = ?";
                 String[] selectionArgs_3 = new String[]{Integer.toString(eachSessionid)};
@@ -1220,10 +1218,10 @@ public class TestActivity extends Activity {
         Cursor cursorFolderWithoutSessions;
 
         Uri uri = DBProvider.SESSION_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_SESSION_ID,
-                                                dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN
+        String[] projection = new String[] {    DBHelper.COLUMN_SESSION_ID,
+                                                DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN
                                             };
-        String selection = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+        String selection = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(oldFolderId)};
         String sortOrder = null;
 
@@ -1231,8 +1229,8 @@ public class TestActivity extends Activity {
 
         while (cursorFolderWithoutSessions.moveToNext()) {
             ContentValues values = new ContentValues();
-            values.put(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, newFolderId ); //NULL not accepting !!!!! JB.
-            String selection_2 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+            values.put(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN, newFolderId ); //NULL not accepting !!!!! JB.
+            String selection_2 = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(oldFolderId)}; //oldFolderId
 
             int rowEditFolderOfSession = getContentResolver().update(DBProvider.SESSION_URI, values, selection_2, selectionArgs_2);
@@ -1244,10 +1242,10 @@ public class TestActivity extends Activity {
         Cursor cursorWithoutSessionLastFolder;
 
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID  };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID  };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_FOLDER_ID + " DESC";
 
         cursorWithoutSessionLastFolder = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -1258,11 +1256,11 @@ public class TestActivity extends Activity {
 
             cursorWithoutSessionLastFolder.moveToFirst();
 
-            Integer lastFolderid = cursorWithoutSessionLastFolder.getInt(cursorWithoutSessionLastFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer lastFolderid = cursorWithoutSessionLastFolder.getInt(cursorWithoutSessionLastFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
 
             Uri uri_2 = DBProvider.SESSION_URI;
-            String[] projection_2 = new String[]{dbHelper.COLUMN_SESSION_ID};
-            String selection_2 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+            String[] projection_2 = new String[]{DBHelper.COLUMN_SESSION_ID};
+            String selection_2 = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(lastFolderid)};
             String sortOrder_2 = null;
 
@@ -1272,8 +1270,8 @@ public class TestActivity extends Activity {
             while (cursorWithoutSessionLastFolderSessions.moveToNext()) {
 
                 ContentValues values_3 = new ContentValues();
-                values_3.putNull(dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN);
-                String selection_3 = dbHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
+                values_3.putNull(DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN);
+                String selection_3 = DBHelper.COLUMN_SESSION_FOLDER_ID_FOREIGN + " = ?";
                 String[] selectionArgs_3 = new String[]{Integer.toString(lastFolderid)};
 
                 int rowMoveSessions = getContentResolver().update(DBProvider.SESSION_URI, values_3, selection_3, selectionArgs_3);
@@ -1296,19 +1294,19 @@ public class TestActivity extends Activity {
         //using in real app and change the fields accordingly to the table
         /*
         Uri uri = DBProvider.MODULE_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_MODULE_ID  };
-        String selection = dbHelper.COLUMN_MODULE_ID + " = ?";
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID  };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(moduleId)};
         String sortOrder = null;
         */
 
         //using my dummy data
         Uri uri = DBProvider.FOLDER_URI;
-        String[] projection = new String[] {    dbHelper.COLUMN_FOLDER_ID,
-                                                dbHelper.COLUMN_FOLDER_NAME   };
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID,
+                                                DBHelper.COLUMN_FOLDER_NAME   };
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = dbHelper.COLUMN_FOLDER_ID + " DESC";
+        String sortOrder = DBHelper.COLUMN_FOLDER_ID + " DESC";
 
         cursorEditFolder = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
@@ -1316,11 +1314,11 @@ public class TestActivity extends Activity {
 
             cursorEditFolder.moveToFirst();
 
-            Integer editFolderid = cursorEditFolder.getInt(cursorEditFolder.getColumnIndex(dbHelper.COLUMN_FOLDER_ID));
+            Integer editFolderid = cursorEditFolder.getInt(cursorEditFolder.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
 
             ContentValues values = new ContentValues();
-            values.put(dbHelper.COLUMN_FOLDER_NAME, ((EditText)findViewById(R.id.edit_folder_edittext)).getText().toString() );
-            String selection_2 = dbHelper.COLUMN_FOLDER_ID + " = ?";
+            values.put(DBHelper.COLUMN_FOLDER_NAME, ((EditText)findViewById(R.id.edit_folder_edittext)).getText().toString() );
+            String selection_2 = DBHelper.COLUMN_FOLDER_ID + " = ?";
             String[] selectionArgs_2 = new String[]{Integer.toString(editFolderid)};
 
             int rowEditFolder = getContentResolver().update(DBProvider.FOLDER_URI, values, selection_2, selectionArgs_2);

@@ -2,22 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.team05.lecturec" >
 
-    <uses-permission android:name="com.example.team05.lecturec.myProviderPermission" >
-    </uses-permission>
+    <uses-permission android:name="com.example.team05.lecturec.myProviderPermission" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <provider
             android:name="com.example.team05.lecturec.ModelControllers.DBProvider"
             android:authorities="com.example.team05.lecturec"
             android:enabled="true"
             android:permission="com.example.team05.lecturec.myProviderPermission" >
         </provider>
-
 
         <!--
         <activity
@@ -53,24 +56,24 @@
             android:name="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:windowSoftInputMode="adjustPan" >
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
+                -->
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
-            android:label="@string/title_activity_module" >
-         </activity>
-
-
-
+            android:label="@string/title_activity_module"
+            android:launchMode="singleTop" >
+        </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
-
-
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -80,14 +83,23 @@
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity"
+            android:name=".ViewControllers.SelectedSessionActivity"
             android:label="@string/title_activity_selectedsession"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
-
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
+            android:label="@string/title_activity_new_session"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.ModuleActivity" >
+            <!--
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
+                -->
+        </activity>
     </application>
 
 </manifest>

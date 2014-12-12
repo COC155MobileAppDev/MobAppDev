@@ -104,7 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_AUDIO_ID + " integer primary key autoincrement, "
             //+ COLUMN_AUDIO_NAME + " text not null, "
             + COLUMN_AUDIO_FILE + " text, "
-            + COLUMN_AUDIO_DURATION + " text, "
+            + COLUMN_AUDIO_DURATION + " integer, "
             + COLUMN_AUDIO_START_TIME + " text, "
             + COLUMN_AUDIO_SESSION_ID_FOREIGN + " integer, foreign key("
                 + COLUMN_AUDIO_SESSION_ID_FOREIGN + ") references "

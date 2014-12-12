@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-    <!--                    REQUIRED STRINGS                                       -->
+    <!-- REQUIRED STRINGS -->
 
     <string name="app_name">LectuREC</string>
     <string name="title_activity_loading">LoadingActivity</string>
@@ -27,37 +26,26 @@
     <string name="title_activity_section2">Section2</string>
     <string name="title_activity_settings_activity">Settings</string>
 
-
-
-    <!--    New Module and Fragments Strings   -->
+    <!-- New Module and Fragments Strings -->
     <string name="moduleName">Module Name:</string>
     <string name="change_time">Change the time</string>
     <string name="moduleNameHint">Enter Module Name</string>
-
     <string name="add_module_time">Add Module Time +</string>
     <string name="delete_text">DELETE</string>
     <string name="archive_text">ARCHIVE</string>
     <string name="save_text">SAVE</string>
 
-
-    <!--    Module Activity Strings -->
+    <!-- Module Activity Strings -->
     <string name="title_activity_module">ModuleActivity</string>
+    <string name="editModuleText">EDIT MODULE</string>
+
+    <!-- REQUIRED STRINGS END -->
 
 
-
-    <!--                   REQUIRED STRINGS END                                   -->
-
-
-
-
-
-
-    <!--                    MY STRINGS PRASH  !!!!      START !!!                  -->
+    <!-- MY STRINGS PRASH  !!!!      START !!! -->
 
     <string name="seperator_line">---------------------------------------------------------</string>
-
     <string name="title_activity_test">TestActivity</string>
-
     <string name="add_module_hint">Add Module</string>
     <string name="add_module_button_text">Add Module</string>
     <string name="delete_module_button_text">Delete Module</string>
@@ -66,8 +54,6 @@
     <string name="is_archive_hint">Is Archive</string>
     <string name="module_id_hint">Module id</string>
     <string name="get_module_by_id_button_text">Get by Mod_Id</string>
-
-
     <string name="add_start_time_hint">Start Module Time</string>
     <string name="add_end_time_hint">End Module Time</string>
     <string name="add_notification_hint">Notification S</string>
@@ -80,25 +66,16 @@
     <string name="edit_module_time_text">Update Module Time</string>
     <string name="module_time_module_id_hint">Module Id</string>
     <string name="get_module_time_module_by_id_button_text">Get Module Id</string>
-
-
     <string name="add_audio_filename_session_id_hint">Session Id</string>
     <string name="save_audio_filename_text">Save Audio</string>
     <string name="delete_audio_filename_text">Delete Audio</string>
     <string name="get_audio_filename_session_id_hint">Session Id</string>
     <string name="get_audio_filename_session_id_text">Get Session Id</string>
-
-
-
     <string name="add_image_filename_session_id_hint">Session Id</string>
     <string name="capture_image_text">Capture Image</string>
     <string name="delete_image_text">Delete Image</string>
     <string name="get_image_filename_session_id_hint">Session Id</string>
     <string name="get_image_filename_session_id_text">Get Session Id</string>
-
-
-
-
     <string name="add_session_module_id_hint">Module Id</string>
     <string name="add_session_folder_id_hint">Folder Id</string>
     <string name="new_session_text">New Session</string>
@@ -108,10 +85,6 @@
     <string name="edit_session_text">Update Session</string>
     <string name="get_session_module_id_hint">Module Id</string>
     <string name="get_session_module_id_text">Get Module Id</string>
-
-
-
-
     <string name="create_folder_hint">Folder Name</string>
     <string name="create_folder_module_id_hint">Module Id</string>
     <string name="create_folder_text">Create Folder</string>
@@ -123,23 +96,16 @@
     <string name="get_folder_module_id_hint">Module Id</string>
     <string name="get_folder_module_id_text">Get Module Id</string>
 
+    <!-- MY STRINGS PRASH  !!!!      END!!! -->
 
 
-
-    <!--                    MY STRINGS PRASH  !!!!      END!!!                   -->
-
-
-
-
-
-    <!--                    FA STRINGS                                       -->
+    <!-- FA STRINGS -->
 
     <string name="title_activity_settings">SettingsActivity</string>
-
     <string name="title_activity_selectedsession">SelectedsessionActivity</string>
 
+    <!-- FA STRINGS END -->
 
-    <!--                    FA STRINGS END                                  -->
-
+    <string name="title_activity_new_session">NewSessionActivity</string>
 
 </resources>

@@ -47,4 +47,8 @@ public class Time implements Serializable {
     public int getSeconds() {
         return seconds;
     }
+
+
+    public String convertToString() {  return "" + hours + ":" + minutes + ":" + seconds; }
+
 }
