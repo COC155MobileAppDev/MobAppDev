@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.example.team05.lecturec.R;
 
-public class SelectedsessionActivity extends FragmentActivity
+public class SelectedSessionActivity extends FragmentActivity
     implements AudioFragment.OnAudioFragmentInteractionListener,
     ImagesFragment.OnImagesFragmentInteractionListener {
 

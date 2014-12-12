@@ -9,25 +9,37 @@
     <TextView android:id="@+id/moduleActivityTextView" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/moduleButtonsLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Start New Session"
-        android:id="@+id/button2"
-        android:layout_below="@+id/moduleActivityTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="startNewSessionButton" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/editModuleBtn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/editModuleBtn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editModuleText"
+            android:onClick="editModuleButton" />
+
+        <Button
+            android:id="@+id/startNewSessionBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Start New Session"
+            android:onClick="startNewSessionButton" />
+
+
+
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/recentSessionsListView"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/editModuleText"
-        android:layout_below="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="editModuleButton"/>
+        android:layout_below="@+id/moduleButtonsLayout" />
 
 </RelativeLayout>
