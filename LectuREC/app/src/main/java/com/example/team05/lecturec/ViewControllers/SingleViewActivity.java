@@ -1,18 +1,18 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
+import com.example.team05.lecturec.Controllers.FileManager;
+import com.example.team05.lecturec.CustomExtensions.ImageAdapter2;
 import com.example.team05.lecturec.R;
+
+import java.io.File;
 
 public class SingleViewActivity extends Activity {
 
@@ -27,16 +27,18 @@ public class SingleViewActivity extends Activity {
         setContentView(R.layout.activity_singleview);
 
         // Get intent data
-        Intent i = getIntent();
+        Bundle passedBundle = getIntent().getExtras();
 
         // Selected image id
-        int position = i.getExtras().getInt("id");
-        ImageAdapter imageAdapter = new ImageAdapter(this);
+        //int position = i.getExtras().getInt("id");
+
+        String imageFileName = passedBundle.getString("imageFilePath");
+        File imageFilePath = FileManager.getImageFileFormat(getApplicationContext(), imageFileName);
 
         imageView = (ImageView) findViewById(R.id.SingleView);
 
         // to be completed. Needs passing image from item arraylist
-        imageView.setImageResource(R.drawable.sample_0);
+        imageView.setImageURI(Uri.fromFile(imageFilePath));
 
 
         matrix = new Matrix();

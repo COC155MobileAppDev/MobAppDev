@@ -20,12 +20,14 @@ import java.util.List;
 /**
  * Created by fernandoalvan on 11/12/14.
  */
-public class ImageAdapter extends BaseAdapter {
+public class ImageAdapter2 extends BaseAdapter {
 
     public List<Item> images = new ArrayList<Item>();
     private LayoutInflater inflater;
 
-    public ImageAdapter(Context context)
+
+
+    public ImageAdapter2(Context context)
     {
         inflater = LayoutInflater.from(context);
         images.add(new Item("Image 0", R.drawable.sample_0));
@@ -66,6 +68,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView picture;
         TextView name;
 
+        /*
         if(iView == null)
         {
             iView = inflater.inflate(R.layout.gridview_item, viewGroup, false);
@@ -81,6 +84,7 @@ public class ImageAdapter extends BaseAdapter {
 
         picture.setImageResource(item.drawableId);
         name.setText(item.name);
+        */
 
         return iView;
     }

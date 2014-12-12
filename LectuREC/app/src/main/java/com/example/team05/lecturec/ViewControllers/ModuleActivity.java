@@ -36,6 +36,7 @@ public class ModuleActivity extends Activity {
 
         passedData = getIntent().getExtras();
 
+
         try {
             selectedModule = (Module)passedData.getSerializable("selectedModule");
 
