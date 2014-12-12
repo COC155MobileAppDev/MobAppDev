@@ -1,8 +1,12 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -16,13 +20,15 @@ import android.widget.ListView;
 
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.MediaController;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AudioFragment extends Fragment {
 
-;
+
 
     private OnAudioFragmentInteractionListener mListener;
 
@@ -31,6 +37,7 @@ public class AudioFragment extends Fragment {
 
     private ArrayList<String> archiveNames;
 
+    private ArrayList<String> songList;
     String[] population;
 
 
@@ -43,6 +50,8 @@ public class AudioFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        songList = ((SelectedsessionActivity)getActivity()).getSongList();
 
     }
 
@@ -57,25 +66,25 @@ public class AudioFragment extends Fragment {
         // Generate sample data into string arrays
 
 
-        population = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886", "182,912,000",
-                "170,901,000", "152,518,015", "143,369,806", "127,360,000" };
-
-        // Locate the ListView in listview_main.xml
+        // Locate the ListView in listview.xml
         audioListview = (ListView) fragmentLayout.findViewById(R.id.listview);
 
+        /*
         archiveNames = new ArrayList<String>();
         archiveNames.add("Amy");
         archiveNames.add("Amy");
         archiveNames.add("Amy");
         archiveNames.add("Amy");
 
+        */
 
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_activated_1, population);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_activated_1, songList);
 
         audioListview.setAdapter(arrayAdapter);
         audioListview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+
+
 
         // Capture ListView item click
         audioListview.setMultiChoiceModeListener(new MultiChoiceModeListener() {
@@ -94,19 +103,13 @@ public class AudioFragment extends Fragment {
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 return false;
-
-
-
-
             }
 
 
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-
                 actionMode.getMenuInflater().inflate(R.menu.menu_selectedsession, menu);
                 return true;
-                //return false;
             }
 
             @Override
@@ -123,6 +126,7 @@ public class AudioFragment extends Fragment {
         // Inflate the layout for this fragment
         return fragmentLayout;
     }
+
 
 
     @Override

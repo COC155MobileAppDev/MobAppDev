@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Checkable;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.team05.lecturec.R;
+import com.example.team05.lecturec.ViewControllers.ImagesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +68,12 @@ public class ImageAdapter extends BaseAdapter {
 
         if(iView == null)
         {
+
+
             iView = inflater.inflate(R.layout.gridview_item, viewGroup, false);
             iView.setTag(R.id.picture, iView.findViewById(R.id.picture));
             iView.setTag(R.id.text, iView.findViewById(R.id.text));
+
         }
 
         picture = (ImageView)iView.getTag(R.id.picture);
@@ -75,9 +81,12 @@ public class ImageAdapter extends BaseAdapter {
 
         Item item = (Item)getItem(i);
 
+
+
         picture.setImageResource(item.drawableId);
         name.setText(item.name);
 
+        //ImagesFragment.CheckableLayout l = new ImagesFragment.CheckableLayout(iView.this);
         return iView;
     }
 
@@ -92,5 +101,8 @@ public class ImageAdapter extends BaseAdapter {
             this.drawableId = drawableId;
         }
     }
+
+
+
 }
 
