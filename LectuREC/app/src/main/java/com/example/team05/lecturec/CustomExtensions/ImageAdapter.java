@@ -68,8 +68,6 @@ public class ImageAdapter extends BaseAdapter {
 
         if(iView == null)
         {
-
-
             iView = inflater.inflate(R.layout.gridview_item, viewGroup, false);
             iView.setTag(R.id.picture, iView.findViewById(R.id.picture));
             iView.setTag(R.id.text, iView.findViewById(R.id.text));
@@ -81,12 +79,9 @@ public class ImageAdapter extends BaseAdapter {
 
         Item item = (Item)getItem(i);
 
-
-
         picture.setImageResource(item.drawableId);
         name.setText(item.name);
 
-        //ImagesFragment.CheckableLayout l = new ImagesFragment.CheckableLayout(iView.this);
         return iView;
     }
 

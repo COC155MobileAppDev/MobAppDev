@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -20,11 +19,9 @@ import android.widget.ListView;
 
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.MediaController;
-import android.widget.SeekBar;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class AudioFragment extends Fragment {
 
@@ -38,8 +35,9 @@ public class AudioFragment extends Fragment {
     private ArrayList<String> archiveNames;
 
     private ArrayList<String> songList;
-    String[] population;
 
+
+    private MediaPlayer mediaPlayer;
 
 
 
@@ -86,6 +84,7 @@ public class AudioFragment extends Fragment {
 
 
 
+
         // Capture ListView item click
         audioListview.setMultiChoiceModeListener(new MultiChoiceModeListener() {
             @Override
@@ -100,8 +99,10 @@ public class AudioFragment extends Fragment {
 
 
 
+
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+
                 return false;
             }
 

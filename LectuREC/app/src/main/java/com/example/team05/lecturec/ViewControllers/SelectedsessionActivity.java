@@ -65,7 +65,6 @@ public class SelectedsessionActivity extends FragmentActivity
 
     }
 
-
     public ArrayList<String> getSongList(){
         return songs;
     }
