@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import com.example.team05.lecturec.CustomExtensions.AudioAdapter;
 import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,6 +79,7 @@ public class AudioFragment extends Fragment {
 
         // Capture ListView item click
         audioListView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+
             @Override
             public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
                 // Capture total checked items
@@ -88,10 +92,9 @@ public class AudioFragment extends Fragment {
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-
-                return false;
+                //Toast.makeText((getActivity()).getApplicationContext(), "Cannot jump forward 5 seconds", Toast.LENGTH_SHORT).show();
+                return true;
             }
-
 
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
@@ -115,6 +118,13 @@ public class AudioFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 currentAudioFile = FileManager.getAudioFileFormat(getActivity().getApplicationContext(), audios.get(position).getFile());
+
+                /*
+                Toast.makeText((getActivity()).getApplicationContext(),
+                                            ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+                */
+                mediaPlayer = MediaPlayer.create(getActivity().getApplicationContext(), Uri.fromFile(currentAudioFile));
+                mediaPlayer.start();
 
             }
         });
