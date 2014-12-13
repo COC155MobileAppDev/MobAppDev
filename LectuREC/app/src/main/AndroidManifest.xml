@@ -4,9 +4,12 @@
 
     <uses-permission android:name="com.example.team05.lecturec.myProviderPermission" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -55,6 +58,7 @@
             android:name="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:windowSoftInputMode="adjustPan" >
+
             <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -62,7 +66,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
-                -->
+            -->
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
@@ -82,7 +86,7 @@
                 android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
         </activity>
         <activity
-            android:name=".ViewControllers.SelectedSessionActivity"
+            android:name="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity"
             android:label="@string/title_activity_selectedSession"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
             <meta-data
@@ -93,13 +97,13 @@
             android:name="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
             android:label="@string/title_activity_new_session"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.ModuleActivity" >
+
             <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
-                -->
+            -->
         </activity>
-
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SingleViewActivity"
             android:label="@string/title_activity_single_view"
@@ -108,7 +112,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity" />
         </activity>
-
+        <activity
+            android:name="com.example.team05.lecturec.ViewControllers.ModuleSessionsActivity"
+            android:label="@string/title_activity_module_sessions" >
+        </activity>
     </application>
 
 </manifest>

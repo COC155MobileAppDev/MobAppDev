@@ -17,8 +17,7 @@ import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
-import com.example.team05.lecturec.CustomExtensions.ImageAdapater;
-import com.example.team05.lecturec.CustomExtensions.ImageAdapter2;
+import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
 import com.example.team05.lecturec.DataTypes.Image;
 import com.example.team05.lecturec.R;
 
@@ -71,7 +70,7 @@ public class ImagesFragment extends Fragment {
 
         gridView = (GridView) fragmentLayout.findViewById(R.id.imageGridView);
 
-        ImageAdapater imageAdapater = new ImageAdapater(getActivity().getApplicationContext(), R.layout.gridview_item, images);
+        ImageAdapter imageAdapater = new ImageAdapter(getActivity().getApplicationContext(), R.layout.gridview_item, images);
 
 
 

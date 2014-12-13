@@ -106,10 +106,9 @@
 
     <!-- FA STRINGS END -->
 
-
     <string name="title_activity_new_session">NewSessionActivity</string>
     <string name="title_activity_single_view">SingleViewActivity</string>
     <string name="volume">Volume</string>
-
+    <string name="title_activity_module_sessions">ModuleSessionsActivity</string>
 
 </resources>

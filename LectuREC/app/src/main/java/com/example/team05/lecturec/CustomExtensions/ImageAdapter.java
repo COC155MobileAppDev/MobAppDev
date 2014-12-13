@@ -19,13 +19,13 @@ import java.util.ArrayList;
 /**
  * Created by Johnbastian on 12/12/2014.
  */
-public class ImageAdapater extends ArrayAdapter{
+public class ImageAdapter extends ArrayAdapter{
 
     Context context;
     int layoutResourceID;
     ArrayList<Image> images;
 
-    public ImageAdapater(Context c, int lrID, ArrayList<Image> imgList){
+    public ImageAdapter(Context c, int lrID, ArrayList<Image> imgList){
         super(c, lrID, imgList);
 
         context = c;
