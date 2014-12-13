@@ -16,9 +16,11 @@ import android.widget.AdapterView;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
-import com.example.team05.lecturec.DataTypes.Image;
+import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 
 import java.util.ArrayList;
@@ -70,11 +72,10 @@ public class ImagesFragment extends Fragment {
 
         gridView = (GridView) fragmentLayout.findViewById(R.id.imageGridView);
 
-        ImageAdapter imageAdapater = new ImageAdapter(getActivity().getApplicationContext(), R.layout.gridview_item, images);
+        ImageAdapter imageAdapter = new ImageAdapter(getActivity().getApplicationContext(), R.layout.gridview_item_image, images);
 
 
-
-        gridView.setAdapter(imageAdapater);
+        gridView.setAdapter(imageAdapter);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         gridView.setMultiChoiceModeListener(new MultiChoiceModeListener());
 
@@ -86,6 +87,7 @@ public class ImagesFragment extends Fragment {
                 // Pass image index
                 i.putExtra("imageFilePath", images.get(position).getFile());
                 startActivity(i);
+
             }
         });
 

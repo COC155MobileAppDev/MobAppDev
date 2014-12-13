@@ -9,7 +9,6 @@ import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
 import com.example.team05.lecturec.Controllers.FileManager;
-import com.example.team05.lecturec.CustomExtensions.ImageAdapter2;
 import com.example.team05.lecturec.R;
 
 import java.io.File;

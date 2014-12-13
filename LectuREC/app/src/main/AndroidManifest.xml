@@ -88,29 +88,18 @@
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity"
             android:label="@string/title_activity_selectedSession"
-            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.team05.lecturec.ViewControllers.MainActivity" />
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
             android:label="@string/title_activity_new_session"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.ModuleActivity" >
-
-            <!--
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.team05.lecturec.ViewControllers.ModuleActivity" />
-            -->
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SingleViewActivity"
             android:label="@string/title_activity_single_view"
             android:parentActivityName="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity" />
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleSessionsActivity"

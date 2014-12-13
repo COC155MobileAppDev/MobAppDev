@@ -49,8 +49,7 @@ public class ImageAdapter extends ArrayAdapter{
 
         holder = new ImageSquareHolder();
 
-        holder.imageSquareDisplayView = (ImageView)square.findViewById(R.id.imageSquareDisplayView);
-        holder.imageSquareDisplayView.getLayoutParams().height = holder.imageSquareDisplayView.getLayoutParams().width;
+        holder.imageSquareDisplayView = (SquareDisplayImageView)square.findViewById(R.id.imageSquareDisplayView);
         holder.imageTitleTextView = (TextView)square.findViewById(R.id.imageTitleTextView);
 
         square.setTag(holder);
@@ -65,7 +64,7 @@ public class ImageAdapter extends ArrayAdapter{
 
     static class ImageSquareHolder{
 
-        ImageView imageSquareDisplayView;
+        SquareDisplayImageView imageSquareDisplayView;
         TextView imageTitleTextView;
 
     }
