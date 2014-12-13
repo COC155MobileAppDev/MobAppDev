@@ -1,6 +1,7 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,14 +14,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.example.team05.lecturec.DataTypes.Audio;
+import com.example.team05.lecturec.Controllers.FileManager;
+import com.example.team05.lecturec.CustomExtensions.AudioAdapter;
+import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -31,13 +36,10 @@ public class AudioFragment extends Fragment {
     private OnAudioFragmentInteractionListener mListener;
 
     private FrameLayout fragmentLayout;
-    ListView audioListview;
-
-    private ArrayList<String> archiveNames;
-
-    private ArrayList<String> songList;
+    private ListView audioListView;
 
     private ArrayList<Audio> audios;
+    private File currentAudioFile;
 
 
     private MediaPlayer mediaPlayer;
@@ -52,56 +54,37 @@ public class AudioFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        songList = ((SelectedSessionActivity)getActivity()).getSongList();
+        Bundle passedBundle = getArguments();
+        audios = (ArrayList<Audio>)passedBundle.get("audioList");
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-
-        fragmentLayout = (FrameLayout) inflater.inflate(
-                R.layout.fragment_audio, container, false);
-
-        // Generate sample data into string arrays
-
+        fragmentLayout = (FrameLayout) inflater.inflate(R.layout.fragment_audio, container, false);
 
         // Locate the ListView in listview.xml
-        audioListview = (ListView) fragmentLayout.findViewById(R.id.listview);
+        audioListView = (ListView) fragmentLayout.findViewById(R.id.audioListView);
 
-        /*
-        archiveNames = new ArrayList<String>();
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
+        AudioAdapter audioAdapter = new AudioAdapter(getActivity().getApplicationContext(), R.layout.listview_row_audio, audios);
 
-        */
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_activated_1, songList);
-
-        audioListview.setAdapter(arrayAdapter);
-        audioListview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
-
-
-
+        audioListView.setAdapter(audioAdapter);
+        audioListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         // Capture ListView item click
-        audioListview.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+        audioListView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
                 // Capture total checked items
-                final int checkedCount = audioListview.getCheckedItemCount();
+                final int checkedCount = audioListView.getCheckedItemCount();
                 // Set the CAB title according to total checked items
                 actionMode.setTitle(checkedCount + " Selected");
                 // Calls toggleSelection method from ListViewAdapter Class
                 //arrayAdapter.toggleSelection(position);
             }
-
-
-
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
@@ -123,6 +106,15 @@ public class AudioFragment extends Fragment {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
+
+            }
+
+        });
+
+        audioListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                currentAudioFile = FileManager.getAudioFileFormat(getActivity().getApplicationContext(), audios.get(position).getFile());
 
             }
         });

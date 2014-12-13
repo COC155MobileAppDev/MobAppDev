@@ -73,6 +73,8 @@ public class DataManager {
 
         }
 
+        queryCursor.close();
+
         return currentModules;
 
     }

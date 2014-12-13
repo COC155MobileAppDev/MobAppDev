@@ -19,13 +19,13 @@ import java.util.ArrayList;
 /**
  * Created by Johnbastian on 12/12/2014.
  */
-public class ImageAdapater extends ArrayAdapter{
+public class ImageAdapter extends ArrayAdapter{
 
     Context context;
     int layoutResourceID;
     ArrayList<Image> images;
 
-    public ImageAdapater(Context c, int lrID, ArrayList<Image> imgList){
+    public ImageAdapter(Context c, int lrID, ArrayList<Image> imgList){
         super(c, lrID, imgList);
 
         context = c;
@@ -49,8 +49,7 @@ public class ImageAdapater extends ArrayAdapter{
 
         holder = new ImageSquareHolder();
 
-        holder.imageSquareDisplayView = (ImageView)square.findViewById(R.id.imageSquareDisplayView);
-        holder.imageSquareDisplayView.getLayoutParams().height = holder.imageSquareDisplayView.getLayoutParams().width;
+        holder.imageSquareDisplayView = (SquareDisplayImageView)square.findViewById(R.id.imageSquareDisplayView);
         holder.imageTitleTextView = (TextView)square.findViewById(R.id.imageTitleTextView);
 
         square.setTag(holder);
@@ -65,7 +64,7 @@ public class ImageAdapater extends ArrayAdapter{
 
     static class ImageSquareHolder{
 
-        ImageView imageSquareDisplayView;
+        SquareDisplayImageView imageSquareDisplayView;
         TextView imageTitleTextView;
 
     }
