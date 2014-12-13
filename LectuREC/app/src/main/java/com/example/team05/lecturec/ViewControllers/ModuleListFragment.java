@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.support.v4.app.Fragment;
 
 import com.example.team05.lecturec.Controllers.DataManager;
-import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.CustomExtensions.ModuleAdapter;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
@@ -30,7 +29,8 @@ public class ModuleListFragment extends Fragment {
 
 
     private ArrayList<Module> currentModules;
-    private ListView moduleListview;
+    ModuleAdapter moduleAdapter;
+    private ListView moduleListView;
     private FrameLayout fragmentLayout;
 
     private OnModuleListFragmentInteractionListener mListener;
@@ -45,30 +45,28 @@ public class ModuleListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
-
+        moduleAdapter = new ModuleAdapter(getActivity().getApplicationContext(), R.layout.listview_row_module, currentModules);
 
         fragmentLayout = (FrameLayout) inflater.inflate(
                 R.layout.fragment_module, container, false);
 
-        moduleListview = (ListView)fragmentLayout.findViewById(R.id.listModule);
-
-
-        ModuleAdapter moduleAdapter = new ModuleAdapter(getActivity().getApplicationContext(), R.layout.listview_row_module, currentModules);
-        moduleListview.setOnItemClickListener(new OnItemClickListener() {
+        moduleListView = (ListView)fragmentLayout.findViewById(R.id.listModule);
+        moduleListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Module selectedModule = currentModules.get(position);
 
                 Intent selectedModuleIntent = new Intent(getActivity(), ModuleActivity.class);
-                selectedModuleIntent.putExtra("selectedModule", (Serializable)selectedModule);
+                selectedModuleIntent.putExtra("selectedModule", (Serializable) selectedModule);
 
                 System.out.println("clicked" + currentModules.get(position).getName());
 
@@ -76,12 +74,24 @@ public class ModuleListFragment extends Fragment {
 
             }
         });
-        moduleListview.setAdapter(moduleAdapter);
+
+        moduleListView.setAdapter(moduleAdapter);
 
 
         // Inflate the layout for this fragment
         return fragmentLayout;
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (moduleAdapter != null){
+            currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
+            moduleAdapter.notifyDataSetChanged();
+        }
 
     }
 
