@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.CustomExtensions.RecentSessionAdapter;
 import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
@@ -23,7 +24,7 @@ public class ModuleActivity extends Activity {
 
     private Module selectedModule;
 
-
+    RecentSessionAdapter recentSessionAdapter;
     private ListView recentSessionsListView;
     private ArrayList<Session> recentSessions;
     private ArrayList<Folder> moduleFolders;
@@ -73,7 +74,7 @@ public class ModuleActivity extends Activity {
         View rsListHeader = (View)getLayoutInflater().inflate(R.layout.listview_header_recentsession, null);
         recentSessionsListView.addHeaderView(rsListHeader);
 
-        RecentSessionAdapter recentSessionAdapter =
+        recentSessionAdapter =
                 new RecentSessionAdapter(getApplicationContext(), R.layout.listview_row_recentsession, recentSessions);
 
         recentSessionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,6 +98,25 @@ public class ModuleActivity extends Activity {
         recentSessionsListView.setAdapter(recentSessionAdapter);
 
 
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if (recentSessionAdapter != null){
+
+            ArrayList<Module> refreshModuleList = DataManager.getCurrentModules(getApplicationContext());
+
+            for (Module findModule: refreshModuleList) if (findModule.getID() == selectedModule.getID()) selectedModule = findModule;
+
+            recentSessions.clear();
+            populateRecentSessionsList();
+
+            recentSessionAdapter.notifyDataSetChanged();
+
+        }
 
     }
 

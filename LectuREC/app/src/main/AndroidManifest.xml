@@ -103,10 +103,10 @@
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.SingleViewActivity"
             android:label="@string/title_activity_single_view"
-            android:parentActivityName="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity" >
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.team05.lecturec.ViewControllers.SelectedsessionActivity" />
+                android:value="com.example.team05.lecturec.ViewControllers.SelectedSessionActivity" />
         </activity>
 
     </application>
