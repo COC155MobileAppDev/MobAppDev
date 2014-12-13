@@ -3,18 +3,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--
-    <com.example.team05.lecturec.CustomExtensions.SquareImageView
-        android:id="@+id/picture"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
-     -->
-    <ImageView
+
+    <com.example.team05.lecturec.CustomExtensions.SquareDisplayImageView
         android:id="@+id/imageSquareDisplayView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
     <TextView
