@@ -173,5 +173,12 @@ public class ModuleActivity extends Activity {
 
     }
 
+    public void moduleSessionsButton(View v){
+
+        Intent moduleSessionsIntent = new Intent(this, ModuleSessionsActivity.class);
+        moduleSessionsIntent.putExtra("selectedModule", (Serializable)selectedModule);
+        startActivity(moduleSessionsIntent);
+
+    }
 
 }

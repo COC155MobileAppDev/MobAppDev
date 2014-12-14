@@ -208,8 +208,6 @@ public class DataManager {
 
         Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
-        //System.out.println("Size in query is: " + queryCursor.getCount());
-
         while (queryCursor.moveToNext()) {
 
             int sessionId = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
@@ -259,8 +257,28 @@ public class DataManager {
 
         ArrayList<Folder> folders = new ArrayList<Folder>();
 
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {
+                DBHelper.COLUMN_FOLDER_ID,
+                DBHelper.COLUMN_FOLDER_NAME,
+                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN  };
+        String selection =  DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleID)};
+        String sortOrder = null;
 
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
+        while (queryCursor.moveToNext()){
+
+            int folderId = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
+
+            String folderName = queryCursor.getString(queryCursor.getColumnIndex(DBHelper.COLUMN_FOLDER_NAME));
+
+            Folder currentFolder = new Folder(folderId, folderName);
+
+            folders.add(currentFolder);
+
+        }
 
         return folders;
 
