@@ -119,10 +119,8 @@ public class AudioFragment extends Fragment {
 
                 currentAudioFile = FileManager.getAudioFileFormat(getActivity().getApplicationContext(), audios.get(position).getFile());
 
-                /*
-                Toast.makeText((getActivity()).getApplicationContext(),
-                                            ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
-                */
+                Toast.makeText((getActivity()).getApplicationContext(),"Playing - " + audios.get(position).getFile(), Toast.LENGTH_SHORT).show();
+
                 mediaPlayer = MediaPlayer.create(getActivity().getApplicationContext(), Uri.fromFile(currentAudioFile));
                 mediaPlayer.start();
 
