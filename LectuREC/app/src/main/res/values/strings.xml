@@ -37,7 +37,9 @@
 
     <!-- Module Activity Strings -->
     <string name="title_activity_module">ModuleActivity</string>
-    <string name="editModuleText">EDIT MODULE</string>
+    <string name="editModuleButtonText">EDIT MODULE</string>
+    <string name="startNewSessionButton">START NEW SESSION</string>
+    <string name="viewAllSessionsButton">VIEW ALL SESSIONS</string>
 
     <!-- REQUIRED STRINGS END -->
 
@@ -106,6 +108,9 @@
 
     <string name="selectedModuleName">Module Name</string>
     <string name="selectedSessionName">Session Name</string>
+
+
+
 
     <!-- Player STRINGS -->
     <string name="now_playing">Now Playing:</string>
