@@ -436,6 +436,25 @@ public class DataManager {
 
     public static void deletingExistingModule(Context context, Module deletingModule){
 
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID   };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingModule.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            deleteExistingModuleTimeFromModule(context, deletingModule);
+            //TODO Delete Sessions and Folders
+
+            String deleteSelection = DBHelper.COLUMN_MODULE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingModule.getID())};
+
+            int deleteModule = context.getContentResolver().delete(DBProvider.MODULE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
 
     }
 
@@ -497,7 +516,25 @@ public class DataManager {
 
     public static void deleteExistingModuleTime(Context context, ModuleTime deletingModuleTime){
 
-        
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID };
+        String selection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingModuleTime.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            queryCursor.moveToFirst();
+
+            String deleteSelection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingModuleTime.getID())};
+
+            int deleteModuleTime = context.getContentResolver().delete(DBProvider.MODULE_TIME_URI, deleteSelection, deleteSelectionArgs);
+
+
+        }
 
 
 
@@ -579,6 +616,51 @@ public class DataManager {
 
     }
 
+    public static void deleteExistingAudio(Context context,  Audio deletingAudio){
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
+        String selection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingAudio.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            String deleteSelection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingAudio.getID())};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.AUDIO_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+    public static void deleteExistingAudioFromSession(Context context,  Session currentSession){
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
+        String selection = DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentSession.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (queryCursor.moveToNext()){
+
+            int currentAudioID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
+
+            String deleteSelection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(currentAudioID)};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.AUDIO_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+
 
     //Image Editors
     public static void addNewImage(Context context, int sessionID, Image newImage){
@@ -592,6 +674,50 @@ public class DataManager {
 
         Uri uri = context.getContentResolver().insert(DBProvider.IMAGE_URI, values);
 
+
+    }
+
+    public static void deleteExistingImage(Context context,  Image deletingImage){
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
+        String selection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingImage.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            String deleteSelection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingImage.getID())};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.IMAGE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+    public static void deleteExistingImageFromSession(Context context,  Session currentSession){
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
+        String selection = DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentSession.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (queryCursor.moveToNext()){
+
+            int currentImageID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
+
+            String deleteSelection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(currentImageID)};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.IMAGE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
 
     }
 
