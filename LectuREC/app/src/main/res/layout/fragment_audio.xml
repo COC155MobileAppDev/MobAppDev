@@ -1,44 +1,151 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8428272a"
     tools:context="com.example.team05.lecturec.ViewControllers.AudioFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/audioControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:background="@color/main_color">
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/now_playing"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_white"/>
+
+
+                <TextView
+                    android:id="@+id/songName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_white"
+                    android:text="SONG " />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/startTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/inital_Time"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/text_white"/>
+
+
+
+
+                <TextView
+                    android:id="@+id/endTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/inital_Time"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/text_white"/>
+
+            </RelativeLayout>
+
+            <SeekBar
+                android:id="@+id/seekBar1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/rewindButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="rewind"
+                    android:src="@android:drawable/ic_media_rew" />
+
+                <ImageButton
+                    android:id="@+id/playButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/ic_media_play" />
+
+                <ImageButton
+                    android:id="@+id/pauseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="pause"
+                    android:src="@android:drawable/ic_media_pause" />
+
+
+
+                <ImageButton
+                    android:id="@+id/forwardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="14dp"
+                    android:onClick="forward"
+                    android:src="@android:drawable/ic_media_ff" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
 
         <ListView
             android:id="@+id/audioListView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/audioControls"
             android:cacheColorHint="@android:color/transparent"/>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5.75"
-        android:background="#292421"
-        android:orientation="vertical" >
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/vol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/volume"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF" />
-
-        <SeekBar
-            android:id="@+id/vControl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
 
 
