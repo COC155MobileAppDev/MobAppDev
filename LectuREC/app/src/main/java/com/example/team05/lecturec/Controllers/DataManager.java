@@ -252,7 +252,6 @@ public class DataManager {
 
     }
 
-    //TODO finish getter for getFolders
     public static ArrayList<Folder> getFolders(Context context, int moduleID){
 
         ArrayList<Folder> folders = new ArrayList<Folder>();
@@ -281,6 +280,30 @@ public class DataManager {
         }
 
         return folders;
+
+    }
+
+    public static int getLastFolderRecord(Context context){
+
+        int lastFolderID = -1;
+
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_FOLDER_ID   };
+        String selection =  null;
+        String[] selectionArgs = null;
+        String sortOrder = DBHelper.COLUMN_FOLDER_ID + " DESC";
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            queryCursor.moveToFirst();
+
+            lastFolderID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
+
+        }
+
+        return lastFolderID;
 
     }
 
@@ -382,51 +405,56 @@ public class DataManager {
     public static void editExistingModule(Context context, Module currentModule, boolean nameChange, ArrayList<ModuleTime> newModuleTimes,
                                    ArrayList<ModuleTime> editingModuleTimes, ArrayList<ModuleTime> deletingModuleTimes){
 
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID   };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentModule.getID())};
+        String sortOrder = null;
 
-        System.out.println("Save EDIT pressed \n");
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
-        System.out.println(
-                String.format("Current module is: \n "
-                                + "x       ID: %d \n "
-                                + "x       Name: %s \n "
-                                + "x       Archive: %b \n \n",
-                        currentModule.getID(),
-                        currentModule.getName(),
-                        currentModule.getArchiveState()));
+        if (queryCursor.getCount() > 0){
 
-        System.out.println("Name Change State is: " + nameChange + "");
+            queryCursor.moveToFirst();
 
-        //TODO finish this for testing and introduce Prash's work
+            int archiveState = 0;
+            if (currentModule.getArchiveState()) archiveState = 1;
 
-    }
+            ContentValues values = new ContentValues();
+            values.put(DBHelper.COLUMN_MODULE_NAME, currentModule.getName() ); // module parameter
+            values.put(DBHelper.COLUMN_MODULE_ARCHIVE, archiveState ); // module parameter
 
-    public static void archiveExistingModule(Context context, Module currentModule){
+            String updateSelection = DBHelper.COLUMN_MODULE_ID + " = ?";
+            String[] updateSelectionArgs = new String[]{Integer.toString(currentModule.getID())};
 
-        System.out.println("Archive pressed");
+            int updateModule = context.getContentResolver().update(DBProvider.MODULE_URI, values, updateSelection, updateSelectionArgs);
 
-        System.out.print(
-                String.format("Current module is: \n "
-                                + "x       ID: %d \n "
-                                + "x       Name: %s \n "
-                                + "x       Archive: %b \n",
-                        currentModule.getID(),
-                        currentModule.getName(),
-                        currentModule.getArchiveState()));
+        }
+
 
     }
 
     public static void deletingExistingModule(Context context, Module deletingModule){
 
-        System.out.println("Delete pressed");
+        Uri uri = DBProvider.MODULE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_ID   };
+        String selection = DBHelper.COLUMN_MODULE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingModule.getID())};
+        String sortOrder = null;
 
-        System.out.print(
-                String.format("Current module is: \n "
-                                + "x       ID: %d \n "
-                                + "x       Name: %s \n "
-                                + "x       Archive: %b \n",
-                        deletingModule.getID(),
-                        deletingModule.getName(),
-                        deletingModule.getArchiveState()));
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            deleteExistingModuleTimeFromModule(context, deletingModule);
+            //TODO Delete Sessions and Folders
+
+            String deleteSelection = DBHelper.COLUMN_MODULE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingModule.getID())};
+
+            int deleteModule = context.getContentResolver().delete(DBProvider.MODULE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
 
     }
 
@@ -454,6 +482,97 @@ public class DataManager {
 
     }
 
+    public static void editExistingModuleTime(Context context, ModuleTime editingModuleTime){
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID  };
+        String selection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(editingModuleTime.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            queryCursor.moveToFirst();
+
+            int notifyState = 0;
+            if (editingModuleTime.getNotificationState()) notifyState = 1;
+
+            ContentValues values = new ContentValues();
+            values.put(DBHelper.COLUMN_MODULE_TIME_START_TIME, editingModuleTime.getStart().convertToString() );
+            values.put(DBHelper.COLUMN_MODULE_TIME_END_TIME, editingModuleTime.getEnd().convertToString() );
+            values.put(DBHelper.COLUMN_MODULE_TIME_NOTIFICATION, notifyState );
+
+            String updateSelection =  DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] updateSelectionArgs = new String[]{Integer.toString(editingModuleTime.getID())};
+
+            int updateModuleTime = context.getContentResolver().update(DBProvider.MODULE_TIME_URI, values, updateSelection, updateSelectionArgs);
+
+
+        }
+
+    }
+
+    public static void deleteExistingModuleTime(Context context, ModuleTime deletingModuleTime){
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID };
+        String selection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingModuleTime.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            queryCursor.moveToFirst();
+
+            String deleteSelection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingModuleTime.getID())};
+
+            int deleteModuleTime = context.getContentResolver().delete(DBProvider.MODULE_TIME_URI, deleteSelection, deleteSelectionArgs);
+
+
+        }
+
+
+
+    }
+
+    public static void deleteExistingModuleTimeFromModule(Context context, Module currentModule){
+
+        Uri uri = DBProvider.MODULE_TIME_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_MODULE_TIME_ID   };
+        String selection = DBHelper.COLUMN_MODULE_TIME_MODULE_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentModule.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (queryCursor.moveToNext()) {
+
+            int currentModuleTimeID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_MODULE_TIME_ID));
+
+            String deleteSelection = DBHelper.COLUMN_MODULE_TIME_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(currentModuleTimeID)};
+
+            int deleteModuleTime = context.getContentResolver().delete(DBProvider.MODULE_TIME_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+
+    //Folder Editors
+    public static void addNewFolder(Context context, int sessionID, Folder newFolder){
+
+    }
+
+    public static void editExistingFolder(Context context, Folder editingFolder){
+
+
+    }
 
 
     //Session Editors
@@ -497,6 +616,51 @@ public class DataManager {
 
     }
 
+    public static void deleteExistingAudio(Context context,  Audio deletingAudio){
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
+        String selection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingAudio.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            String deleteSelection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingAudio.getID())};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.AUDIO_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+    public static void deleteExistingAudioFromSession(Context context,  Session currentSession){
+
+        Uri uri = DBProvider.AUDIO_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_AUDIO_ID  };
+        String selection = DBHelper.COLUMN_AUDIO_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentSession.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (queryCursor.moveToNext()){
+
+            int currentAudioID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_AUDIO_ID));
+
+            String deleteSelection = DBHelper.COLUMN_AUDIO_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(currentAudioID)};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.AUDIO_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+
 
     //Image Editors
     public static void addNewImage(Context context, int sessionID, Image newImage){
@@ -510,6 +674,50 @@ public class DataManager {
 
         Uri uri = context.getContentResolver().insert(DBProvider.IMAGE_URI, values);
 
+
+    }
+
+    public static void deleteExistingImage(Context context,  Image deletingImage){
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
+        String selection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(deletingImage.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        if (queryCursor.getCount() > 0){
+
+            String deleteSelection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(deletingImage.getID())};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.IMAGE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
+
+    }
+
+    public static void deleteExistingImageFromSession(Context context,  Session currentSession){
+
+        Uri uri = DBProvider.IMAGE_URI;
+        String[] projection = new String[] {    DBHelper.COLUMN_IMAGE_ID  };
+        String selection = DBHelper.COLUMN_IMAGE_SESSION_ID_FOREIGN + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(currentSession.getID())};
+        String sortOrder = null;
+
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+
+        while (queryCursor.moveToNext()){
+
+            int currentImageID = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_IMAGE_ID));
+
+            String deleteSelection = DBHelper.COLUMN_IMAGE_ID + " = ?";
+            String[] deleteSelectionArgs = new String[]{Integer.toString(currentImageID)};
+
+            int deleteAudio = context.getContentResolver().delete(DBProvider.IMAGE_URI, deleteSelection, deleteSelectionArgs);
+
+        }
 
     }
 
