@@ -208,6 +208,8 @@ public class DataManager {
 
         Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
+        //System.out.println("Size in query is: " + queryCursor.getCount());
+
         while (queryCursor.moveToNext()) {
 
             int sessionId = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_SESSION_ID));
@@ -221,6 +223,8 @@ public class DataManager {
             sessions.add(currentModuleSession);
 
         }
+
+        queryCursor.close();
 
         return sessions;
 
@@ -436,6 +440,9 @@ public class DataManager {
 
     //Session Editors
     public static void addNewSession(Context context, int moduleID, Session newSession, ArrayList<Audio> newAudios, ArrayList<Image> newImages){
+
+        System.out.println("newSession module ID is: " + moduleID);
+        System.out.println("The new session: " + newSession.getName());
 
         ContentValues values = new ContentValues();
 

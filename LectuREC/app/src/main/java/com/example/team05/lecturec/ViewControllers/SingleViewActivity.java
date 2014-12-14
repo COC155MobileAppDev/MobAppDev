@@ -1,7 +1,10 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -15,6 +18,8 @@ import java.io.File;
 
 public class SingleViewActivity extends Activity {
 
+    Bitmap imageBitmap;
+
     private ScaleGestureDetector SGD;
     private ImageView imageView;
     private float scale = 1f;
@@ -27,25 +32,26 @@ public class SingleViewActivity extends Activity {
 
         // Get intent data
         Bundle passedBundle = getIntent().getExtras();
-
-        // Selected image id
-        //int position = i.getExtras().getInt("id");
-
         String imageFileName = passedBundle.getString("imageFilePath");
+
+        //TODO Make task ASYNC and proper Resolution
         File imageFilePath = FileManager.getImageFileFormat(getApplicationContext(), imageFileName);
+        imageBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageFilePath.getAbsolutePath()), 2000, 2000);
 
         imageView = (ImageView) findViewById(R.id.SingleView);
 
-        // to be completed. Needs passing image from item arraylist
-        imageView.setImageURI(Uri.fromFile(imageFilePath));
-
+        imageView.setImageBitmap(imageBitmap);
 
         matrix = new Matrix();
         SGD = new ScaleGestureDetector(this, new ScaleListener());
 
+    }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imageBitmap.recycle();
+        imageBitmap = null;
     }
 
     @Override

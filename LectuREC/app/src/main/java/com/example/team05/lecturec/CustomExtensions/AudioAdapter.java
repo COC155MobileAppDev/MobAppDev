@@ -57,9 +57,12 @@ public class AudioAdapter extends ArrayAdapter<Audio> {
         holder.audioNameTextView.setText(currentAudio.getFile());
 
         int currentDuration = currentAudio.getDuration();
-        String durationString = String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(currentDuration),
-                (TimeUnit.MILLISECONDS.toMinutes(currentDuration) - (TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toMinutes(currentDuration)))));
+        String durationString =
+                String.format("%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(currentDuration),
+                        (TimeUnit.MILLISECONDS.toMinutes(currentDuration) - (TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toMinutes(currentDuration)))),
+                        (TimeUnit.MILLISECONDS.toSeconds(currentDuration) - (TimeUnit.MINUTES.toMinutes(TimeUnit.MILLISECONDS.toMinutes(currentDuration))))
+                );
 
         holder.audioDurationTextView.setText(durationString);
 
