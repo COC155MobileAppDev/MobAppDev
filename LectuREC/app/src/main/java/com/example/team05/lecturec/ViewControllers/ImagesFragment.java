@@ -16,10 +16,12 @@ import android.widget.AdapterView;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.example.team05.lecturec.CustomExtensions.ImageAdapater;
-import com.example.team05.lecturec.CustomExtensions.ImageAdapter2;
-import com.example.team05.lecturec.DataTypes.Image;
+import com.example.team05.lecturec.Controllers.FileManager;
+import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
+import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 
 import java.util.ArrayList;
@@ -71,11 +73,10 @@ public class ImagesFragment extends Fragment {
 
         gridView = (GridView) fragmentLayout.findViewById(R.id.imageGridView);
 
-        ImageAdapater imageAdapater = new ImageAdapater(getActivity().getApplicationContext(), R.layout.gridview_item, images);
+        ImageAdapter imageAdapter = new ImageAdapter(getActivity().getApplicationContext(), R.layout.gridview_item_image, images);
 
 
-
-        gridView.setAdapter(imageAdapater);
+        gridView.setAdapter(imageAdapter);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         gridView.setMultiChoiceModeListener(new MultiChoiceModeListener());
 
@@ -83,16 +84,19 @@ public class ImagesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 // Send intent to SingleViewActivity
-                Intent i = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
+                Intent selectedImageIntent = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
+
+                System.out.println("image selection pos is: " + position);
+
                 // Pass image index
-                i.putExtra("imageFilePath", images.get(position).getFile());
-                startActivity(i);
+                selectedImageIntent.putExtra("imageFilePath", images.get(position).getFile());
+                startActivity(selectedImageIntent);
+                System.out.println("The Image File is: " + FileManager.getImageFileFormat(getActivity().getApplicationContext(), images.get(position).getFile()).getAbsolutePath());
+
             }
         });
 
         return fragmentLayout;
-
-
 
     }
 

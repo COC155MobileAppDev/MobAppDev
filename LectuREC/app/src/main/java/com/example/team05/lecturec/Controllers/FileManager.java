@@ -1,8 +1,10 @@
 package com.example.team05.lecturec.Controllers;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,13 +59,16 @@ public class FileManager {
         if (folderFilePath.exists()) System.out.println("This directory exists: " + folderFilePath.getAbsolutePath());
 
         File currentFile = new File(folderFilePath.getAbsolutePath() + "/" + preTextFileName + fileName + fileNameType);
+        try{
+            currentFile.createNewFile();
+        } catch (IOException exc){
+            System.out.println("file creation failed");
+        }
+
 
         return currentFile;
 
     }
-
-
-
 
 
 }
