@@ -222,6 +222,8 @@ public class DataManager {
 
         }
 
+        queryCursor.close();
+
         return sessions;
 
     }
@@ -255,8 +257,28 @@ public class DataManager {
 
         ArrayList<Folder> folders = new ArrayList<Folder>();
 
+        Uri uri = DBProvider.FOLDER_URI;
+        String[] projection = new String[] {
+                DBHelper.COLUMN_FOLDER_ID,
+                DBHelper.COLUMN_FOLDER_NAME,
+                DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN  };
+        String selection =  DBHelper.COLUMN_FOLDER_MODULE_ID_FOREIGN + " = ? ";
+        String[] selectionArgs = new String[]{Integer.toString(moduleID)};
+        String sortOrder = null;
 
+        Cursor queryCursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
+        while (queryCursor.moveToNext()){
+
+            int folderId = queryCursor.getInt(queryCursor.getColumnIndex(DBHelper.COLUMN_FOLDER_ID));
+
+            String folderName = queryCursor.getString(queryCursor.getColumnIndex(DBHelper.COLUMN_FOLDER_NAME));
+
+            Folder currentFolder = new Folder(folderId, folderName);
+
+            folders.add(currentFolder);
+
+        }
 
         return folders;
 
@@ -436,6 +458,9 @@ public class DataManager {
 
     //Session Editors
     public static void addNewSession(Context context, int moduleID, Session newSession, ArrayList<Audio> newAudios, ArrayList<Image> newImages){
+
+        System.out.println("newSession module ID is: " + moduleID);
+        System.out.println("The new session: " + newSession.getName());
 
         ContentValues values = new ContentValues();
 

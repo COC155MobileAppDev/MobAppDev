@@ -1,7 +1,11 @@
 package com.example.team05.lecturec.CustomExtensions;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -54,9 +59,11 @@ public class ImageAdapter extends ArrayAdapter{
 
         square.setTag(holder);
 
+        //TODO Make task ASYNC
         File imagePath = FileManager.getImageFileFormat(getContext(), currentImage.getFile());
+        Bitmap imageBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath.getAbsolutePath()), 300, 300);
 
-        holder.imageSquareDisplayView.setImageURI(Uri.fromFile(imagePath));
+        holder.imageSquareDisplayView.setImageBitmap(imageBitmap);
         holder.imageTitleTextView.setText(currentImage.getFile());
 
         return square;
