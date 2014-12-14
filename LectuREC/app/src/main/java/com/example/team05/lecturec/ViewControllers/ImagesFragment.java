@@ -19,6 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.team05.lecturec.Controllers.FileManager;
 import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
 import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
@@ -83,17 +84,19 @@ public class ImagesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 // Send intent to SingleViewActivity
-                Intent i = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
+                Intent selectedImageIntent = new Intent((getActivity().getApplicationContext()), SingleViewActivity.class);
+
+                System.out.println("image selection pos is: " + position);
+
                 // Pass image index
-                i.putExtra("imageFilePath", images.get(position).getFile());
-                startActivity(i);
+                selectedImageIntent.putExtra("imageFilePath", images.get(position).getFile());
+                startActivity(selectedImageIntent);
+                System.out.println("The Image File is: " + FileManager.getImageFileFormat(getActivity().getApplicationContext(), images.get(position).getFile()).getAbsolutePath());
 
             }
         });
 
         return fragmentLayout;
-
-
 
     }
 

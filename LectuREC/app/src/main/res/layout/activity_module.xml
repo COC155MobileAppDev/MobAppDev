@@ -30,6 +30,12 @@
             android:text="Start New Session"
             android:onClick="startNewSessionButton" />
 
+        <Button
+            android:id="@+id/moduleSessionsBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sessions"
+            android:onClick="moduleSessionsButton" />
 
 
 

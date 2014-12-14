@@ -55,17 +55,16 @@ public class ModuleActivity extends Activity {
         populateRecentSessionsList();
         populateRecentSessionsListView();
 
-
-
     }
 
     private void populateRecentSessionsList(){
 
         ArrayList<Session> allModuleSessions = selectedModule.getSessions();
 
-        System.out.println("size is: " + allModuleSessions.size());
+        int countSize = 10;
+        if (allModuleSessions.size() <= countSize) countSize = allModuleSessions.size();
 
-        for (int c = (allModuleSessions.size() - 1); c > 0; c--) recentSessions.add(allModuleSessions.get(c));
+        for (int counter = (countSize - 1); counter > -1; counter--) recentSessions.add(allModuleSessions.get(counter));
 
     }
 
@@ -78,21 +77,27 @@ public class ModuleActivity extends Activity {
                 new RecentSessionAdapter(getApplicationContext(), R.layout.listview_row_recentsession, recentSessions);
 
         recentSessionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int pos = position - 1;
+                if (position != 0) {
 
-                Session selectedSession = recentSessions.get(pos);
+                    int pos = position - 1;
 
-                Intent selectedSessionIntent = new Intent(ModuleActivity.this, SelectedSessionActivity.class);
-                selectedSessionIntent.putExtra("selectedSession", (Serializable)selectedSession);
+                    Session selectedSession = recentSessions.get(pos);
 
-                System.out.println("clicked " + recentSessions.get(pos).getName());
+                    Intent selectedSessionIntent = new Intent(ModuleActivity.this, SelectedSessionActivity.class);
+                    selectedSessionIntent.putExtra("selectedSession", (Serializable)selectedSession);
 
-                startActivity(selectedSessionIntent);
+                    System.out.println("clicked " + recentSessions.get(pos).getName());
+
+                    startActivity(selectedSessionIntent);
+
+                }
 
             }
+
         });
 
         recentSessionsListView.setAdapter(recentSessionAdapter);
@@ -168,5 +173,12 @@ public class ModuleActivity extends Activity {
 
     }
 
+    public void moduleSessionsButton(View v){
+
+        Intent moduleSessionsIntent = new Intent(this, ModuleSessionsActivity.class);
+        moduleSessionsIntent.putExtra("selectedModule", (Serializable)selectedModule);
+        startActivity(moduleSessionsIntent);
+
+    }
 
 }
