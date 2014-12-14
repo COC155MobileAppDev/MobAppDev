@@ -35,7 +35,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/songName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -52,7 +52,7 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -63,7 +63,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/endTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -87,7 +87,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/rewindButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,15 +95,14 @@
                     android:src="@android:drawable/ic_media_rew" />
 
                 <ImageButton
-                    android:id="@+id/imageButton1"
+                    android:id="@+id/playButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="play"
                     android:src="@android:drawable/ic_media_play" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/pauseButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -113,7 +112,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/forwardButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
