@@ -2,6 +2,8 @@ package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.widget.Toast;
 
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.DataTypes.Module;
@@ -20,6 +23,7 @@ import com.example.team05.lecturec.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends FragmentActivity
@@ -207,6 +211,30 @@ public class MainActivity extends FragmentActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+        /* Alarm Service
+        private void alarmMethod(){
+            Intent myIntent = new Intent(this, NotifyService.class);
+            AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+            pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
+
+            Calendar calendar = Calendar.getInstance();
+
+
+            calendar.set(Calendar.MINUTE, 48);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            calendar.set(Calendar.AM_PM,Calendar.PM);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+
+            Toast.makeText(MainActivity.this, "Start Recording", Toast.LENGTH_LONG).show();
+
+
+        }
+        */
+
     }
 
 }

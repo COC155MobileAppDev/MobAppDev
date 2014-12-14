@@ -104,6 +104,13 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_selectedSession">SelectedSessionActivity</string>
 
+    <string name="selectedModuleName">Module Name</string>
+    <string name="selectedSessionName">Session Name</string>
+
+    <!-- Player STRINGS -->
+    <string name="now_playing">Now Playing:</string>
+    <string name="inital_Time">0 min, 0 sec</string>
+
     <!-- FA STRINGS END -->
 
     <string name="title_activity_new_session">NewSessionActivity</string>
