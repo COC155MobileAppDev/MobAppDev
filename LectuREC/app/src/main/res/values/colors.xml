@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_color">#287bbc</color>
+    <color name="lboro_color2">#cc0066</color>
+    <color name="text_white">#fff9fff9</color>
+    <color name="text_black">#ff000000</color>
+</resources>

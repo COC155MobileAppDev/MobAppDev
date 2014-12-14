@@ -3,6 +3,7 @@ package com.example.team05.lecturec.ViewControllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.team05.lecturec.Controllers.FileManager;
@@ -60,6 +62,8 @@ public class AudioFragment extends Fragment {
     private ImageButton playButton, pauseButton, rewindButton, forwardButton;
     public static int oneTimeOnly = 0;
     private boolean isPaused = true;
+
+    private ImageView audioSpeakerImage;
 
 
 
@@ -112,6 +116,7 @@ public class AudioFragment extends Fragment {
         pauseButton = (ImageButton)fragmentLayout.findViewById(R.id.pauseButton);
         rewindButton = (ImageButton) fragmentLayout.findViewById(R.id.rewindButton);
         forwardButton = (ImageButton) fragmentLayout.findViewById(R.id.forwardButton);
+        audioSpeakerImage = (ImageView) fragmentLayout.findViewById(R.id.icon);
 
         seekbar.setClickable(false);
         playButton.setEnabled(false);
@@ -173,6 +178,18 @@ public class AudioFragment extends Fragment {
 
 
                 mediaPlayer.start();
+                songName.setText(audios.get(position).getFile());
+                //audioSpeakerImage.setImageResource(R.drawable.ic_action_microphone);
+                /*
+                String uri = "@android:drawable/ic_lock_silent_mode_off";
+                int imageResource = getResources().getIdentifier(uri, null, this.getPackageName());
+
+                Drawable res = getResources().getDrawable(imageResource);
+                audioSpeakerImage.setImageDrawable(res);
+
+                   */
+
+
                 isPaused = false;
                 finalTime = mediaPlayer.getDuration();
                 startTime = mediaPlayer.getCurrentPosition();
@@ -249,7 +266,7 @@ public class AudioFragment extends Fragment {
     }
 
     public void onPauseButtonClick(){
-        Toast.makeText(getActivity().getApplicationContext(), "Pausing sound",
+        Toast.makeText(getActivity().getApplicationContext(), "Pausing Audio",
                 Toast.LENGTH_SHORT).show();
 
         mediaPlayer.pause();
