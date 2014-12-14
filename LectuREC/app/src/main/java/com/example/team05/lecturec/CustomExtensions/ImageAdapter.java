@@ -1,7 +1,11 @@
 package com.example.team05.lecturec.CustomExtensions;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +18,19 @@ import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by Johnbastian on 12/12/2014.
  */
-public class ImageAdapater extends ArrayAdapter{
+public class ImageAdapter extends ArrayAdapter{
 
     Context context;
     int layoutResourceID;
     ArrayList<Image> images;
 
-    public ImageAdapater(Context c, int lrID, ArrayList<Image> imgList){
+    public ImageAdapter(Context c, int lrID, ArrayList<Image> imgList){
         super(c, lrID, imgList);
 
         context = c;
@@ -49,14 +54,16 @@ public class ImageAdapater extends ArrayAdapter{
 
         holder = new ImageSquareHolder();
 
-        holder.imageSquareDisplayView = (ImageView)square.findViewById(R.id.imageSquareDisplayView);
+        holder.imageSquareDisplayView = (SquareDisplayImageView)square.findViewById(R.id.imageSquareDisplayView);
         holder.imageTitleTextView = (TextView)square.findViewById(R.id.imageTitleTextView);
 
         square.setTag(holder);
 
+        //TODO Make task ASYNC
         File imagePath = FileManager.getImageFileFormat(getContext(), currentImage.getFile());
+        Bitmap imageBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath.getAbsolutePath()), 300, 300);
 
-        holder.imageSquareDisplayView.setImageURI(Uri.fromFile(imagePath));
+        holder.imageSquareDisplayView.setImageBitmap(imageBitmap);
         holder.imageTitleTextView.setText(currentImage.getFile());
 
         return square;
@@ -64,7 +71,7 @@ public class ImageAdapater extends ArrayAdapter{
 
     static class ImageSquareHolder{
 
-        ImageView imageSquareDisplayView;
+        SquareDisplayImageView imageSquareDisplayView;
         TextView imageTitleTextView;
 
     }

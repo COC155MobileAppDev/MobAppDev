@@ -104,12 +104,18 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_selectedSession">SelectedSessionActivity</string>
 
-    <!-- FA STRINGS END -->
+    <string name="selectedModuleName">Module Name</string>
+    <string name="selectedSessionName">Session Name</string>
 
+    <!-- Player STRINGS -->
+    <string name="now_playing">Now Playing:</string>
+    <string name="inital_Time">0 min, 0 sec</string>
+
+    <!-- FA STRINGS END -->
 
     <string name="title_activity_new_session">NewSessionActivity</string>
     <string name="title_activity_single_view">SingleViewActivity</string>
     <string name="volume">Volume</string>
-
+    <string name="title_activity_module_sessions">ModuleSessionsActivity</string>
 
 </resources>

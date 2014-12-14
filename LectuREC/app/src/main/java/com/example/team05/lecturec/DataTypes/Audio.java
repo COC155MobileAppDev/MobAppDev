@@ -4,7 +4,9 @@ package com.example.team05.lecturec.DataTypes;
  Created by Johnbastian on 01/12/2014.
 */
 
-public class Audio {
+import java.io.Serializable;
+
+public class Audio implements Serializable {
 
     private int id;
     private String file;

@@ -1,11 +1,15 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -13,15 +17,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.example.team05.lecturec.DataTypes.Audio;
+import com.example.team05.lecturec.Controllers.FileManager;
+import com.example.team05.lecturec.CustomExtensions.AudioAdapter;
+import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class AudioFragment extends Fragment {
@@ -31,16 +45,25 @@ public class AudioFragment extends Fragment {
     private OnAudioFragmentInteractionListener mListener;
 
     private FrameLayout fragmentLayout;
-    ListView audioListview;
-
-    private ArrayList<String> archiveNames;
-
-    private ArrayList<String> songList;
+    private ListView audioListView;
 
     private ArrayList<Audio> audios;
+    private File currentAudioFile;
 
 
+    public TextView songName,startTimeField,endTimeField;
     private MediaPlayer mediaPlayer;
+    private double startTime = 0;
+    private double finalTime = 0;
+    private Handler myHandler = new Handler();
+    private int forwardTime = 5000;
+    private int backwardTime = 5000;
+    private SeekBar seekbar;
+    private ImageButton playButton, pauseButton, rewindButton, forwardButton;
+    public static int oneTimeOnly = 0;
+    private boolean isPaused = true;
+
+    private ImageView audioSpeakerImage;
 
 
 
@@ -52,63 +75,79 @@ public class AudioFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        songList = ((SelectedSessionActivity)getActivity()).getSongList();
+        Bundle passedBundle = getArguments();
+        audios = (ArrayList<Audio>)passedBundle.get("audioList");
+
 
     }
+
+
+    private Runnable UpdateSongTime = new Runnable() {
+        public void run() {
+            startTime = mediaPlayer.getCurrentPosition();
+            startTimeField.setText(String.format("%d min, %d sec",
+                            TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                            TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                            toMinutes((long) startTime)))
+            );
+            seekbar.setProgress((int)startTime);
+            myHandler.postDelayed(this, 100);
+        }
+    };
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
+        fragmentLayout = (FrameLayout) inflater.inflate(R.layout.fragment_audio, container, false);
 
-        fragmentLayout = (FrameLayout) inflater.inflate(
-                R.layout.fragment_audio, container, false);
 
-        // Generate sample data into string arrays
 
+
+        songName = (TextView)fragmentLayout.findViewById(R.id.songName);
+        startTimeField =(TextView)fragmentLayout.findViewById(R.id.startTimeTxt);
+        endTimeField =(TextView)fragmentLayout.findViewById(R.id.endTimeTxt);
+        seekbar = (SeekBar)fragmentLayout.findViewById(R.id.seekBar1);
+        playButton = (ImageButton)fragmentLayout.findViewById(R.id.playButton);
+        pauseButton = (ImageButton)fragmentLayout.findViewById(R.id.pauseButton);
+        rewindButton = (ImageButton) fragmentLayout.findViewById(R.id.rewindButton);
+        forwardButton = (ImageButton) fragmentLayout.findViewById(R.id.forwardButton);
+        audioSpeakerImage = (ImageView) fragmentLayout.findViewById(R.id.icon);
+
+        seekbar.setClickable(false);
+        playButton.setEnabled(false);
+        pauseButton.setEnabled(false);
 
         // Locate the ListView in listview.xml
-        audioListview = (ListView) fragmentLayout.findViewById(R.id.listview);
+        audioListView = (ListView) fragmentLayout.findViewById(R.id.audioListView);
 
-        /*
-        archiveNames = new ArrayList<String>();
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
-        archiveNames.add("Amy");
+        AudioAdapter audioAdapter = new AudioAdapter(getActivity().getApplicationContext(), R.layout.listview_row_audio, audios);
 
-        */
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>((getActivity()).getApplicationContext(), android.R.layout.simple_list_item_activated_1, songList);
-
-        audioListview.setAdapter(arrayAdapter);
-        audioListview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
-
-
-
+        audioListView.setAdapter(audioAdapter);
+        audioListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         // Capture ListView item click
-        audioListview.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+        audioListView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+
             @Override
             public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
                 // Capture total checked items
-                final int checkedCount = audioListview.getCheckedItemCount();
+                final int checkedCount = audioListView.getCheckedItemCount();
                 // Set the CAB title according to total checked items
                 actionMode.setTitle(checkedCount + " Selected");
                 // Calls toggleSelection method from ListViewAdapter Class
                 //arrayAdapter.toggleSelection(position);
             }
 
-
-
-
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-
-                return false;
+                //Toast.makeText((getActivity()).getApplicationContext(), "Cannot jump forward 5 seconds", Toast.LENGTH_SHORT).show();
+                return true;
             }
-
 
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
@@ -125,12 +164,144 @@ public class AudioFragment extends Fragment {
             public void onDestroyActionMode(ActionMode actionMode) {
 
             }
+
         });
+
+        audioListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                currentAudioFile = FileManager.getAudioFileFormat(getActivity().getApplicationContext(), audios.get(position).getFile());
+
+                Toast.makeText((getActivity()).getApplicationContext(),"Playing - " + audios.get(position).getFile(), Toast.LENGTH_SHORT).show();
+
+                mediaPlayer = MediaPlayer.create(getActivity().getApplicationContext(), Uri.fromFile(currentAudioFile));
+
+
+                mediaPlayer.start();
+                songName.setText(audios.get(position).getFile());
+                //audioSpeakerImage.setImageResource(R.drawable.ic_action_microphone);
+                /*
+                String uri = "@android:drawable/ic_lock_silent_mode_off";
+                int imageResource = getResources().getIdentifier(uri, null, this.getPackageName());
+
+                Drawable res = getResources().getDrawable(imageResource);
+                audioSpeakerImage.setImageDrawable(res);
+
+                   */
+
+
+                isPaused = false;
+                finalTime = mediaPlayer.getDuration();
+                startTime = mediaPlayer.getCurrentPosition();
+                if(oneTimeOnly == 0){
+                    seekbar.setMax((int) finalTime);
+                    oneTimeOnly = 1;
+                }
+
+                endTimeField.setText(String.format("%d min, %d sec",
+                                TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                                TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                                toMinutes((long) finalTime)))
+                );
+                startTimeField.setText(String.format("%d min, %d sec",
+                                TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                                toMinutes((long) startTime)))
+                );
+                seekbar.setProgress((int)startTime);
+                myHandler.postDelayed(UpdateSongTime,100);
+                pauseButton.setEnabled(true);
+                playButton.setEnabled(false);
+
+            }
+        });
+
+
+        playButton.setOnClickListener(onClickListener);
+        pauseButton.setOnClickListener(onClickListener);
+        rewindButton.setOnClickListener(onClickListener);
+        forwardButton.setOnClickListener(onClickListener);
+
 
         // Inflate the layout for this fragment
         return fragmentLayout;
     }
 
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId()){
+
+                case R.id.playButton:
+                    onPlayButtonClick();
+                    break;
+                case R.id.pauseButton:
+                    onPauseButtonClick();
+                    break;
+                case R.id.rewindButton:
+                    onRewindButtonClick();
+                    break;
+                case R.id.forwardButton:
+                    onForwardButtonClick();
+                    break;
+
+            }
+        }
+    };
+
+
+
+    public void onPlayButtonClick(){
+        if (isPaused){
+            mediaPlayer.start();
+            playButton.setEnabled(false);
+            pauseButton.setEnabled(true);
+            isPaused = false;
+        }
+
+    }
+
+    public void onPauseButtonClick(){
+        Toast.makeText(getActivity().getApplicationContext(), "Pausing Audio",
+                Toast.LENGTH_SHORT).show();
+
+        mediaPlayer.pause();
+        pauseButton.setEnabled(false);
+        playButton.setEnabled(true);
+        isPaused = true;
+
+    }
+
+    public void onRewindButtonClick(){
+        int temp = (int)startTime;
+        if((temp-backwardTime)>0){
+            startTime = startTime - backwardTime;
+            mediaPlayer.seekTo((int) startTime);
+        }
+        else{
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Cannot jump backward 5 seconds",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void onForwardButtonClick(){
+        int temp = (int)startTime;
+        if((temp+forwardTime)<=finalTime){
+            startTime = startTime + forwardTime;
+            mediaPlayer.seekTo((int) startTime);
+        }
+        else{
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Cannot jump forward 5 seconds",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
     @Override

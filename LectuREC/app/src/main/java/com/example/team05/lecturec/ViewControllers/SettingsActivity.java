@@ -28,6 +28,8 @@ public class SettingsActivity extends PreferenceActivity {
                 Toast.makeText(getApplicationContext(), "Notifications ON",
                         Toast.LENGTH_SHORT).show();
 
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Notifications OFF",
                             Toast.LENGTH_SHORT).show();
