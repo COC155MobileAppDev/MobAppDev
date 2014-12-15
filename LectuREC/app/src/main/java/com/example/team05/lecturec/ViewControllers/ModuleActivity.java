@@ -22,6 +22,10 @@ import java.util.ArrayList;
 
 public class ModuleActivity extends Activity {
 
+    private static int EDIT_MODULE_REQUEST_CODE = 100;
+    private static int EDIT_MODULE_DELETED_RESULT_CODE = 500;
+    private static int EDIT_MODULE_ARCHIVED_RESULT_CODE = 600;
+
     private Bundle passedData;
 
     private Module selectedModule;
@@ -96,6 +100,7 @@ public class ModuleActivity extends Activity {
 
                     Intent selectedSessionIntent = new Intent(ModuleActivity.this, SelectedSessionActivity.class);
                     selectedSessionIntent.putExtra("selectedSession", (Serializable)selectedSession);
+                    selectedSessionIntent.putExtra("parentModule", (Serializable)selectedModule);
 
                     System.out.println("clicked " + recentSessions.get(pos).getName());
 
@@ -110,6 +115,24 @@ public class ModuleActivity extends Activity {
         recentSessionsListView.setAdapter(recentSessionAdapter);
 
 
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == EDIT_MODULE_ARCHIVED_RESULT_CODE && requestCode == EDIT_MODULE_REQUEST_CODE){
+
+
+            finish();
+
+        } else if (resultCode == EDIT_MODULE_DELETED_RESULT_CODE && requestCode == EDIT_MODULE_REQUEST_CODE){
+
+            finish();
+
+        }
 
     }
 
@@ -176,7 +199,7 @@ public class ModuleActivity extends Activity {
         Intent editModuleIntent = new Intent(this, NewModuleActivity.class);
         editModuleIntent.putExtra("newMode", false);
         editModuleIntent.putExtra("currentModule", (Serializable)selectedModule);
-        startActivity(editModuleIntent);
+        startActivityForResult(editModuleIntent, EDIT_MODULE_REQUEST_CODE);
 
     }
 

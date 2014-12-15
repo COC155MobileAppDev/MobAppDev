@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 
 import com.example.team05.lecturec.Controllers.DataManager;
+import com.example.team05.lecturec.DataTypes.Folder;
+import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.Session;
 import com.example.team05.lecturec.R;
 
@@ -31,6 +33,7 @@ public class SelectedSessionActivity extends FragmentActivity
     implements AudioFragment.OnAudioFragmentInteractionListener,
     ImagesFragment.OnImagesFragmentInteractionListener {
 
+    Module parentModule;
     Session selectedSession;
     Bundle passedData;
 
@@ -43,7 +46,9 @@ public class SelectedSessionActivity extends FragmentActivity
     AudioManager aM;
 
     private FragmentTabHost sessionTabHost;
+    private TextView selectedModuleName;
     private TextView selectedSessionName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ public class SelectedSessionActivity extends FragmentActivity
 
         passedData = getIntent().getExtras();
         selectedSession = (Session)passedData.getSerializable("selectedSession");
+        parentModule = (Module)passedData.getSerializable("parentModule");
 
         selectedSession.setAudios(DataManager.getAudios(getApplicationContext(), selectedSession.getID()));
         selectedSession.setImages(DataManager.getImages(getApplicationContext(), selectedSession.getID()));
@@ -60,6 +66,9 @@ public class SelectedSessionActivity extends FragmentActivity
         setTitle("Session: " + selectedSession.getName());
         selectedSessionName = (TextView)findViewById(R.id.selectedSessionName);
         selectedSessionName.setText(selectedSession.getName());
+
+        selectedModuleName = (TextView)findViewById(R.id.selectedModuleName);
+        selectedModuleName.setText(parentModule.getName());
 
         loadMusic();
 
@@ -128,4 +137,39 @@ public class SelectedSessionActivity extends FragmentActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void changeFolder(View v){
+
+        FolderDialog folderDialog = new FolderDialog();
+        folderDialog.setParentActivity(this);
+        folderDialog.setFolderList(parentModule.getFolders());
+        folderDialog.setParentModule(parentModule);
+
+        folderDialog.show(getFragmentManager(), "folderListDialog");
+
+
+    }
+
+    public void setChangeSelectedFolder(Folder selectedFolder){
+
+        selectedSession.setFolderID(selectedFolder.getID());
+
+        DataManager.editExistingSessionForFolder(getApplicationContext(), selectedSession, selectedFolder.getID());
+
+    }
+
+    public void createNewFolder(Folder newFolder){
+
+        DataManager.addNewFolder(getApplicationContext(), parentModule.getID(), newFolder);
+
+        int newFolderID = DataManager.getLastFolderRecord(getApplicationContext());
+
+        selectedSession.setFolderID(newFolderID);
+
+        DataManager.editExistingSessionForFolder(getApplicationContext(), selectedSession, newFolderID);
+
+        parentModule.setFolders(DataManager.getFolders(getApplicationContext(), parentModule.getID()));
+
+    }
+
 }

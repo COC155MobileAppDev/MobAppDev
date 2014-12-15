@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -43,6 +45,9 @@ public class MainActivity extends FragmentActivity
     private FragmentTabHost fTabHost;
 
     private static int NEW_MODULE_REQUEST_CODE = 100;
+    private static int SELECTED_MODULE_REQUEST_CODE = 200;
+
+
     private boolean newModuleCreated = false;
     private Button addNewModuleButton;
 
@@ -71,18 +76,16 @@ public class MainActivity extends FragmentActivity
 
         addNewModuleButton = (Button) findViewById(R.id.startNewSessionBtn);
 
+        Button quickLaunchButton = (Button)findViewById(R.id.quickLaunchButton);
+        quickLaunchButton.setVisibility(View.GONE);
+
 
     }
-
-
 
     public void onNewModuleButtonClick(View view){
         Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
         newmoduleIntent.putExtra("newMode", true);
-        //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-        //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
         startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
-
     }
 
 
@@ -91,6 +94,8 @@ public class MainActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        System.out.println("MA onResume called");
 
         if (newModuleCreated){
 
@@ -108,6 +113,8 @@ public class MainActivity extends FragmentActivity
 
         }
 
+
+
     }
 
     public void setNewModuleCreated(){  newModuleCreated = true;    }
@@ -116,7 +123,7 @@ public class MainActivity extends FragmentActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println("Called");
+        System.out.println("oAR MA Called");
 
         if (resultCode == RESULT_OK && requestCode == NEW_MODULE_REQUEST_CODE){
             if (data.hasExtra("newModule")){
@@ -125,9 +132,17 @@ public class MainActivity extends FragmentActivity
 
                 Intent selectedModuleIntent = new Intent(this, ModuleActivity.class);
                 selectedModuleIntent.putExtra("selectedModule", (Serializable) selectedModule);
-                startActivity(selectedModuleIntent);
+                startActivityForResult(selectedModuleIntent, SELECTED_MODULE_REQUEST_CODE);
             }
         }
+        if (requestCode == SELECTED_MODULE_REQUEST_CODE) reloadSelf();
+
+    }
+
+    public void reloadSelf(){
+
+        finish();
+        startActivity(getIntent());
 
     }
 
