@@ -14,7 +14,6 @@
 
         <TextView
             android:id="@+id/selectedModuleName"
-            android:text="@string/selectedModuleName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -54,6 +53,19 @@
 
 
     </LinearLayout>
+
+    <View
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+    <Button
+        android:id="@+id/changeFolderButton"
+        android:text="Change Folder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="changeFolder"/>
+
 
     <View
         android:background="@color/grey"

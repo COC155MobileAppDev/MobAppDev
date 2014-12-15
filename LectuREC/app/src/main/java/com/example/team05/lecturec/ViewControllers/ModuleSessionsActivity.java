@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.CustomExtensions.ModuleSessionsAdapter;
 import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
@@ -48,20 +49,42 @@ public class ModuleSessionsActivity extends Activity {
 
                 Intent selectedSessionIntent = new Intent(ModuleSessionsActivity.this, SelectedSessionActivity.class);
                 selectedSessionIntent.putExtra("selectedSession", (Serializable)selectedSession);
+                selectedSessionIntent.putExtra("parentModule", (Serializable)selectedModule);
 
-                startActivity(selectedSessionIntent);
+                startActivityForResult(selectedSessionIntent, 700);
 
                 return true;
             }
 
         });
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-
+        selectedModule.setFolders(DataManager.getFolders(getApplicationContext(), selectedModule.getID()));
+        selectedModule.setSessions(DataManager.getSessions(getApplicationContext(), selectedModule.getID()));
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 700){
+
+            selectedModule.setFolders(DataManager.getFolders(getApplicationContext(), selectedModule.getID()));
+            selectedModule.setSessions(DataManager.getSessions(getApplicationContext(), selectedModule.getID()));
+            getIntent().putExtra("selectedModule", (Serializable)selectedModule);
+
+            finish();
+            startActivity(getIntent());
+
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

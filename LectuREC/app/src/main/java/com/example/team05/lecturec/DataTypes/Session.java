@@ -23,6 +23,7 @@ public class Session implements Serializable {
 
     }
     //Setters
+    public void setFolderID(int fID){   folderID = fID; }
     public void setAudios(ArrayList<Audio> aList){    audios = aList;    }
     public void setImages(ArrayList<Image> iList){    images = iList; }
 
