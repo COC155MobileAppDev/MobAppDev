@@ -37,7 +37,6 @@ public class SelectedSessionActivity extends FragmentActivity
     Session selectedSession;
     Bundle passedData;
 
-
     public ArrayList<String> songs;
     Cursor songCursor;
     SeekBar sB;

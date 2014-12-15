@@ -44,7 +44,6 @@ public class NewModuleActivity extends FragmentActivity
     private Button saveModuleButton;
 
 
-
     private Module currentModule;
     private boolean moduleNameChange = false;
     private ArrayList<ModuleTime> originalMTs = new ArrayList<ModuleTime>();
