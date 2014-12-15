@@ -61,7 +61,7 @@ public class ModuleAdapter extends ArrayAdapter<Module> {
         if (size > 0)
             holder.lastSessionLabel.setText("Last Session: " + sessionArrayList.get(size - 1).getName());
 
-        holder.lastSessionLabel.setText("Hello");
+        holder.lastSessionLabel.setText("Last Session: " + module.getSessions().get(module.getSessions().size() - 1).getName());
 
         return row;
 
