@@ -15,6 +15,8 @@ import com.example.team05.lecturec.CustomExtensions.RecentSessionAdapter;
 import com.example.team05.lecturec.DataTypes.*;
 import com.example.team05.lecturec.R;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -28,6 +30,8 @@ public class ModuleActivity extends Activity {
     private ListView recentSessionsListView;
     private ArrayList<Session> recentSessions;
     private ArrayList<Folder> moduleFolders;
+    private TextView moduleNameTitle;
+
 
 
     @Override
@@ -47,6 +51,9 @@ public class ModuleActivity extends Activity {
         }
 
         setTitle(selectedModule.getName());
+
+        moduleNameTitle = (TextView)findViewById(R.id.moduleNameTitle);
+        moduleNameTitle.setText(selectedModule.getName());
 
         recentSessionsListView = (ListView)findViewById(R.id.recentSessionsListView);
 

@@ -27,7 +27,7 @@
     <string name="title_activity_settings_activity">Settings</string>
 
     <!-- New Module and Fragments Strings -->
-    <string name="moduleName">Module Name:</string>
+    <string name="moduleName">MODULE NAME:</string>
     <string name="change_time">Change the time</string>
     <string name="moduleNameHint">Enter Module Name</string>
     <string name="add_module_time">Add Module Time +</string>
@@ -37,7 +37,9 @@
 
     <!-- Module Activity Strings -->
     <string name="title_activity_module">ModuleActivity</string>
-    <string name="editModuleText">EDIT MODULE</string>
+    <string name="editModuleButtonText">EDIT MODULE</string>
+    <string name="startNewSessionButton">START NEW SESSION</string>
+    <string name="viewAllSessionsButton">VIEW ALL SESSIONS</string>
 
     <!-- REQUIRED STRINGS END -->
 
@@ -104,8 +106,16 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_selectedSession">SelectedSessionActivity</string>
 
-    <string name="selectedModuleName">Module Name</string>
-    <string name="selectedSessionName">Session Name</string>
+    <string name="selectedModuleName">MODULE NAME</string>
+    <string name="sessionLabel">SESSION:</string>
+    <string name="selectedSessionName">SESSION TITLE</string>
+
+
+
+    <string name="newModuleButton">ADD NEW MODULE</string>
+
+
+
 
     <!-- Player STRINGS -->
     <string name="now_playing">Now Playing:</string>
