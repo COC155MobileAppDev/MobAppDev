@@ -256,4 +256,13 @@ public class NewSessionActivity extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        mediaRecorder.stop();
+        mediaRecorder.release();
+        mediaRecorder = null;
+
+    }
 }
