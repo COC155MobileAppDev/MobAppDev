@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.Controllers.NotificationReceiver;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
 
@@ -79,6 +80,7 @@ public class MainActivity extends FragmentActivity
         Button quickLaunchButton = (Button)findViewById(R.id.quickLaunchButton);
         quickLaunchButton.setVisibility(View.GONE);
 
+        setUpAlarm();
 
     }
 
@@ -88,6 +90,20 @@ public class MainActivity extends FragmentActivity
         startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
     }
 
+    private void setUpAlarm(){
+
+        Intent notificationIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent notificationAlarm = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, 0);
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.SECOND, 10);
+
+        long firstTime = c.getTimeInMillis();
+
+        AlarmManager alarmManager = (AlarmManager)getApplicationContext().getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, firstTime, notificationAlarm);
+
+    }
 
 
 
