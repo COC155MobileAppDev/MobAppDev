@@ -56,13 +56,16 @@
         android:layout_height="5dp"/>
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/photoButton"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:text="@string/photoButton"
         android:onClick="capturePicture"
+        android:background="@drawable/blue_button"
         android:layout_gravity="center"
-        android:src="@android:drawable/ic_menu_camera"/>
+        style="@style/white_text"
+        android:drawableLeft="@android:drawable/ic_menu_camera"/>
 
 
 
