@@ -191,7 +191,8 @@ public class NewSessionActivity extends Activity {
 
         mediaRecorder.stop();
 
-        stopButton.setEnabled(false);
+        stopButton.setPressed(true);
+
         imageRecRotate.setEnabled(true);
 
 
@@ -208,6 +209,8 @@ public class NewSessionActivity extends Activity {
 
 
         mediaRecorder.release();
+
+
 
     }
 

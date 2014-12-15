@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="4">
 
 
 
-        <TextView android:text="@string/moduleName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            style="@style/grey_text"
-            android:id="@+id/textView"
-            android:padding="10dp"/>
+    <TextView android:text="@string/moduleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/grey_text"
+        android:id="@+id/textView"
+        android:padding="10dp"/>
 
     <View
         android:background="@color/grey"
@@ -33,22 +34,26 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="100dp"
             android:src="@drawable/record1"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:layout_weight="0"/>
 
 
 
         <Button
             android:id="@+id/stopRecordBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="STOP"
-            android:layout_centerHorizontal="true"
-            android:onClick="stopCurrentRecording"/>
+            android:text="STOP RECORDING"
+            android:background="@drawable/red_button"
+            android:layout_gravity="bottom"
+            style="@style/white_text"
+            android:onClick="stopCurrentRecording"
+            android:layout_weight="1"/>
 
     </LinearLayout>
+
 
     <View
         android:background="@color/grey"
@@ -56,13 +61,16 @@
         android:layout_height="5dp"/>
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/photoButton"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:text="@string/photoButton"
         android:onClick="capturePicture"
+        android:background="@drawable/blue_button"
         android:layout_gravity="center"
-        android:src="@android:drawable/ic_menu_camera"/>
+        style="@style/white_text"
+        android:drawableLeft="@android:drawable/ic_menu_camera"/>
 
 
 
