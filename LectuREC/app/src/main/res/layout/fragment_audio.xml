@@ -32,7 +32,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="@string/now_playing"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_white"/>
+                    android:textColor="@color/white"/>
 
 
                 <TextView
@@ -42,7 +42,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_white"
+                    android:textColor="@color/white"
                     android:text="SONG " />
 
 
@@ -61,7 +61,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="@string/inital_Time"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/text_white"/>
+                    android:textColor="@color/white"/>
 
 
 
@@ -73,7 +73,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/inital_Time"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/text_white"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -135,12 +135,19 @@
 
 
 
+        <View
+            android:id="@+id/border"
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_above="@id/audioControls" />
+
         <ListView
             android:id="@+id/audioListView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/audioControls"
+            android:layout_above="@id/border"
             android:cacheColorHint="@android:color/transparent"/>
 
 

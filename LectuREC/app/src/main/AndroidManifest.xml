@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/CustomActionBarTheme">
         <provider
             android:name="com.example.team05.lecturec.ModelControllers.DBProvider"
             android:authorities="com.example.team05.lecturec"
@@ -58,9 +58,9 @@
         </activity>
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
-            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
+            android:label="NewModuleActivity"
             android:windowSoftInputMode="adjustPan" >
-
+            <!--android:parentActivityName="com.example.team05.lecturec.ViewControllers.ModuleActivity"-->
             <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -73,6 +73,7 @@
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.ModuleActivity"
             android:label="@string/title_activity_module"
+            android:parentActivityName="com.example.team05.lecturec.ViewControllers.MainActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity

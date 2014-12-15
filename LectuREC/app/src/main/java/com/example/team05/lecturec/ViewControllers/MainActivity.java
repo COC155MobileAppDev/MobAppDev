@@ -15,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.team05.lecturec.Controllers.DataManager;
@@ -40,7 +42,9 @@ public class MainActivity extends FragmentActivity
 
     private FragmentTabHost fTabHost;
 
+    private static int NEW_MODULE_REQUEST_CODE = 100;
     private boolean newModuleCreated = false;
+    private Button addNewModuleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,24 @@ public class MainActivity extends FragmentActivity
         fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleListFragment.class, null);
         fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveListFragment.class, null);
 
+        addNewModuleButton = (Button) findViewById(R.id.startNewSessionBtn);
+
 
     }
+
+
+
+    public void onNewModuleButtonClick(View view){
+        Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
+        newmoduleIntent.putExtra("newMode", true);
+        //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+        //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
+        startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
+
+    }
+
+
+
 
     @Override
     protected void onResume() {
@@ -98,7 +118,7 @@ public class MainActivity extends FragmentActivity
 
         System.out.println("Called");
 
-        if (resultCode == RESULT_OK && requestCode == 100){
+        if (resultCode == RESULT_OK && requestCode == NEW_MODULE_REQUEST_CODE){
             if (data.hasExtra("newModule")){
 
                 Module selectedModule = (Module)data.getSerializableExtra("newModule");
@@ -136,9 +156,7 @@ public class MainActivity extends FragmentActivity
                 mTitle = getString(R.string.newModuleMenu);
                 Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
                 newmoduleIntent.putExtra("newMode", true);
-                ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-                newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
-                startActivityForResult(newmoduleIntent, 100);
+                startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
                 break;
             case 3:
                 mTitle = "Home:    " + getString(R.string.archiveMenu);
@@ -176,6 +194,7 @@ public class MainActivity extends FragmentActivity
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -206,6 +225,7 @@ public class MainActivity extends FragmentActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
     //A placeholder fragment containing a simple view.
