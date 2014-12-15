@@ -100,6 +100,7 @@ public class ModuleActivity extends Activity {
 
                     Intent selectedSessionIntent = new Intent(ModuleActivity.this, SelectedSessionActivity.class);
                     selectedSessionIntent.putExtra("selectedSession", (Serializable)selectedSession);
+                    selectedSessionIntent.putExtra("parentModule", (Serializable)selectedModule);
 
                     System.out.println("clicked " + recentSessions.get(pos).getName());
 
