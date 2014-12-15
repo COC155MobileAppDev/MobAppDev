@@ -111,7 +111,9 @@
     <string name="selectedSessionName">SESSION TITLE</string>
 
 
-
+    <string name="aboutMessage">Please remember to ask permission from your lecturer before recording.</string>
+    <string name="versionMessage">Watch Out for the Upcoming \"Updates\"</string>
+    <string name="versionMessage2">Current Version - 1.0</string>
     <string name="newModuleButton">ADD NEW MODULE</string>
 
 

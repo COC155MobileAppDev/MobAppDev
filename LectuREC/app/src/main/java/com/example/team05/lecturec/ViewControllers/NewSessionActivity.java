@@ -13,6 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.FileManager;
@@ -29,6 +33,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+
 
 
 public class NewSessionActivity extends Activity {
@@ -49,6 +55,13 @@ public class NewSessionActivity extends Activity {
     private File currentImageFile;
     private String currentImageName;
 
+
+
+
+
+    private ImageView imageRecRotate;
+    private Button stopButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +77,47 @@ public class NewSessionActivity extends Activity {
         newAudios = new ArrayList<Audio>();
         newImages = new ArrayList<Image>();
 
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+        imageRecRotate = (ImageView)findViewById(R.id.recScale);
+        stopButton = (Button)findViewById(R.id.stopRecordBtn);
+
+        stopButton.setEnabled(false);
+
+        imageRecRotate.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                view.startAnimation(animScale);
+
+
+                currentAudioName = FileManager.getCurrentDateTimeFileName();
+                currentAudioFile = FileManager.getAudioFileFormat(getApplicationContext(), currentAudioName);
+
+
+                mediaRecorder = new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+                mediaRecorder.setOutputFile(currentAudioFile.getAbsolutePath());
+
+                try {
+                    mediaRecorder.prepare();
+                } catch (IOException exc){
+                    Log.e("AUDIO RECORD IO ERROR", "prepare failed");
+                }
+
+                mediaRecorder.start();
+                stopButton.setEnabled(true);
+
+
+            }
+        });
+
+
     }
+
+
 
     private String getNewSessionName(){
 
@@ -129,33 +182,14 @@ public class NewSessionActivity extends Activity {
 
     }
 
-
-    public void startNewRecording(View v){
-
-        currentAudioName = FileManager.getCurrentDateTimeFileName();
-        currentAudioFile = FileManager.getAudioFileFormat(getApplicationContext(), currentAudioName);
-
-
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        mediaRecorder.setOutputFile(currentAudioFile.getAbsolutePath());
-
-        try {
-            mediaRecorder.prepare();
-        } catch (IOException exc){
-            Log.e("AUDIO RECORD IO ERROR", "prepare failed");
-        }
-
-        mediaRecorder.start();
-
-    }
-
     public void stopCurrentRecording(View v){
 
+        imageRecRotate.clearAnimation();
+
         mediaRecorder.stop();
+
+        stopButton.setEnabled(false);
+
 
         MediaPlayer audioMP = MediaPlayer.create(this, Uri.parse(currentAudioFile.getAbsolutePath()));
         int duration = audioMP.getDuration();
@@ -203,6 +237,7 @@ public class NewSessionActivity extends Activity {
     public void saveSession(View v){
 
         DataManager.addNewSession(getApplicationContext(), currentModule.getID(), newSession, newAudios, newImages);
+        finish();
 
     }
 
