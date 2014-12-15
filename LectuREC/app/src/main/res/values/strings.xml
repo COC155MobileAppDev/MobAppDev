@@ -106,8 +106,13 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_selectedSession">SelectedSessionActivity</string>
 
-    <string name="selectedModuleName">Module Name</string>
-    <string name="selectedSessionName">Session Name</string>
+    <string name="selectedModuleName">MODULE NAME</string>
+    <string name="sessionLabel">SESSION:</string>
+    <string name="selectedSessionName">SESSION TITLE</string>
+
+
+
+    <string name="newModuleButton">ADD NEW MODULE</string>
 
 
 

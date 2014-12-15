@@ -69,6 +69,8 @@ public class MainActivity extends FragmentActivity
 
     }
 
+
+
     @Override
     public void OnModuleListFragmentInteractionListener(Uri uri) {
         //Do sommin
@@ -139,6 +141,7 @@ public class MainActivity extends FragmentActivity
         actionBar.setTitle(mTitle);
     }
 
+   
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,6 +173,8 @@ public class MainActivity extends FragmentActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     /**
      * A placeholder fragment containing a simple view.

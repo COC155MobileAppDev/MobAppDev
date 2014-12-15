@@ -135,12 +135,19 @@
 
 
 
+        <View
+            android:id="@+id/border"
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_above="@id/audioControls" />
+
         <ListView
             android:id="@+id/audioListView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/audioControls"
+            android:layout_above="@id/border"
             android:cacheColorHint="@android:color/transparent"/>
 
 

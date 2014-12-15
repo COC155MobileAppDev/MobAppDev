@@ -12,11 +12,14 @@
         android:padding="10dp">
 
 
-        <TextView android:text="@string/selectedModuleName"
+        <TextView
+            android:id="@+id/selectedModuleName"
+            android:text="@string/selectedModuleName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,11 +29,12 @@
 
 
             <TextView
-                android:id="@+id/textview5"
+                android:id="@+id/sessionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/selectedSessionName"
+                android:text="@string/sessionLabel"
+                android:textColor="@color/white"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -39,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Session 123 "
+                android:text="@string/selectedSessionName"
+                android:textColor="@color/white"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -53,8 +58,7 @@
     <View
         android:background="@color/grey"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        />
+        android:layout_height="5dp"/>
 
 
 
