@@ -15,7 +15,5 @@ MANDATORY REQUIREMENTS
 
 
 OPTIONAL REQUIREMENTS
-
-
 - ShareActionProvider
 - touch gestures (capture & use reasonably)
