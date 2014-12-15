@@ -6,72 +6,115 @@
     android:orientation="vertical"
     tools:context="com.example.team05.lecturec.ViewControllers.NewModuleActivity"
     tools:ignore="MergeRootFrame" >
-
-    <TextView
-        android:id="@+id/moduleNameLabel"
-        android:text="@string/moduleName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/topPart"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <EditText
-        android:id="@+id/moduleEditField"
+        <TextView
+            android:id="@+id/moduleNameLabel"
+            android:text="@string/moduleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            style="@style/grey_text"/>
+
+        <EditText
+            android:id="@+id/moduleEditField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/moduleNameLabel"
+            android:inputType="text"
+            android:hint="@string/moduleNameHint"/>
+
+        <TextView
+            android:id="@+id/moduleNameDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/moduleEditField"
+            android:paddingTop="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#FF787878"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/borderTop"
+        android:background="@color/grey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/moduleNameLabel"
-        android:inputType="text"
-        android:hint="@string/moduleNameHint"/>
+        android:layout_height="5dp"
+        android:layout_below="@+id/topPart" />
 
-    <TextView
-        android:id="@+id/moduleNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/moduleEditField"
-        android:paddingTop="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColor="#FF787878"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:layout_weight="2"
+        android:padding="10dp"
         android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/deleteModuleBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_text"
-            android:background="#aaff0000"
-            android:layout_weight="1"
-            android:onClick="onModuleDeleteClick"/>
 
-        <Button
-            android:id="@+id/archiveModuleBtn"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/archive_text"
-            android:background="#aafff900"
-            android:layout_weight="1"
-            android:onClick="onModuleArchiveClick"/>
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+
+            <Button
+                android:id="@+id/deleteModuleBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_text"
+                android:layout_weight="1"
+                android:onClick="onModuleDeleteClick"
+                android:background="@drawable/red_button"
+                style="@style/white_text"
+                android:drawableLeft="@android:drawable/ic_menu_delete"/>
+
+            <Button
+                android:id="@+id/archiveModuleBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/archive_text"
+                android:layout_weight="1"
+                android:onClick="onModuleArchiveClick"
+                android:background="@drawable/yellow_button"
+                style="@style/white_text"
+                android:drawableLeft="@android:drawable/ic_menu_edit"/>
+
+        </LinearLayout>
 
 
         <Button
             android:id="@+id/saveModuleBtn"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/save_text"
-            android:background="#aa42ff00"
-            android:layout_weight="2"
-            android:onClick="onModuleSaveClick"/>
+            android:layout_weight="1"
+            android:onClick="onModuleSaveClick"
+            android:background="@drawable/green_button"
+            style="@style/white_text"
+            android:drawableLeft="@android:drawable/ic_menu_save"/>
 
     </LinearLayout>
 
+
+    <View
+        android:background="@color/grey"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:layout_above="@+id/buttonsLayout" />
 
 
 
@@ -80,9 +123,8 @@
         android:id="@+id/timeTabHost"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_marginTop="20dp"
         android:layout_above="@id/buttonsLayout"
-        android:layout_below="@+id/moduleNameDisplay">
+        android:layout_below="@+id/borderTop">
 
         <LinearLayout
             android:layout_width="fill_parent"

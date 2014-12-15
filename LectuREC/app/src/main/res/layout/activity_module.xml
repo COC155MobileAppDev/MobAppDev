@@ -22,7 +22,8 @@
             android:layout_weight="4"
             android:orientation="horizontal">
 
-            <TextView android:text="@string/selectedModuleName"
+            <TextView
+                android:id="@+id/moduleNameTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,11 +75,24 @@
         android:layout_below="@+id/moduleButtonsLayout"
         />
 
+    <TextView
+        android:id="@+id/listViewTitle"
+        android:text="RECENT SESSIONS"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/borderTop"
+        android:textStyle="bold"
+        android:textColor="@color/main_colordark"
+        android:paddingTop="5dp"/>
+
+
     <ListView
         android:id="@+id/recentSessionsListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/borderTop"
+        android:layout_below="@+id/listViewTitle"
         android:padding="10dp"/>
 
 </RelativeLayout>

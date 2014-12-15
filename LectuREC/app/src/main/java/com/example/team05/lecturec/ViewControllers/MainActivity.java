@@ -15,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
@@ -43,6 +45,8 @@ public class MainActivity extends FragmentActivity
 
     private FragmentTabHost fTabHost;
 
+    private Button addNewModuleButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +70,22 @@ public class MainActivity extends FragmentActivity
         fTabHost.addTab(fTabHost.newTabSpec("modules").setIndicator("Modules", null), ModuleListFragment.class, null);
         fTabHost.addTab(fTabHost.newTabSpec("archives").setIndicator("Archives", null), ArchiveListFragment.class, null);
 
+        addNewModuleButton = (Button) findViewById(R.id.startNewSessionBtn);
+
 
     }
+
+
+
+    public void onNewModuleButtonClick(View view){
+        Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
+        newmoduleIntent.putExtra("newMode", true);
+        //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+        //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
+        startActivity(newmoduleIntent);
+
+    }
+
 
 
 
@@ -102,8 +120,8 @@ public class MainActivity extends FragmentActivity
                 mTitle = getString(R.string.newModuleMenu);
                 Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
                 newmoduleIntent.putExtra("newMode", true);
-                ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-                newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
+                //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
+                //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
                 startActivity(newmoduleIntent);
                 break;
             case 3:
@@ -141,7 +159,7 @@ public class MainActivity extends FragmentActivity
         actionBar.setTitle(mTitle);
     }
 
-   
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

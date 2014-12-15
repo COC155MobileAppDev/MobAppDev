@@ -27,7 +27,7 @@
     <string name="title_activity_settings_activity">Settings</string>
 
     <!-- New Module and Fragments Strings -->
-    <string name="moduleName">Module Name:</string>
+    <string name="moduleName">MODULE NAME:</string>
     <string name="change_time">Change the time</string>
     <string name="moduleNameHint">Enter Module Name</string>
     <string name="add_module_time">Add Module Time +</string>

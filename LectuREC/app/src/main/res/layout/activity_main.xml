@@ -59,10 +59,11 @@
                 android:background="@color/main_color"
                 android:padding="10dp">
             <Button
+                android:id="@+id/newModuleButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/newModuleButton"
-                android:onClick="startNewSessionButton"
+                android:onClick="onNewModuleButtonClick"
                 android:background="@drawable/white_button"
                 style="@style/button_white_text"/>
             <Button

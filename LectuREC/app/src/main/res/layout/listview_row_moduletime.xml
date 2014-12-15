@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:background="#aaff0000"
-        android:text="@string/delete_text" />
+        android:text="@string/delete_text"
+        android:background="@drawable/red_button"
+        style="@style/white_text"
+        android:drawableLeft="@android:drawable/ic_menu_delete"/>
 
     <Button
         android:id="@+id/startTimeBtn"

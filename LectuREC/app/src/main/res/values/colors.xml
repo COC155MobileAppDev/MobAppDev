@@ -3,9 +3,18 @@
 
     <color name="main_color">#287bbc</color>
     <color name="main_colorlight">#ff5695bc</color>
-    <color name="main_colordark">#ff0a6bbc</color>
-    <color name="lboro_color2">#cc0066</color>
+    <color name="main_colordark">#ff0453bc</color>
     <color name="white">#fff9fff9</color>
     <color name="black">#ff000000</color>
     <color name="grey">#8468676a</color>
+    <color name="darkgrey">#84131315</color>
+
+    <color name="green">#ff1fcc25</color>
+    <color name="greendark">#ff2ccd0f</color>
+
+    <color name="red">#ffcc181d</color>
+    <color name="reddark">#ffd30015</color>
+
+    <color name="yellow">#ffe8d505</color>
+    <color name="yellowdark">#ffdcd205</color>
 </resources>
