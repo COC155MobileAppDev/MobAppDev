@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.widget.Toast;
 
 
 import com.example.team05.lecturec.Controllers.DataManager;
@@ -252,15 +253,19 @@ public class NewModuleActivity extends FragmentActivity
     //UI Event handlers
     public void onModuleSaveClick(View v){
 
-        if (newMode) DataManager.addNewModule(getApplicationContext(), currentModule, newMTs);
-        else DataManager.editExistingModule(getApplicationContext(), currentModule, moduleNameChange, newMTs, editedMTs, deletingMTs);
+        if (!moduleEditField.getText().toString().isEmpty()) {
+
+            if (newMode) DataManager.addNewModule(getApplicationContext(), currentModule, newMTs);
+            else DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
+
+        } else Toast.makeText(getApplicationContext(), "Please Enter a Module Name", Toast.LENGTH_LONG).show();
 
     }
 
     public void onModuleArchiveClick(View v){
 
-        DataManager.archiveExistingModule(getApplicationContext(), currentModule);
-
+        currentModule.setArchiveState(true);
+        DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
     }
 
     public void onModuleDeleteClick(View v){
@@ -272,16 +277,7 @@ public class NewModuleActivity extends FragmentActivity
 
 
     //Adding to MTs to add, edit, and deleting, such that on save, all these MT lists are passed to Data Manager
-    public void addToNewList(ModuleTime mt){
-        
-        newMTs.add(mt);
-
-        System.out.println("NMActivty new added w/ id: " + mt.getID());
-
-        for (ModuleTime nMT:newMTs)
-            System.out.println("mt in new list id is: " + nMT.getID());
-
-    }
+    public void addToNewList(ModuleTime mt){    newMTs.add(mt); }
 
     public void addToEditList(ModuleTime mt){
 
@@ -328,7 +324,7 @@ public class NewModuleActivity extends FragmentActivity
 
 
             if (index >= 0)
-                editedMTs.remove(deletingMT);
+                editedMTs.remove(index);
 
 
             originalMTs.remove(deletingMT);
@@ -342,9 +338,7 @@ public class NewModuleActivity extends FragmentActivity
                 if (mtFinder.getID() == deletingMT.getID()) index = newMTs.indexOf(mtFinder);
 
             if (index >= 0)
-                newMTs.remove(deletingMT);
-
-
+                newMTs.remove(index);
 
         }
 
