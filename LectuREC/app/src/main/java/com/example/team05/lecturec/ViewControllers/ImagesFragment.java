@@ -16,8 +16,6 @@ import android.widget.AdapterView;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.team05.lecturec.Controllers.FileManager;
 import com.example.team05.lecturec.CustomExtensions.ImageAdapter;
@@ -130,7 +128,7 @@ public class ImagesFragment extends Fragment {
         public void setChecked(boolean checked) {
             mChecked = checked;
             setBackgroundDrawable(checked ? getResources().getDrawable(
-                    R.drawable.gradient) : null);
+                    R.drawable.background) : null);
         }
 
         public boolean isChecked() {
