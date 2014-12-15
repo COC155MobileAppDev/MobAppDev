@@ -84,7 +84,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/borderTop"
         android:textStyle="bold"
-        android:textColor="@color/main_colordark"
+        style="@style/grey_text"
         android:paddingTop="5dp"/>
 
 

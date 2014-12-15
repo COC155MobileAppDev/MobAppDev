@@ -18,7 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
+            style="@style/white_text"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <RelativeLayout
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="@string/sessionLabel"
-                android:textColor="@color/white"
+                style="@style/white_text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/selectedSessionName"
-                android:textColor="@color/white"
+                style="@style/white_text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
 

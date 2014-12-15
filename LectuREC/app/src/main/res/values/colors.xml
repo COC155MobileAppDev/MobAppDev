@@ -11,10 +11,13 @@
 
     <color name="green">#ff1fcc25</color>
     <color name="greendark">#ff2ccd0f</color>
+    <color name="greendarker">#ff176f09</color>
 
     <color name="red">#ffcc181d</color>
     <color name="reddark">#ffd30015</color>
+    <color name="reddarker">#ff83000b</color>
 
     <color name="yellow">#ffe8d505</color>
     <color name="yellowdark">#ffdcd205</color>
+    <color name="yellowdarker">#ff716c03</color>
 </resources>
