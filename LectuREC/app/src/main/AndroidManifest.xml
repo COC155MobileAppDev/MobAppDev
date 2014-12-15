@@ -27,7 +27,7 @@
             android:permission="com.example.team05.lecturec.myProviderPermission" >
         </provider>
 
-        
+
         <activity
             android:name="com.example.team05.lecturec.ViewControllers.LoadingActivity"
             android:label="@string/title_activity_loading" >
