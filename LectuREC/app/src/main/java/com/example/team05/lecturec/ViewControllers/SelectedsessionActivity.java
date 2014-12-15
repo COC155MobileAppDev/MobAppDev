@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ public class SelectedSessionActivity extends FragmentActivity
     AudioManager aM;
 
     private FragmentTabHost sessionTabHost;
+    private TextView selectedSessionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,9 @@ public class SelectedSessionActivity extends FragmentActivity
         selectedSession.setAudios(DataManager.getAudios(getApplicationContext(), selectedSession.getID()));
         selectedSession.setImages(DataManager.getImages(getApplicationContext(), selectedSession.getID()));
 
-
+        setTitle("Session: " + selectedSession.getName());
+        selectedSessionName = (TextView)findViewById(R.id.selectedSessionName);
+        selectedSessionName.setText(selectedSession.getName());
 
         loadMusic();
 

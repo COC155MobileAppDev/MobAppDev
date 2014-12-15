@@ -1,7 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8468676a"
     tools:context="com.example.team05.lecturec.ViewControllers.ArchiveListFragment">
 
     <!-- TODO: Update blank fragment layout -->

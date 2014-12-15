@@ -39,16 +39,6 @@ public class ModuleSessionsActivity extends Activity {
 
         for (int counter = 0; counter < msELVsize; counter++ ) msExpandableListView.expandGroup(counter);
 
-        msExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
-                msExpandableListView.expandGroup(groupPosition);
-
-                return true;
-
-            }
-        });
 
         msExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener(){
             @Override
@@ -65,6 +55,8 @@ public class ModuleSessionsActivity extends Activity {
             }
 
         });
+
+
 
 
 
