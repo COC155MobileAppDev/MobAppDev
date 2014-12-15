@@ -4,11 +4,15 @@
     tools:context="com.example.team05.lecturec.ViewControllers.NewSessionActivity"
     android:orientation="vertical">
 
-    <TextView android:text="@string/moduleName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textView" />
+
+
+        <TextView android:text="@string/moduleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/grey_text"
+            android:id="@+id/textView"
+            android:padding="10dp"/>
 
     <View
         android:background="@color/grey"
@@ -19,21 +23,27 @@
         android:id="@+id/layoutA"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_below="@id/textView">
 
-        <Button
-            android:id="@+id/startRecordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REC"
-            android:layout_centerHorizontal="true"
-            android:onClick="startNewRecording" />
+
+        <ImageView
+            android:id="@+id/recScale"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/record1"
+            android:scaleType="fitXY"/>
+
+
 
         <Button
             android:id="@+id/stopRecordBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="STOP"
             android:layout_centerHorizontal="true"
             android:onClick="stopCurrentRecording"/>
@@ -45,22 +55,16 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
 
-    <LinearLayout
-        android:id="@+id/layoutB"
-        android:layout_width="fill_parent"
+
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/layoutA">
+        android:padding="10dp"
+        android:onClick="capturePicture"
+        android:layout_gravity="center"
+        android:src="@android:drawable/ic_menu_camera"/>
 
-        <Button
-            android:id="@+id/captureImageBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CAPTURE IMAGE"
-            android:layout_centerHorizontal="true"
-            android:onClick="capturePicture" />
 
-    </LinearLayout>
 
     <View
         android:background="@color/grey"
@@ -73,9 +77,11 @@
         android:id="@+id/saveSessionBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:layout_centerHorizontal="true"
+        android:text="SAVE SESSION"
+        android:drawableLeft="@android:drawable/ic_menu_save"
         android:onClick="saveSession"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/green_button"
+        style="@style/white_text"/>
 
 </LinearLayout>
