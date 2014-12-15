@@ -26,7 +26,7 @@ import static android.widget.AdapterView.*;
 
 public class ModuleListFragment extends Fragment {
 
-
+    private static int SELECTED_MODULE_REQUEST_CODE = 200;
 
     private ArrayList<Module> currentModules;
     ModuleAdapter moduleAdapter;
@@ -46,6 +46,16 @@ public class ModuleListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
+
+        /*
+        int currentTab = fTabHost.getCurrentTab();
+        if (currentTab == 0){
+            String tag = fTabHost.getCurrentTabTag();
+            ModuleListFragment mlf = (ModuleListFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        }
+        */
+
+
 
     }
 
@@ -70,7 +80,7 @@ public class ModuleListFragment extends Fragment {
 
                 System.out.println("clicked" + currentModules.get(position).getName());
 
-                startActivity(selectedModuleIntent);
+                startActivityForResult(selectedModuleIntent, SELECTED_MODULE_REQUEST_CODE);
 
             }
         });
@@ -85,13 +95,31 @@ public class ModuleListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ((MainActivity)getActivity()).reloadSelf();
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         if (moduleAdapter != null){
+
             currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
+
             moduleAdapter.notifyDataSetChanged();
         }
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        currentModules= DataManager.getCurrentModules(getActivity().getApplicationContext());
 
     }
 

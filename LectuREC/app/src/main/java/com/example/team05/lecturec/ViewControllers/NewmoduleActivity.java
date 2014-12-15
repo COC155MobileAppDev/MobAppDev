@@ -29,6 +29,9 @@ import java.util.ArrayList;
 public class NewModuleActivity extends FragmentActivity
         implements ModuleTimeFragment.OnModuleTimeFragmentInteractionListener {
 
+    private static int EDIT_MODULE_DELETED_RESULT_CODE = 500;
+    private static int EDIT_MODULE_ARCHIVED_RESULT_CODE = 600;
+
     private boolean newMode;
 
     private FragmentTabHost timeTabHost;
@@ -270,9 +273,14 @@ public class NewModuleActivity extends FragmentActivity
 
                 finish();
 
-            } else DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
+            } else {
 
+                DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
 
+                setResult(RESULT_OK);
+                finish();
+
+            }
 
         } else Toast.makeText(getApplicationContext(), "Please Enter a Module Name", Toast.LENGTH_LONG).show();
 
@@ -282,11 +290,18 @@ public class NewModuleActivity extends FragmentActivity
 
         currentModule.setArchiveState(true);
         DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
+
+        setResult(EDIT_MODULE_ARCHIVED_RESULT_CODE);
+        finish();
+
     }
 
     public void onModuleDeleteClick(View v){
 
         DataManager.deletingExistingModule(getApplicationContext(), currentModule);
+
+        setResult(EDIT_MODULE_DELETED_RESULT_CODE);
+        finish();
 
     }
 
@@ -328,8 +343,6 @@ public class NewModuleActivity extends FragmentActivity
     }
 
     public void addToDeleteList(ModuleTime deletingMT){
-
-        //TODO new vs existing module time
 
         int index = -1;
 
