@@ -23,10 +23,11 @@ import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.DataTypes.ModuleTime;
 import com.example.team05.lecturec.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class NewModuleActivity extends FragmentActivity
-        implements ModuleTimeFragment.OnModuletimeFragmentInteractionListener {
+        implements ModuleTimeFragment.OnModuleTimeFragmentInteractionListener {
 
     private boolean newMode;
 
@@ -223,7 +224,7 @@ public class NewModuleActivity extends FragmentActivity
 
 
     @Override
-    public void onModuletimeFragmentInteraction(Uri uri) {
+    public void onModuleTimeFragmentInteraction(Uri uri) {
 
     }
 
@@ -255,8 +256,23 @@ public class NewModuleActivity extends FragmentActivity
 
         if (!moduleEditField.getText().toString().isEmpty()) {
 
-            if (newMode) DataManager.addNewModule(getApplicationContext(), currentModule, newMTs);
-            else DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
+            if (newMode){
+
+                DataManager.addNewModule(getApplicationContext(), currentModule, newMTs);
+
+                int newModuleID = DataManager.getLastModuleRecord(getApplicationContext());
+                for (Module mt:DataManager.getCurrentModules(getApplicationContext())) if (mt.getID() == newModuleID) currentModule = mt;
+
+                Intent newModuleResultIntent = new Intent();
+                newModuleResultIntent.putExtra("newModule", (Serializable)currentModule);
+
+                setResult(RESULT_OK, newModuleResultIntent);
+
+                finish();
+
+            } else DataManager.editExistingModule(getApplicationContext(), currentModule, newMTs, editedMTs, deletingMTs);
+
+
 
         } else Toast.makeText(getApplicationContext(), "Please Enter a Module Name", Toast.LENGTH_LONG).show();
 

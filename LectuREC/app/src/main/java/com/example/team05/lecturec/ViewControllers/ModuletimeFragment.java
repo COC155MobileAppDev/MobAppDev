@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class ModuleTimeFragment extends Fragment {
 
-    private OnModuletimeFragmentInteractionListener mListener;
+    private OnModuleTimeFragmentInteractionListener mListener;
 
     private NewModuleActivity parentActivity;
 
@@ -207,7 +207,7 @@ public class ModuleTimeFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onModuletimeFragmentInteraction(uri);
+            mListener.onModuleTimeFragmentInteraction(uri);
         }
     }
 
@@ -215,7 +215,7 @@ public class ModuleTimeFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnModuletimeFragmentInteractionListener) activity;
+            mListener = (OnModuleTimeFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -228,8 +228,8 @@ public class ModuleTimeFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnModuletimeFragmentInteractionListener {
-        public void onModuletimeFragmentInteraction(Uri uri);
+    public interface OnModuleTimeFragmentInteractionListener {
+        public void onModuleTimeFragmentInteraction(Uri uri);
 
         /**
          * This interface must be implemented by activities that contain this
