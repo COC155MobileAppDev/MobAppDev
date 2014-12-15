@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.FileManager;
@@ -61,6 +62,7 @@ public class NewSessionActivity extends Activity {
 
     private ImageView imageRecRotate;
     private Button stopButton;
+    private TextView moduleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,10 @@ public class NewSessionActivity extends Activity {
         final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
         imageRecRotate = (ImageView)findViewById(R.id.recScale);
         stopButton = (Button)findViewById(R.id.stopRecordBtn);
+
+        moduleName = (TextView)findViewById(R.id.moduleName);
+
+        moduleName.setText("MODULE: " + currentModule.getName());
 
         stopButton.setEnabled(false);
 
@@ -103,7 +109,7 @@ public class NewSessionActivity extends Activity {
 
                 try {
                     mediaRecorder.prepare();
-                } catch (IOException exc){
+                } catch (IOException exc) {
                     Log.e("AUDIO RECORD IO ERROR", "prepare failed");
                 }
 
