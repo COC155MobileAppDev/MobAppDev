@@ -109,6 +109,7 @@ public class NewSessionActivity extends Activity {
 
                 mediaRecorder.start();
                 stopButton.setEnabled(true);
+                imageRecRotate.setEnabled(false);
 
 
             }
@@ -189,6 +190,7 @@ public class NewSessionActivity extends Activity {
         mediaRecorder.stop();
 
         stopButton.setEnabled(false);
+        imageRecRotate.setEnabled(true);
 
 
         MediaPlayer audioMP = MediaPlayer.create(this, Uri.parse(currentAudioFile.getAbsolutePath()));
