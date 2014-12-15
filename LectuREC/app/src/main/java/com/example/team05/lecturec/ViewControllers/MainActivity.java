@@ -76,6 +76,9 @@ public class MainActivity extends FragmentActivity
 
         addNewModuleButton = (Button) findViewById(R.id.startNewSessionBtn);
 
+        Button quickLaunchButton = (Button)findViewById(R.id.quickLaunchButton);
+        quickLaunchButton.setVisibility(View.GONE);
+
 
     }
 

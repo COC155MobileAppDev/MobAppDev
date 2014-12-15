@@ -67,6 +67,7 @@
                 android:background="@drawable/white_button"
                 style="@style/button_white_text"/>
             <Button
+                android:id="@+id/quickLaunchButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="SESSION FROM NOTIFICATION"
