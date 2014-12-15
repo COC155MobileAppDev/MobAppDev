@@ -115,6 +115,8 @@ public class NewSessionActivity extends Activity {
             }
         });
 
+        imageRecRotate.performClick();
+
 
     }
 
