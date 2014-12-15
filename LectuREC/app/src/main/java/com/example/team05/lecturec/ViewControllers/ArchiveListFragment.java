@@ -1,6 +1,7 @@
 package com.example.team05.lecturec.ViewControllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +14,12 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 
-import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.CustomExtensions.ModuleAdapter;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static android.widget.AdapterView.*;
@@ -27,7 +29,7 @@ public class ArchiveListFragment extends Fragment {
 
 
     private ArrayList<Module> archivedModules;
-    private ListView archiveListview;
+    private ListView archiveListView;
     private FrameLayout fragmentLayout;
 
     private OnArchiveListFragmentInteractionListener aListener;
@@ -57,23 +59,27 @@ public class ArchiveListFragment extends Fragment {
 
 
 
-        archivedModules = ModuleDummyTesting.getArchiveList();
+        archivedModules = DataManager.getArchivedModules(getActivity().getApplicationContext());
 
 
         fragmentLayout = (FrameLayout) inflater.inflate(
                 R.layout.fragment_archive, container, false);
 
-        archiveListview = (ListView)fragmentLayout.findViewById(R.id.listArchive);
+        archiveListView = (ListView)fragmentLayout.findViewById(R.id.listArchive);
 
 
         ModuleAdapter moduleAdapter = new ModuleAdapter(getActivity().getApplicationContext(), R.layout.listview_row_module, archivedModules);
-        archiveListview.setOnItemClickListener(new OnItemClickListener(){
+        archiveListView.setOnItemClickListener(new OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("clicked" + archivedModules.get(position).getName());
+
+                Intent moduleSessionsIntent = new Intent(getActivity(), ModuleSessionsActivity.class);
+                moduleSessionsIntent.putExtra("selectedModule", (Serializable)archivedModules.get(position));
+                startActivity(moduleSessionsIntent);
+
             }
         });
-        archiveListview.setAdapter(moduleAdapter);
+        archiveListView.setAdapter(moduleAdapter);
 
         // Inflate the layout for this fragment
         return fragmentLayout;

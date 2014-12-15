@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.team05.lecturec.Controllers.DataManager;
 import com.example.team05.lecturec.Controllers.ModuleDummyTesting;
 import com.example.team05.lecturec.DataTypes.Module;
 import com.example.team05.lecturec.R;
@@ -33,18 +34,16 @@ public class MainActivity extends FragmentActivity
         ModuleListFragment.OnModuleListFragmentInteractionListener,
         ArchiveListFragment.OnArchiveListFragmentInteractionListener {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
+    // Fragment managing the behaviors, interactions and presentation of the navigation drawer.
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
+    //Used to store the last screen title. For use in {@link #restoreActionBar()}.
     private CharSequence mTitle;
 
     private FragmentTabHost fTabHost;
 
+    private static int NEW_MODULE_REQUEST_CODE = 100;
+    private boolean newModuleCreated = false;
     private Button addNewModuleButton;
 
     @Override
@@ -82,7 +81,7 @@ public class MainActivity extends FragmentActivity
         newmoduleIntent.putExtra("newMode", true);
         //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
         //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
-        startActivity(newmoduleIntent);
+        startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
 
     }
 
@@ -90,16 +89,53 @@ public class MainActivity extends FragmentActivity
 
 
     @Override
-    public void OnModuleListFragmentInteractionListener(Uri uri) {
-        //Do sommin
+    protected void onResume() {
+        super.onResume();
+
+        if (newModuleCreated){
+
+            Module newModule = null;
+
+            int newModuleID = DataManager.getLastModuleRecord(getApplicationContext());
+            for (Module mod:DataManager.getCurrentModules(getApplicationContext())) if (mod.getID() == newModuleID) newModule = mod;
+
+            if (newModule != null) {
+
+                Intent selectedModuleIntent = new Intent(this, ModuleActivity.class);
+                selectedModuleIntent.putExtra("selectedModule", (Serializable) newModule);
+                startActivity(selectedModuleIntent);
+            }
+
+        }
+
     }
 
+    public void setNewModuleCreated(){  newModuleCreated = true;    }
 
     @Override
-    public void OnArchiveListFragmentInteractionListener(Uri uri) {
-        //Do sommin
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println("Called");
+
+        if (resultCode == RESULT_OK && requestCode == NEW_MODULE_REQUEST_CODE){
+            if (data.hasExtra("newModule")){
+
+                Module selectedModule = (Module)data.getSerializableExtra("newModule");
+
+                Intent selectedModuleIntent = new Intent(this, ModuleActivity.class);
+                selectedModuleIntent.putExtra("selectedModule", (Serializable) selectedModule);
+                startActivity(selectedModuleIntent);
+            }
+        }
+
     }
 
+    @Override
+    public void OnModuleListFragmentInteractionListener(Uri uri) {  }
+
+    @Override
+    public void OnArchiveListFragmentInteractionListener(Uri uri) { }
 
 
     @Override
@@ -120,9 +156,7 @@ public class MainActivity extends FragmentActivity
                 mTitle = getString(R.string.newModuleMenu);
                 Intent newmoduleIntent = new Intent(this, NewModuleActivity.class);
                 newmoduleIntent.putExtra("newMode", true);
-                //ArrayList<Module> mList = ModuleDummyTesting.getModuleList();
-                //newmoduleIntent.putExtra("currentModule", (Serializable)mList.get(0));
-                startActivity(newmoduleIntent);
+                startActivityForResult(newmoduleIntent, NEW_MODULE_REQUEST_CODE);
                 break;
             case 3:
                 mTitle = "Home:    " + getString(R.string.archiveMenu);
@@ -194,20 +228,12 @@ public class MainActivity extends FragmentActivity
 
 
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+    //A placeholder fragment containing a simple view.
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+        //The fragment argument representing the section number for this fragment.
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+        // Returns a new instance of this fragment for the given section number.
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -234,29 +260,6 @@ public class MainActivity extends FragmentActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-
-        /* Alarm Service
-        private void alarmMethod(){
-            Intent myIntent = new Intent(this, NotifyService.class);
-            AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-            pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
-
-            Calendar calendar = Calendar.getInstance();
-
-
-            calendar.set(Calendar.MINUTE, 48);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.HOUR_OF_DAY, 20);
-            calendar.set(Calendar.AM_PM,Calendar.PM);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
-
-            Toast.makeText(MainActivity.this, "Start Recording", Toast.LENGTH_LONG).show();
-
-
-        }
-        */
 
     }
 
